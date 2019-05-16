@@ -25,13 +25,13 @@ public class Tiles {
     static {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("wall", new Tile(1, 3));
-        tileMap.put("floor", new Tile(19, 1));
+        tileMap.put("floor", new Tile(2, 0));
+        tileMap.put("player", new Tile(27, 0));
     }
 
     public static void drawTile(GraphicsContext context, String tileName, int x, int y) {
         Tile tile = tileMap.get(tileName);
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
-        System.out.println("drawTile");
     }
 }

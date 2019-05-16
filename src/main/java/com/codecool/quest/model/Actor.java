@@ -8,5 +8,5 @@ public abstract class Actor {
         this.cell.setActor(this);
     }
 
-    abstract String getTileName();
+    public abstract String getTileName();
 }
