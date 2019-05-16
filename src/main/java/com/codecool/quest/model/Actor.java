@@ -19,4 +19,16 @@ public abstract class Actor implements Drawable {
     public int getHealth() {
         return health;
     }
+
+    public Cell getCell() {
+        return cell;
+    }
+
+    public int getX() {
+        return cell.getX();
+    }
+
+    public int getY() {
+        return cell.getY();
+    }
 }
