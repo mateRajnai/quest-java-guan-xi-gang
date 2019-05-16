@@ -3,11 +3,14 @@ package com.codecool.quest;
 import com.codecool.quest.model.Cell;
 import com.codecool.quest.model.GameMap;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -17,6 +20,7 @@ public class Main extends Application {
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
+    Label healthLabel = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -24,9 +28,21 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(new BorderPane(canvas));
+        GridPane ui = new GridPane();
+        ui.setPrefWidth(200);
+        ui.setPadding(new Insets(10));
+
+        ui.add(new Label("Health: "), 0, 0);
+        ui.add(healthLabel, 1, 0);
+
+        BorderPane borderPane = new BorderPane();
+
+        borderPane.setCenter(canvas);
+        borderPane.setRight(ui);
+
+        Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
-        drawMap();
+        refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.show();
@@ -36,26 +52,24 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
-                drawMap();
+                refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
-                drawMap();
+                refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                drawMap();
+                refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1,0);
-                drawMap();
+                refresh();
                 break;
-
-
         }
     }
 
-    private void drawMap() {
+    private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
@@ -68,5 +82,6 @@ public class Main extends Application {
                 }
             }
         }
+        healthLabel.setText("" + map.getPlayer().getHealth());
     }
 }
