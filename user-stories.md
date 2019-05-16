@@ -12,14 +12,14 @@ In addition, there are some requirements for **all** user stories:
 
 The features have different priorities:
 - **A: Mandatory**. Try to implement all. Other features depend on them.
-- **B: Important**. Try to implement at 2-3. They teach you various programming techniques. 
+- **B: Important**. Try to implement at least 2-3. They teach you various programming techniques.
 - **C: Nice to have**. Not that important, but might be fun. Feel free to come up with your own nice-to-have ideas!
 
 ## Basic program (A)
 
 *This should be already in your starting code.*
 
-As a player, I want to explore a dungeon and see some friendly skeletons.
+As a player, I want to explore a dungeon, and meet some friendly skeletons.
 
 - Load map from file (`map.txt`)
 - Display map
@@ -64,7 +64,7 @@ I want to be able to attack monsters by moving into them.
 
 ## Doors (B)
 
-I want to encounter doors, and open them using keys
+I want to encounter doors, and open them using keys.
 
 - There are two new square types: closed door, and open door.
 - You cannot pass through a closed door, unless you have a Key in your inventory. Then it becomes an open door.
