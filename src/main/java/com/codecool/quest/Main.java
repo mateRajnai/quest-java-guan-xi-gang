@@ -2,6 +2,7 @@ package com.codecool.quest;
 
 import com.codecool.quest.model.Cell;
 import com.codecool.quest.model.GameMap;
+import com.codecool.quest.model.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,7 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    GameMap map = GameMap.makeDefaultMap();
+    GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
