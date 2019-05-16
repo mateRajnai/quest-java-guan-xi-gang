@@ -1,4 +1,4 @@
-package com.codecool.quest.model;
+package com.codecool.quest.logic;
 
 public class Cell implements Drawable {
     private CellType type = CellType.EMPTY;

@@ -1,4 +1,4 @@
-package com.codecool.quest.model;
+package com.codecool.quest.logic;
 
 public abstract class Actor implements Drawable {
     private Cell cell;

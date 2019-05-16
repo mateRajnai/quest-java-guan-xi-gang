@@ -1,8 +1,8 @@
 package com.codecool.quest;
 
-import com.codecool.quest.model.Cell;
-import com.codecool.quest.model.GameMap;
-import com.codecool.quest.model.MapLoader;
+import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.GameMap;
+import com.codecool.quest.logic.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

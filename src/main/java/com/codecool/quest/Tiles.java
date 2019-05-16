@@ -1,6 +1,6 @@
 package com.codecool.quest;
 
-import com.codecool.quest.model.Drawable;
+import com.codecool.quest.logic.Drawable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 

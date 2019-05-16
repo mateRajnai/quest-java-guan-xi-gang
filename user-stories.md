@@ -7,8 +7,8 @@ Here is a list of user story. Each user story has:
 - some implementation hints
 
 In addition, there are some requirements for **all** user stories:
-- **Tests**: Try to add at least one test for each feature. If a feature changes game behavior, it can be tested! (You don't need to test the user interface part, only the model.)
-- **Layer separation**: All game logic (character movement, and so on) has to be in the `model` package. The `model` package should not depend on your UI code. 
+- **Tests**: Try to add at least one test for each feature. If a feature changes game behavior, it can be tested! (You don't need to test the user interface part, only the logic.)
+- **Layer separation**: All game logic (character movement, and so on) has to be in the `logic` package. The `logic` package should not depend on your UI code.
 
 The features have different priorities:
 - **A: Mandatory**. Try to implement all. Other features depend on them.

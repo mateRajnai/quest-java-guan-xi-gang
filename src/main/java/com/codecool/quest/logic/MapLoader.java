@@ -1,4 +1,4 @@
-package com.codecool.quest.model;
+package com.codecool.quest.logic;
 
 import java.io.InputStream;
 import java.util.Scanner;
