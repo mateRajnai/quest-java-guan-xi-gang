@@ -61,6 +61,10 @@ public class GameMap {
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
+                        case 's':
+                            cell.setType(CellType.FLOOR);
+                            new Skeleton(cell);
+                            break;
                         case '@':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));

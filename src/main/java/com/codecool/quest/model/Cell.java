@@ -1,6 +1,6 @@
 package com.codecool.quest.model;
 
-public class Cell {
+public class Cell implements Drawable {
     private CellType type = CellType.EMPTY;
     private Actor actor;
 
@@ -18,5 +18,10 @@ public class Cell {
 
     public Actor getActor() {
         return actor;
+    }
+
+    @Override
+    public String getTileName() {
+        return type.getTileName();
     }
 }

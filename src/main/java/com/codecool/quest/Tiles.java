@@ -1,5 +1,6 @@
 package com.codecool.quest;
 
+import com.codecool.quest.model.Drawable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -27,10 +28,11 @@ public class Tiles {
         tileMap.put("wall", new Tile(1, 3));
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("player", new Tile(27, 0));
+        tileMap.put("skeleton", new Tile(29, 6));
     }
 
-    public static void drawTile(GraphicsContext context, String tileName, int x, int y) {
-        Tile tile = tileMap.get(tileName);
+    public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
+        Tile tile = tileMap.get(d.getTileName());
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
