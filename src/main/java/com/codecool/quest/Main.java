@@ -46,6 +46,7 @@ public class Main extends Application {
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
+        primaryStage.setTitle("Codecool Quest");
         primaryStage.show();
     }
 
