@@ -1,5 +1,7 @@
 package com.codecool.quest.logic;
 
+import com.codecool.quest.logic.actors.Player;
+
 public class GameMap {
     private int width;
     private int height;
