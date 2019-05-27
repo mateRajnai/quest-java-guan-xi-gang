@@ -3,15 +3,16 @@ package com.codecool.quest.logic;
 import com.codecool.quest.logic.actors.Actor;
 
 public class Cell implements Drawable {
-    private CellType type = CellType.EMPTY;
+    private CellType type;
     private Actor actor;
     private GameMap gameMap;
     private int x, y;
 
-    Cell(GameMap gameMap, int x, int y) {
+    Cell(GameMap gameMap, int x, int y, CellType type) {
         this.gameMap = gameMap;
         this.x = x;
         this.y = y;
+        this.type = type;
     }
 
     public CellType getType() {
