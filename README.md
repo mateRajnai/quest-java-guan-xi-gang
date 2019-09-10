@@ -6,7 +6,19 @@ This is a simple tile-based RPG game.
 
 Open the project in IntelliJ IDEA. This is a Maven project, so you will need to open `pom.xml`.
 
-The project is using JavaFX, and should work with Oracle's Java 8.
+The project is using JavaFX.  Use the `javafx` maven plugin to build and run the program.
+
+Build:
+
+```bash
+mvn javafx:compile
+```
+
+Run:
+
+```bash
+mvn javafx:run
+```
 
 ## Architecture
 
