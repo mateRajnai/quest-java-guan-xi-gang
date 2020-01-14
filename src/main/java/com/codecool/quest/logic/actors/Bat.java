@@ -4,22 +4,68 @@ import com.codecool.quest.logic.Cell;
 
 public class Bat extends Actor {
 
-    int[] coordinates = new int[]{1,1};
-    int[] bouncer = new int[2];
+    int[] direction = new int[]{1,1};
 
     public Bat(Cell cell) {
         super(cell);
     }
 
     public void move() {
-        int dx = coordinates[0];
-        int dy = coordinates[1];
-        Cell nextCell = super.getCell().getNeighbor(dx, dy);
+        int dx = direction[0];
+        int dy = direction[1];
+        super.getCell().getNeighbor(dx, dy);
+        Cell nextCell;
 
+
+        //wall on corner
+        nextCell = super.getCell().getNeighbor(0, dy);
+        Cell nextCellSide = super.getCell().getNeighbor(dx, 0);
+        if(nextCell.getTileName().equals("wall") && nextCellSide.getTileName().equals("wall")) {
+            direction[0] *= -1;
+            direction[1] *= -1;
+            dx = direction[0];
+            dy = direction[1];
+        }
+
+        nextCell = super.getCell().getNeighbor(dx, dy);
         if (nextCell.getTileName().equals("wall")) {
-            bouncer[1] *=
-            dy = bouncer[0];
-            dx = bouncer[1];
+
+            //wall on right side
+            nextCell = super.getCell().getNeighbor(dx, 0);
+            if(nextCell.getTileName().equals("wall")) {
+                direction[0] *= -1;
+                dx = direction[0];
+            }
+
+            //wall on left side
+            nextCell = super.getCell().getNeighbor(dx, 0);
+            if(nextCell.getTileName().equals("wall")) {
+                direction[0] *= -1;
+                dx = direction[0];
+                }
+
+            //wall on bottom
+            nextCell = super.getCell().getNeighbor(0, dy);
+            if(nextCell.getTileName().equals("wall")) {
+                direction[1] *= -1;
+                dy = direction[1];
+            }
+
+            //wall on top
+            nextCell = super.getCell().getNeighbor(0, dy);
+            if(nextCell.getTileName().equals("wall")) {
+                direction[1] *= -1;
+                dy = direction[1];
+            }
+
+            //wall on peak
+            nextCell = super.getCell().getNeighbor(dx, dy);
+            if(nextCell.getTileName().equals("wall")) {
+                direction[0] *= -1;
+                direction[1] *= -1;
+                dx = direction[0];
+                dy = direction[1];
+            }
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
 
