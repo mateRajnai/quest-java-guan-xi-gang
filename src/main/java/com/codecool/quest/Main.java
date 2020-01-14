@@ -23,7 +23,7 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
-    Label characterNameLabel = new Label("Unknown");
+    Label characterNameLabel = new Label("hackerman");
 
     public static void main(String[] args) {
         launch(args);
@@ -65,12 +65,12 @@ public class Main extends Application {
         nameDialog.setTitle("Character setup");
         nameDialog.setHeaderText("Choose an epic name for your character!");
         nameDialog.setContentText("Epic name:");
+        nameDialog.setGraphic(null);
 
         Button cancelButton = (Button) nameDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
         cancelButton.setVisible(false);
 
         TextField nameInputField = nameDialog.getEditor();
-
         Button OKButton = (Button) nameDialog.getDialogPane().lookupButton(ButtonType.OK);
         nameInputField.textProperty().addListener((observable, oldValue, newValue) -> {
             OKButton.setDisable(!(newValue.length() > 0 && newValue.length() <= 9));
