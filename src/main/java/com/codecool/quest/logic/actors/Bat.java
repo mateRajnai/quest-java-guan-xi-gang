@@ -13,9 +13,18 @@ public class Bat extends Actor {
     public void move() {
         int dx = direction[0];
         int dy = direction[1];
-        super.getCell().getNeighbor(dx, dy);
-        Cell nextCell;
+        Cell nextCell = wallBounceCheck(dx, dy);
 
+        if (!nextCell.getTileName().equals("wall") && nextCell.getActor() == null) {
+            super.getCell().setActor(null);
+            nextCell.setActor(this);
+            super.setCell(nextCell);
+        }
+    }
+
+
+    public Cell wallBounceCheck(int dx, int dy) {
+        Cell nextCell;
 
         //wall on corner
         nextCell = super.getCell().getNeighbor(0, dy);
@@ -42,7 +51,7 @@ public class Bat extends Actor {
             if(nextCell.getTileName().equals("wall")) {
                 direction[0] *= -1;
                 dx = direction[0];
-                }
+            }
 
             //wall on bottom
             nextCell = super.getCell().getNeighbor(0, dy);
@@ -68,12 +77,7 @@ public class Bat extends Actor {
             }
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
-
-        if (!nextCell.getTileName().equals("wall") && nextCell.getActor() == null) {
-            super.getCell().setActor(null);
-            nextCell.setActor(this);
-            super.setCell(nextCell);
-        }
+        return nextCell;
     }
 
     @Override
