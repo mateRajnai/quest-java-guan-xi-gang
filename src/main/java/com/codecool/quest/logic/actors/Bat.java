@@ -2,22 +2,24 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 
-public class Skeleton extends Actor {
+public class Bat extends Actor {
 
-    int coordinateSwitcher = -1;
+    int[] coordinates = new int[]{1,1};
+    int[] bouncer = new int[2];
 
-    public Skeleton(Cell cell) {
+    public Bat(Cell cell) {
         super(cell);
     }
 
     public void move() {
-        int dx = coordinateSwitcher;
-        int dy = 0;
+        int dx = coordinates[0];
+        int dy = coordinates[1];
         Cell nextCell = super.getCell().getNeighbor(dx, dy);
 
         if (nextCell.getTileName().equals("wall")) {
-            coordinateSwitcher *= -1;
-            dx = coordinateSwitcher;
+            bouncer[1] *=
+            dy = bouncer[0];
+            dx = bouncer[1];
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
 
@@ -30,6 +32,6 @@ public class Skeleton extends Actor {
 
     @Override
     public String getTileName() {
-        return "skeleton";
+        return "bat";
     }
 }

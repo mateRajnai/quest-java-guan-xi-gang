@@ -3,6 +3,7 @@ package com.codecool.quest;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.actors.Bat;
 import com.codecool.quest.logic.actors.Skeleton;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -75,6 +76,7 @@ public class Main extends Application {
                 break;
         }
         map.getSkeletons().forEach(Skeleton::move);
+        map.getBats().forEach(Bat::move);
 
     }
 
