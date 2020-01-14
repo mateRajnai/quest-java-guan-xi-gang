@@ -74,7 +74,7 @@ public class Main extends Application {
                 refresh();
                 break;
         }
-        map.getSkeleton().move();
+        map.getSkeletons().forEach(Skeleton::move);
 
     }
 

@@ -5,12 +5,9 @@ import com.codecool.quest.logic.actors.Skeleton;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MapLoader {
-
-    public static List<Object> skeletons = new ArrayList<>();
 
     public static GameMap loadMap() {
         InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
@@ -38,8 +35,7 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            map.setSkeleton(new Skeleton(cell));
-                            skeletons.add(new Skeleton(cell));
+                            map.addSkeleton(new Skeleton(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
