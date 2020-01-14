@@ -1,8 +1,6 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.logic.actors.Bat;
-import com.codecool.quest.logic.actors.Player;
-import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.actors.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +13,8 @@ public class GameMap {
     private Player player;
     private List<Skeleton> skeletons = new ArrayList<>();
     private List<Bat> bats = new ArrayList<>();
+    private List<Golem> golems = new ArrayList<>();
+    private List<Duck> ducks = new ArrayList<>();
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -56,6 +56,23 @@ public class GameMap {
 
     public List<Bat> getBats() {
         return bats;
+    }
+
+    public void addGolem(Golem golem) {
+        this.golems.add(golem);
+    }
+
+    public List<Golem> getGolems() {
+        return golems;
+    }
+
+
+    public void addDuck(Duck duck) {
+        this.ducks.add(duck);
+    }
+
+    public List<Duck> getDucks() {
+        return ducks;
     }
 
     public int getWidth() {

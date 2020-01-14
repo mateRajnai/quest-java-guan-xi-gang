@@ -67,7 +67,7 @@ public class Bat extends Actor {
                 dy = direction[1];
             }
 
-            //wall on peak
+            //wall on inner corner
             nextCell = super.getCell().getNeighbor(dx, dy);
             if(nextCell.getTileName().equals("wall")) {
                 direction[0] *= -1;

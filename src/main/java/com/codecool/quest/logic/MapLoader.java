@@ -1,8 +1,6 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.logic.actors.Bat;
-import com.codecool.quest.logic.actors.Player;
-import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.actors.*;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -45,6 +43,14 @@ public class MapLoader {
                         case 'b':
                             cell.setType(CellType.FLOOR);
                             map.addBat(new Bat(cell));
+                            break;
+                        case 'g':
+                            cell.setType(CellType.FLOOR);
+                            map.addGolem(new Golem(cell));
+                            break;
+                        case 'd':
+                            cell.setType(CellType.FLOOR);
+                            map.addDuck(new Duck(cell));
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
