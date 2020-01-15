@@ -11,12 +11,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 
 public class Main extends Application {
@@ -26,6 +27,7 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Label characterNameLabel = new Label("hackerman");
 
     public static void main(String[] args) {
         launch(args);
@@ -34,11 +36,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
+        ColumnConstraints col1 = new ColumnConstraints(85);
+        ui.getColumnConstraints().add(col1);
+
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
+        ui.add(new Label("Epic name: "), 0, 0);
+        ui.add(characterNameLabel, 1, 0);
+        ui.add(new Label("Health: "), 0, 1);
+        ui.add(healthLabel, 1, 1);
 
         BorderPane borderPane = new BorderPane();
 
@@ -51,10 +58,35 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Codecool Quest");
+
+        TextInputDialog nameDialog = createCharacterNameDialog();
         primaryStage.show();
+        setCharacterName(nameDialog);
     }
 
+    private TextInputDialog createCharacterNameDialog() {
+        TextInputDialog nameDialog = new TextInputDialog("hackerman");
+        nameDialog.setTitle("Character setup");
+        nameDialog.setHeaderText("Choose an epic name for your character!");
+        nameDialog.setContentText("Epic name:");
+        nameDialog.setGraphic(null);
 
+        Button cancelButton = (Button) nameDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cancelButton.setVisible(false);
+
+        TextField nameInputField = nameDialog.getEditor();
+        Button OKButton = (Button) nameDialog.getDialogPane().lookupButton(ButtonType.OK);
+        nameInputField.textProperty().addListener((observable, oldValue, newValue) -> {
+            OKButton.setDisable(!(newValue.length() > 0 && newValue.length() <= 9));
+        });
+
+        return nameDialog;
+    }
+
+    private void setCharacterName(TextInputDialog dialog) {
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(name -> this.characterNameLabel.setText(name));
+    }
 
     private void onKeyPressed(KeyEvent keyEvent) {
 
@@ -69,7 +101,7 @@ public class Main extends Application {
                 map.getPlayer().move(-1, 0);
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                map.getPlayer().move(1, 0);
                 break;
         }
         map.getSkeletons().forEach(Skeleton::move);
@@ -86,6 +118,8 @@ public class Main extends Application {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
+                } else if (cell.getItem() != null) {
+                    Tiles.drawTile(context, cell.getItem(), x, y);
                 } else {
                     Tiles.drawTile(context, cell, x, y);
                 }

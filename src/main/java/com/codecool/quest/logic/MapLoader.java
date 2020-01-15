@@ -1,5 +1,9 @@
 package com.codecool.quest.logic;
 
+import com.codecool.quest.logic.actors.Player;
+import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.items.Hammer;
+import com.codecool.quest.logic.items.Key;
 import com.codecool.quest.logic.actors.*;
 
 import java.io.InputStream;
@@ -35,6 +39,14 @@ public class MapLoader {
                         case 's':
                             cell.setType(CellType.FLOOR);
                             map.addSkeleton(new Skeleton(cell));
+                            break;
+                        case 'k':
+                            cell.setType(CellType.FLOOR);
+                            new Key(cell);
+                            break;
+                        case 'h':
+                            cell.setType(CellType.FLOOR);
+                            new Hammer(cell);
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
