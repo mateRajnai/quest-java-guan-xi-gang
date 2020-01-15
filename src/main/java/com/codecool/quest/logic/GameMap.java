@@ -18,6 +18,7 @@ public class GameMap {
     private List<Skeleton> skeletons = new ArrayList<>();
     private Hammer hammer;
     private Key key;
+    private Item item;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -61,13 +62,15 @@ public class GameMap {
 
     public Hammer getHammer() {return hammer;}
 
+    public Item getItem() {return item;}
+
     public Key getKey() {return key;}
 
     public void setHammer(Hammer hammer) {this.hammer = hammer;}
 
     public void setKey(Key key) {this.key = key;}
 
-    public boolean removeItem(GameMap map) {
+    public boolean removeHammer(GameMap map) {
         int playerPositionX = map.getPlayer().getX();
         int playerPositionY = map.getPlayer().getY();
         Cell cell = map.getCell(playerPositionX, playerPositionY);
@@ -76,7 +79,25 @@ public class GameMap {
             hammer.getCell().setItem(null);
             cell.setType(CellType.FLOOR);
             return true;
-        } else if (cell.getTileName().equals("key")) {
+        } /*else if (cell.getTileName().equals("key")) {
+            Key key = map.getKey();
+            key.getCell().setItem(null);
+            cell.setType(CellType.FLOOR);
+            return true;
+        }*/
+        return false;
+    }
+
+    public boolean removeKey(GameMap map) {
+        int playerPositionX = map.getPlayer().getX();
+        int playerPositionY = map.getPlayer().getY();
+        Cell cell = map.getCell(playerPositionX, playerPositionY);
+       /* if (cell.getTileName().equals("hammer")) {
+            Hammer hammer = map.getHammer();
+            hammer.getCell().setItem(null);
+            cell.setType(CellType.FLOOR);
+            return true;
+        } else */if (cell.getTileName().equals("key")) {
             Key key = map.getKey();
             key.getCell().setItem(null);
             cell.setType(CellType.FLOOR);
@@ -84,4 +105,6 @@ public class GameMap {
         }
         return false;
     }
+
+
 }
