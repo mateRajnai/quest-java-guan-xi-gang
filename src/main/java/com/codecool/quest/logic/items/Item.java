@@ -17,12 +17,4 @@ public abstract class Item implements Drawable {
 
     public Cell getCell() { return cell; }
 
-    public int getX() {
-        return cell.getX();
-    }
-
-    public int getY() {
-        return cell.getY();
-    }
-
 }
