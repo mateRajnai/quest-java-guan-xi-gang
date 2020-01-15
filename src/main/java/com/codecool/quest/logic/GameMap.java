@@ -16,8 +16,6 @@ public class GameMap {
 
     private Player player;
     private List<Skeleton> skeletons = new ArrayList<>();
-    private Item item;
-    private Cell cell;
     private Hammer hammer;
     private Key key;
 
