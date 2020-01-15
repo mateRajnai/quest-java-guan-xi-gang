@@ -7,7 +7,6 @@ import com.codecool.quest.logic.items.Key;
 import com.codecool.quest.logic.actors.*;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MapLoader {
