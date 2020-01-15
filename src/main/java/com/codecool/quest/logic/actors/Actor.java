@@ -5,7 +5,11 @@ import com.codecool.quest.logic.Drawable;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
-    private int health = 10;
+
+    protected int health;
+    protected int attackDamage;
+    protected int armor;
+
 
     public Actor(Cell cell) {
         this.cell = cell;
