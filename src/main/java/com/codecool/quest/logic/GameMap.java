@@ -79,12 +79,7 @@ public class GameMap {
             hammer.getCell().setItem(null);
             cell.setType(CellType.FLOOR);
             return true;
-        } /*else if (cell.getTileName().equals("key")) {
-            Key key = map.getKey();
-            key.getCell().setItem(null);
-            cell.setType(CellType.FLOOR);
-            return true;
-        }*/
+        }
         return false;
     }
 
@@ -92,12 +87,7 @@ public class GameMap {
         int playerPositionX = map.getPlayer().getX();
         int playerPositionY = map.getPlayer().getY();
         Cell cell = map.getCell(playerPositionX, playerPositionY);
-       /* if (cell.getTileName().equals("hammer")) {
-            Hammer hammer = map.getHammer();
-            hammer.getCell().setItem(null);
-            cell.setType(CellType.FLOOR);
-            return true;
-        } else */if (cell.getTileName().equals("key")) {
+        if (cell.getTileName().equals("key")) {
             Key key = map.getKey();
             key.getCell().setItem(null);
             cell.setType(CellType.FLOOR);
