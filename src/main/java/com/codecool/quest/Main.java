@@ -70,6 +70,12 @@ public class Main extends Application {
             map.removeItem(map);
             borderPane.requestFocus();
         });
+
+
+        ObservableList<String> hammer = FXCollections.observableArrayList();
+        hammer.add(map.getHammer().getTileName());
+        inventory.setItems(hammer);
+
     }
 
 
