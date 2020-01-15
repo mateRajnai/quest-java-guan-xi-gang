@@ -67,19 +67,17 @@ public class Main extends Application {
         primaryStage.show();
 
         borderPane.requestFocus();
+        ObservableList<String> items = FXCollections.observableArrayList();
         pickUpButton.setOnAction(actionEvent -> {
-            if (map.removeItem(map)) {
-                ObservableList<String> hammer = FXCollections.observableArrayList();
-                hammer.add(map.getHammer().getTileName());
-                inventory.setItems(hammer);
+            if (map.removeHammer(map)) {
+                items.add(map.getHammer().getTileName());
+                inventory.setItems(items);
+            } else if (map.removeKey(map)) {
+                items.add(map.getKey().getTileName());
+                inventory.setItems(items);
             }
-
             borderPane.requestFocus();
         });
-
-
-
-
     }
 
 
