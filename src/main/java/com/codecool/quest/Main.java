@@ -57,6 +57,12 @@ public class Main extends Application {
 
         primaryStage.setTitle("Codecool Quest");
         primaryStage.show();
+
+        borderPane.requestFocus();
+        pickUpButton.setOnAction(actionEvent -> {
+            map.removeItem(map);
+            borderPane.requestFocus();
+        });
     }
 
 
