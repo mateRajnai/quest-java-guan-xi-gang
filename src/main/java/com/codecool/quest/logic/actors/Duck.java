@@ -1,6 +1,7 @@
 package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ public class Duck extends Actor {
     private static final int INITIAL_HEALTH = 5;
     private static final int INITIAL_ATTACK_DAMAGE = 0;
     private static final int INITIAL_ARMOR = 0;
-    private static final String CHARACTER_TYPE = "duck";
 
     public static final int MAX_MOVE_COORDINATE = 2;
     public static final int MIN_MOVE_COORDINATE = -1;
@@ -51,14 +51,14 @@ public class Duck extends Actor {
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
 
-        if (!nextCell.getTileName().equals("wall") && nextCell.getActor() == null) {
+        if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
             super.getCell().setActor(null);
             nextCell.setActor(this);
             super.setCell(nextCell);
 
-        } else if (!nextCell.getTileName().equals("wall") &&
+        } else if (!fixTiles.contains(nextCell.getTileName()) &&
                 nextCell.getActor() != null &&
-                nextCell.getActor().getWhoAmI().equals("player")) {
+                nextCell.getActor().getTileName().equals("player")) {
 
             int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
             nextCell.getActor().setHealth(modifiedDefenderHealth);
@@ -68,6 +68,7 @@ public class Duck extends Actor {
 
     public void terminate() {
         this.getCell().setActor(null);
+        this.getCell().setType(CellType.BONE);
         ducks.removeIf(duck -> duck == this);
     }
 
@@ -77,10 +78,6 @@ public class Duck extends Actor {
 
     public static List<Duck> getDucks() {
         return ducks;
-    }
-
-    public String getWhoAmI() {
-        return CHARACTER_TYPE;
     }
 
     @Override

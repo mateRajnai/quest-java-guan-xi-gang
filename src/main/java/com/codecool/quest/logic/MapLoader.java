@@ -63,6 +63,31 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             Duck.addDuck(new Duck(cell));
                             break;
+                        case 'u':
+                            cell.setType(CellType.STAIRS_FROM_UP);
+                            break;
+                        case 'c':
+                            cell.setType(CellType.CAMPFIRE);
+                            break;
+                        case 'p':
+                            cell.setType(CellType.POT);
+                            Pot.addPot(new Pot(cell));
+                            break;
+                        case 't':
+                            cell.setType(CellType.BRONZE_TORCH);
+                            break;
+                        case 'r':
+                            cell.setType(CellType.DRIED_BRANCH);
+                            break;
+                        case 'o':
+                            cell.setType(CellType.STONES);
+                            break;
+                        case 'a':
+                            cell.setType(CellType.GRASS2);
+                            break;
+                        case 'e':
+                            cell.setType(CellType.CHEST_CLOSED);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

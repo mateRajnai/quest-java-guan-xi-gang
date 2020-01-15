@@ -1,6 +1,7 @@
 package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
@@ -11,9 +12,8 @@ public class Skeleton extends Actor {
     HandleAttack handleAttack = new HandleAttack();
 
     private static final int INITIAL_HEALTH = 20;
-    private static final int INITIAL_ATTACK_DAMAGE = 5;
+    private static final int INITIAL_ATTACK_DAMAGE = 3;
     private static final int INITIAL_ARMOR = 0;
-    private static final String CHARACTER_TYPE = "skeleton";
 
     private static int COORDINATE_SWITCHER = -1;
     private static List<Skeleton> skeletons = new ArrayList<>();
@@ -36,15 +36,15 @@ public class Skeleton extends Actor {
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
 
-        if (!nextCell.getTileName().equals("wall") && nextCell.getActor() == null) {
+        if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
 
             super.getCell().setActor(null);
             nextCell.setActor(this);
             super.setCell(nextCell);
 
-        } else if (!nextCell.getTileName().equals("wall") &&
+        } else if (!fixTiles.contains(nextCell.getTileName()) &&
                 nextCell.getActor() != null &&
-                nextCell.getActor().getWhoAmI().equals("player")) {
+                nextCell.getActor().getTileName().equals("player")) {
 
             int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
             nextCell.getActor().setHealth(modifiedDefenderHealth);
@@ -54,6 +54,7 @@ public class Skeleton extends Actor {
 
     public void terminate() {
         this.getCell().setActor(null);
+        this.getCell().setType(CellType.DEAD_SKELETON);
         skeletons.removeIf(skeleton -> skeleton == this);
     }
 
@@ -68,10 +69,6 @@ public class Skeleton extends Actor {
     @Override
     public void move(int dx, int dy) {
 
-    }
-
-    public String getWhoAmI() {
-        return CHARACTER_TYPE;
     }
 
     @Override

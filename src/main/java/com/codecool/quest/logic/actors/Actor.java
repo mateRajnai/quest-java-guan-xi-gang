@@ -2,7 +2,10 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.Drawable;
-import com.codecool.quest.logic.HandleAttack;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
@@ -11,6 +14,7 @@ public abstract class Actor implements Drawable {
     protected int attackDamage;
     protected int armor;
     protected String characterType;
+    protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire"));
 
 
     public Actor(Cell cell) {
@@ -56,5 +60,4 @@ public abstract class Actor implements Drawable {
 
     public abstract void terminate();
 
-    protected abstract String getWhoAmI();
 }
