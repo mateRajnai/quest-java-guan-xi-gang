@@ -37,7 +37,7 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            map.addSkeleton(new Skeleton(cell));
+                            Skeleton.addSkeleton(new Skeleton(cell));
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
@@ -53,15 +53,15 @@ public class MapLoader {
                             break;
                         case 'b':
                             cell.setType(CellType.FLOOR);
-                            map.addBat(new Bat(cell));
+                            Bat.addBat(new Bat(cell));
                             break;
                         case 'g':
                             cell.setType(CellType.FLOOR);
-                            map.addGolem(new Golem(cell));
+                            Golem.addGolem(new Golem(cell));
                             break;
                         case 'd':
                             cell.setType(CellType.FLOOR);
-                            map.addDuck(new Duck(cell));
+                            Duck.addDuck(new Duck(cell));
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

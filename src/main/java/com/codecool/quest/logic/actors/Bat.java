@@ -2,12 +2,23 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bat extends Actor {
 
-    int[] direction = new int[]{1,1};
+    private static final int INITIAL_HEALTH = 6;
+    private static final int INITIAL_ATTACK_DAMAGE = 2;
+    private static final int INITIAL_ARMOR = 0;
+
+    private static final int[] direction = new int[]{1,1};
+    private static List<Bat> bats = new ArrayList<>();
 
     public Bat(Cell cell) {
         super(cell);
+        this.setHealth(INITIAL_HEALTH);
+        this.setArmor(INITIAL_ARMOR);
+        this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
     }
 
     public void move() {
@@ -78,6 +89,19 @@ public class Bat extends Actor {
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
         return nextCell;
+    }
+
+    public void terminate() {
+        this.getCell().setActor(null);
+        bats.removeIf(bat -> bat == this);
+    }
+
+    public static void addBat(Bat bat) {
+        bats.add(bat);
+    }
+
+    public static List<Bat> getBats() {
+        return bats;
     }
 
     @Override

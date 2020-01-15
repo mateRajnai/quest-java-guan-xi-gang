@@ -104,9 +104,9 @@ public class Main extends Application {
                 map.getPlayer().move(1, 0);
                 break;
         }
-        map.getSkeletons().forEach(Skeleton::move);
-        map.getBats().forEach(Bat::move);
-        map.getDucks().forEach(Duck::move);
+        Skeleton.getSkeletons().forEach(Skeleton::move);
+        Bat.getBats().forEach(Bat::move);
+        Duck.getDucks().forEach(Duck::move);
         refresh();
     }
 
