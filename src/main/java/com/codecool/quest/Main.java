@@ -6,14 +6,15 @@ import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.actors.Skeleton;
 import com.codecool.quest.logic.items.Hammer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -30,6 +31,10 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Button pickUpButton = new Button("Pick up item");
 
+    ListView<String> inventory = new ListView<String>();
+
+
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -43,6 +48,7 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
         ui.add(pickUpButton, 0, 2);
+        ui.add(inventory, 0, 3);
 
 
 
