@@ -1,15 +1,19 @@
 package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bat extends Actor {
 
+    HandleAttack handleAttack = new HandleAttack();
+
     private static final int INITIAL_HEALTH = 6;
     private static final int INITIAL_ATTACK_DAMAGE = 2;
     private static final int INITIAL_ARMOR = 0;
+    private static final String CHARACTER_TYPE = "bat";
 
     private static final int[] direction = new int[]{1,1};
     private static List<Bat> bats = new ArrayList<>();
@@ -30,6 +34,14 @@ public class Bat extends Actor {
             super.getCell().setActor(null);
             nextCell.setActor(this);
             super.setCell(nextCell);
+
+        }  else if (!nextCell.getTileName().equals("wall") &&
+                nextCell.getActor() != null &&
+                nextCell.getActor().getWhoAmI().equals("player")) {
+
+            int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
+            nextCell.getActor().setHealth(modifiedDefenderHealth);
+            handleAttack.isDead(modifiedDefenderHealth, nextCell);
         }
     }
 
@@ -102,6 +114,10 @@ public class Bat extends Actor {
 
     public static List<Bat> getBats() {
         return bats;
+    }
+
+    public String getWhoAmI() {
+        return CHARACTER_TYPE;
     }
 
     @Override

@@ -10,6 +10,7 @@ public class Player extends Actor {
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 5;
     private static final int INITIAL_ARMOR = 0;
+    private static final String CHARACTER_TYPE = "player";
 
 
     public Player(Cell cell) {
@@ -30,16 +31,19 @@ public class Player extends Actor {
             nextCell.setActor(this);
             super.setCell(nextCell);
 
-        }else if (!nextCell.getTileName().equals("wall") && nextCell.getActor() != null) {
+        } else if (!nextCell.getTileName().equals("wall") && nextCell.getActor() != null) {
             int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
             nextCell.getActor().setHealth(modifiedDefenderHealth);
             handleAttack.isDead(modifiedDefenderHealth, nextCell);
-
         }
     }
 
     public void terminate() {
         this.getCell().setActor(null);
+    }
+
+    public String getWhoAmI() {
+        return CHARACTER_TYPE;
     }
 
     public String getTileName() {

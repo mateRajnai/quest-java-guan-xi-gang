@@ -2,6 +2,7 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.Drawable;
+import com.codecool.quest.logic.HandleAttack;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
@@ -9,6 +10,7 @@ public abstract class Actor implements Drawable {
     protected int health;
     protected int attackDamage;
     protected int armor;
+    protected String characterType;
 
 
     public Actor(Cell cell) {
@@ -53,4 +55,6 @@ public abstract class Actor implements Drawable {
     }
 
     public abstract void terminate();
+
+    protected abstract String getWhoAmI();
 }

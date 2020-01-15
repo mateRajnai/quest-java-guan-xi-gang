@@ -5,6 +5,7 @@ import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.actors.Bat;
 import com.codecool.quest.logic.actors.Duck;
+import com.codecool.quest.logic.actors.Golem;
 import com.codecool.quest.logic.actors.Skeleton;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -107,6 +108,7 @@ public class Main extends Application {
         Skeleton.getSkeletons().forEach(Skeleton::move);
         Bat.getBats().forEach(Bat::move);
         Duck.getDucks().forEach(Duck::move);
+        Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
         refresh();
     }
 
