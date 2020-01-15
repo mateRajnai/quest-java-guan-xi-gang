@@ -70,14 +70,9 @@ public class GameMap {
     public void setKey(Key key) {this.key = key;}
 
     public void removeItem(GameMap map) {
-        // A player azért nem null, mert korábban a kódban már inicializálva van a setPlayer által. Tehát mire elér ide a game logic, addigra a setPlayer meg van hívva.
         int playerPositionX = map.getPlayer().getX();
         int playerPositionY = map.getPlayer().getY();
-
-
         Cell cell = map.getCell(playerPositionX, playerPositionY);
-
-        System.out.println(cell.getTileName());
         if (cell.getTileName().equals("hammer")) {
             Hammer hammer = map.getHammer();
             hammer.getCell().setItem(null);
@@ -87,9 +82,5 @@ public class GameMap {
             key.getCell().setItem(null);
             cell.setType(CellType.FLOOR);
         }
-
-
     }
-
-
 }

@@ -47,10 +47,8 @@ public class MapLoader {
                             map.setKey(new Key(cell));
                             break;
                         case 'h':
-                            //cell.setType(CellType.FLOOR);
-                            map.setHammer(new Hammer(cell));
                             cell.setType(CellType.HAMMER);
-
+                            map.setHammer(new Hammer(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
