@@ -43,6 +43,8 @@ public class Main extends Application {
         ui.add(healthLabel, 1, 0);
         ui.add(pickUpButton, 0, 2);
 
+
+
         BorderPane borderPane = new BorderPane();
 
         borderPane.setCenter(canvas);
@@ -80,8 +82,6 @@ public class Main extends Application {
                 break;
         }
         map.getSkeletons().forEach(Skeleton::move);
-        map.removeItem(map);
-
     }
 
     private void refresh() {
