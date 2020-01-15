@@ -4,6 +4,7 @@ import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.items.Item;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -75,7 +76,7 @@ public class Main extends Application {
                 break;
         }
         map.getSkeletons().forEach(Skeleton::move);
-        map.removeHammer();
+        map.removeHammer(map);
 
     }
 
@@ -96,4 +97,5 @@ public class Main extends Application {
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
     }
+
 }

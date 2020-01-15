@@ -3,7 +3,9 @@ package com.codecool.quest.logic;
 public enum CellType {
     EMPTY("empty"),
     FLOOR("floor"),
-    WALL("wall");
+    WALL("wall"),
+    HAMMER("hammer"),
+    KEY("item");
 
     private final String tileName;
 

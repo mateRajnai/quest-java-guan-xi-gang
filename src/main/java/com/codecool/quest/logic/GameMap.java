@@ -16,6 +16,8 @@ public class GameMap {
     private Player player;
     private List<Skeleton> skeletons = new ArrayList<>();
     private Item item;
+    private Cell cell;
+    private Hammer hammer;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -59,16 +61,24 @@ public class GameMap {
 
     public void setItem(Item item) {this.item = item;}
 
-    public void removeHammer() {
-        // A player azért nem null, mert korábban a kódban már inicializálva van a setPlayer által. Tehát mire elér ide a game logic, addigra a setPlayer meg van hívva.
-        int playerPositionX = player.getX();
-        int playerPositionY = player.getY();
-        if (hammer == null)
-            System.out.println("hammer is null");
-        int itemPositionX = hammer.getX();
-        int itemPositionY = hammer.getY();
+    public Item getItem() {return item;}
 
-        if (playerPositionX == itemPositionX && playerPositionY == itemPositionY)
+    public Hammer getHammer() {return hammer;}
+
+    public void setHammer(Hammer hammer) {this.hammer = hammer;}
+
+    public void removeHammer(GameMap map) {
+        // A player azért nem null, mert korábban a kódban már inicializálva van a setPlayer által. Tehát mire elér ide a game logic, addigra a setPlayer meg van hívva.
+        int playerPositionX = map.getPlayer().getX();
+        int playerPositionY = map.getPlayer().getY();
+        Item item = map.getItem();
+        Hammer hammer = map.getHammer();
+        Cell cell = map.getCell(playerPositionX, playerPositionY);
+
+        System.out.println(cell.getTileName());
+        if (cell.getTileName().equals("hammer"))
+            System.out.println(hammer);
             hammer.getCell().setItem(null);
+            cell.setType(CellType.FLOOR);
     }
 }

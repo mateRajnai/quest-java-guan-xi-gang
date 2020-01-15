@@ -18,7 +18,7 @@ public class MapLoader {
         int height = scanner.nextInt();
 
         scanner.nextLine(); // empty line
-        // A map.txt alapján a memóriában létrehozzuk a map objektumot, minden egyes mezőre a txt-ben a memóriában eltárolt map objektumban egy-egy cell objektum van
+        // A map.txt alapján a memóriában létrehozzuk a map objektumot, minden egyes mezőre a txt-ben a memóriában eltárolt map objektumra hivatkozik egy-egy cell objektum
         GameMap map = new GameMap(width, height, CellType.EMPTY);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
@@ -28,8 +28,7 @@ public class MapLoader {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
                         case ' ':
-                            // Ebben a cellában nem hoz létre cell-n kívül más objektumot. Ha a cell objektummal akarunk valamit csinálni, akkor a memóriában erre
-                            // a cellára hivatkozva nem null-t kapunk vissza, viszont, ha pl a hammer-re vagy a skeleton objektumra, akkor null-t kapunk vissza
+                            // a cellára,  a hammer-re vagy a skeleton objektumra hivatkozva, akkor null-t kapunk vissza
                             // TESZTELD
                             cell.setType(CellType.EMPTY);
                             break;
@@ -48,8 +47,10 @@ public class MapLoader {
                             new Key(cell);
                             break;
                         case 'h':
-                            cell.setType(CellType.FLOOR);
-                            new Hammer(cell);
+                            //cell.setType(CellType.FLOOR);
+                            map.setHammer(new Hammer(cell));
+                            cell.setType(CellType.HAMMER);
+
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
