@@ -49,7 +49,8 @@ public class Main extends Application {
         ui.add(healthLabel, 1, 0);
         ui.add(pickUpButton, 0, 2);
         ui.add(inventory, 0, 3);
-
+        inventory.setPrefWidth(30);
+        inventory.setPrefHeight(70);
 
 
         BorderPane borderPane = new BorderPane();
