@@ -2,6 +2,8 @@ package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Player;
 import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.items.Hammer;
+import com.codecool.quest.logic.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class GameMap {
 
     private Player player;
     private List<Skeleton> skeletons = new ArrayList<>();
+    private Item item;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -52,5 +55,20 @@ public class GameMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public void setItem(Item item) {this.item = item;}
+
+    public void removeHammer() {
+        // A player azért nem null, mert korábban a kódban már inicializálva van a setPlayer által. Tehát mire elér ide a game logic, addigra a setPlayer meg van hívva.
+        int playerPositionX = player.getX();
+        int playerPositionY = player.getY();
+        if (hammer == null)
+            System.out.println("hammer is null");
+        int itemPositionX = hammer.getX();
+        int itemPositionY = hammer.getY();
+
+        if (playerPositionX == itemPositionX && playerPositionY == itemPositionY)
+            hammer.getCell().setItem(null);
     }
 }
