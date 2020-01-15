@@ -43,8 +43,8 @@ public class MapLoader {
                             map.addSkeleton(new Skeleton(cell));
                             break;
                         case 'k':
-                            cell.setType(CellType.FLOOR);
-                            new Key(cell);
+                            cell.setType(CellType.KEY);
+                            map.setKey(new Key(cell));
                             break;
                         case 'h':
                             //cell.setType(CellType.FLOOR);

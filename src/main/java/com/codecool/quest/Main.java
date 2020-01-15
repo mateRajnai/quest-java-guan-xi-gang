@@ -76,7 +76,7 @@ public class Main extends Application {
                 break;
         }
         map.getSkeletons().forEach(Skeleton::move);
-        map.removeHammer(map);
+        map.removeItem(map);
 
     }
 
