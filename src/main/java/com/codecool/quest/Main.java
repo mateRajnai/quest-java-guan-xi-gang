@@ -67,14 +67,17 @@ public class Main extends Application {
 
         borderPane.requestFocus();
         pickUpButton.setOnAction(actionEvent -> {
-            map.removeItem(map);
+            if (map.removeItem(map)) {
+                ObservableList<String> hammer = FXCollections.observableArrayList();
+                hammer.add(map.getHammer().getTileName());
+                inventory.setItems(hammer);
+            }
+
             borderPane.requestFocus();
         });
 
 
-        ObservableList<String> hammer = FXCollections.observableArrayList();
-        hammer.add(map.getHammer().getTileName());
-        inventory.setItems(hammer);
+
 
     }
 
