@@ -14,6 +14,7 @@ public abstract class Actor implements Drawable {
     protected int attackDamage;
     protected int armor;
     protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire", "chest open"));
+    protected List<String> fixActors = new ArrayList<>(Arrays.asList("pot", "chest open", "chest closed"));
 
 
     public Actor(Cell cell) {

@@ -15,7 +15,7 @@ public class Skeleton extends Actor {
     private static final int INITIAL_ATTACK_DAMAGE = 3;
     private static final int INITIAL_ARMOR = 0;
 
-    private static int COORDINATE_SWITCHER = -1;
+    private int coordinateSwitcher = -1;
     private static List<Skeleton> skeletons = new ArrayList<>();
 
     public Skeleton(Cell cell) {
@@ -26,13 +26,13 @@ public class Skeleton extends Actor {
     }
 
     public void move() {
-        int dx = COORDINATE_SWITCHER;
+        int dx = coordinateSwitcher;
         int dy = 0;
         Cell nextCell = super.getCell().getNeighbor(dx, dy);
 
-        if (nextCell.getTileName().equals("wall")) {
-            COORDINATE_SWITCHER *= -1;
-            dx = COORDINATE_SWITCHER;
+        if (fixTiles.contains(nextCell.getTileName()) || fixActors.contains(nextCell.getTileName())) {
+            coordinateSwitcher *= -1;
+            dx = coordinateSwitcher;
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
 
