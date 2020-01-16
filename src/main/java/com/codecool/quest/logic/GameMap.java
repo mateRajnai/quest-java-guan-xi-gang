@@ -16,10 +16,8 @@ public class GameMap {
     private Cell[][] cells;
 
     private Player player;
-    private List<Skeleton> skeletons = new ArrayList<>();
     private Hammer hammer;
     private Key key;
-    private Item item;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
