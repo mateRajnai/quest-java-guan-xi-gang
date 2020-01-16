@@ -21,19 +21,18 @@ public class Player extends Actor {
 
     @Override
     public void move(int dx, int dy) {
-
         Cell nextCell = super.getCell().getNeighbor(dx, dy);
-        if (nextCell != null && !nextCell.getTileName().equals("wall") && nextCell.getActor() == null) {
-            if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
-                super.getCell().setActor(null);
-                nextCell.setActor(this);
-                super.setCell(nextCell);
+        if (nextCell == null) return;
 
-            } else if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() != null) {
-                int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
-                nextCell.getActor().setHealth(modifiedDefenderHealth);
-                handleAttack.isDead(modifiedDefenderHealth, nextCell);
-            }
+        if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
+            super.getCell().setActor(null);
+            nextCell.setActor(this);
+            super.setCell(nextCell);
+
+        } else if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() != null) {
+            int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
+            nextCell.getActor().setHealth(modifiedDefenderHealth);
+            handleAttack.isDead(modifiedDefenderHealth, nextCell);
         }
     }
 
