@@ -113,7 +113,6 @@ public class Main extends Application {
     }
 
     private void addItemToInventory(GameMap map, String itemToBeAdd, ObservableList<String> items) {
-        System.out.println(map.getPlayer().getCell().getTileName());
         try {
             if (map.getPlayer().getCell().getItem().pickUpItem(map, itemToBeAdd)) {
                 items.add(itemToBeAdd);
