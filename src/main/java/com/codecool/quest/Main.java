@@ -123,8 +123,13 @@ public class Main extends Application {
             }
         } catch (NullPointerException ignored) {
         }
-        if (map.getPlayer().getCell().getTileName().equals(itemToBeAdd))
-            items.add(itemToBeAdd);
+    }
+
+    private void pickUpCoins(ObservableList<String> items) {
+        if (map.getPlayer().getCell().getTileName().equals("coins"))
+            items.add("coins");
+        inventory.setItems(items);
+        map.getPlayer().getCell().setType(CellType.FLOOR);
     }
 
     private void setCharacterName() {
