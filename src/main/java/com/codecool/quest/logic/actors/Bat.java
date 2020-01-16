@@ -33,12 +33,10 @@ public class Bat extends Actor {
         int dy = direction[1];
 
         Cell nextCell = wallBounceCheck(dx, dy);
-        System.out.println("next step will be " + nextCell.getTileName() + " " + nextCell.getX() + " " + nextCell.getY());
 
         if (!fixTiles.contains(nextCell.getTileName()) &&
                 nextCell.getActor() == null &&
                 !fixActors.contains(nextCell.getTileName())) {
-            System.out.println("MOVE");
 
             super.getCell().setActor(null);
             nextCell.setActor(this);
@@ -69,7 +67,6 @@ public class Bat extends Actor {
             nextCell = super.getCell().getNeighbor(dx, 0);
             if(fixTiles.contains(nextCell.getTileName()) || fixActors.contains(nextCell.getTileName())) {
 
-                System.out.println("2");
                 direction[0] *= -1;
                 dx = direction[0];
                 rightLeftSideCheck = true;
@@ -81,7 +78,6 @@ public class Bat extends Actor {
             nextCell = super.getCell().getNeighbor(0, dy);
             if(fixTiles.contains(nextCell.getTileName()) || fixActors.contains(nextCell.getTileName())) {
 
-                System.out.println("4");
                 direction[1] *= -1;
                 dy = direction[1];
                 topBottomSideCheck = true;
@@ -100,7 +96,6 @@ public class Bat extends Actor {
                     fixActors.contains(otherSideCell.getTileName())) &&
                     otherSideCell.getActor() == null) {
 
-                System.out.println("7");
                 dx = 0;
             }
 
@@ -115,7 +110,6 @@ public class Bat extends Actor {
                     fixActors.contains(otherSideCell.getTileName())) &&
                     otherSideCell.getActor() == null){
 
-                System.out.println("8");
                 dy = 0;
             }
 
@@ -145,7 +139,6 @@ public class Bat extends Actor {
             nextCell = super.getCell().getNeighbor(dx, dy);
             if(fixTiles.contains(nextCell.getTileName()) || fixActors.contains(nextCell.getTileName())) {
 
-                System.out.println("6");
                 direction[0] *= -1;
                 direction[1] *= -1;
                 dx = direction[0];
