@@ -5,6 +5,7 @@ import com.codecool.quest.logic.actors.Skeleton;
 import com.codecool.quest.logic.items.Hammer;
 import com.codecool.quest.logic.items.Item;
 import com.codecool.quest.logic.items.Key;
+import com.codecool.quest.logic.actors.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,14 +45,6 @@ public class GameMap {
         return player;
     }
 
-    public void addSkeleton(Skeleton skeleton) {
-        this.skeletons.add(skeleton);
-    }
-
-    public List<Skeleton> getSkeletons() {
-        return skeletons;
-    }
-
     public int getWidth() {
         return width;
     }
@@ -61,8 +54,6 @@ public class GameMap {
     }
 
     public Hammer getHammer() {return hammer;}
-
-    public Item getItem() {return item;}
 
     public Key getKey() {return key;}
 

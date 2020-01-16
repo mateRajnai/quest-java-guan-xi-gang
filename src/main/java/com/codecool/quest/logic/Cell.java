@@ -39,13 +39,22 @@ public class Cell implements Drawable {
     public Item getItem() { return item; }
 
     public Cell getNeighbor(int dx, int dy) {
-        return gameMap.getCell(x + dx, y + dy);
+        try {
+            return gameMap.getCell(x + dx, y + dy);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
     }
 
     @Override
     public String getTileName() {
         return type.getTileName();
     }
+
 
     public int getX() {
         return x;

@@ -23,6 +23,7 @@ public abstract class Item implements Drawable {
         int playerPositionX = map.getPlayer().getX();
         int playerPositionY = map.getPlayer().getY();
         Cell cell = map.getCell(playerPositionX, playerPositionY);
+        System.out.println(cell.getTileName());
         if (cell.getTileName().equals(itemToBePickedUp)) {
             cell.setItem(null);
             cell.setType(CellType.FLOOR);

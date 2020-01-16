@@ -3,6 +3,9 @@ package com.codecool.quest;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.actors.Bat;
+import com.codecool.quest.logic.actors.Duck;
+import com.codecool.quest.logic.actors.Golem;
 import com.codecool.quest.logic.actors.Skeleton;
 import com.codecool.quest.logic.items.Hammer;
 import javafx.application.Application;
@@ -15,11 +18,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 
 public class Main extends Application {
@@ -34,6 +39,7 @@ public class Main extends Application {
     ListView<String> inventory = new ListView<String>();
 
 
+    Label characterNameLabel = new Label("hackerman");
 
     public static void main(String[] args) {
         launch(args);
@@ -42,16 +48,22 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
+        ColumnConstraints col1 = new ColumnConstraints(85);
+        ui.getColumnConstraints().add(col1);
+
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
+
         ui.add(pickUpButton, 0, 2);
         ui.add(inventory, 0, 3);
         inventory.setPrefWidth(30);
         inventory.setPrefHeight(70);
 
+        ui.add(new Label("Epic name: "), 0, 0);
+        ui.add(characterNameLabel, 1, 0);
+        ui.add(new Label("Health: "), 0, 1);
+        ui.add(healthLabel, 1, 1);
 
         BorderPane borderPane = new BorderPane();
 
@@ -64,45 +76,80 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Codecool Quest");
+
+        TextInputDialog nameDialog = createCharacterNameDialog();
         primaryStage.show();
 
         borderPane.requestFocus();
         ObservableList<String> items = FXCollections.observableArrayList();
         pickUpButton.setOnAction(actionEvent -> {
-            if (map.getHammer().pickUpItem(map, "hammer")) {
-                items.add(map.getHammer().getTileName());
-                inventory.setItems(items);
-            } else if (map.getKey().pickUpItem(map, "key")) {
-                items.add(map.getKey().getTileName());
-                inventory.setItems(items);
+            try {
+                if (map.getHammer().pickUpItem(map, "hammer")) {
+                    items.add(map.getHammer().getTileName());
+                    inventory.setItems(items);
+                }
+            } catch (NullPointerException e1) {
+                    int test = 1;
+                }
+            try {
+                if (map.getKey().pickUpItem(map, "key")) {
+                    System.out.println("1");
+                    items.add(map.getKey().getTileName());
+                    inventory.setItems(items);
+                }
+            } catch (NullPointerException e1) {
+                int test = 1;
             }
             borderPane.requestFocus();
         });
+        setCharacterName(nameDialog);
     }
 
+    private TextInputDialog createCharacterNameDialog() {
+        TextInputDialog nameDialog = new TextInputDialog("hackerman");
+        nameDialog.setTitle("Character setup");
+        nameDialog.setHeaderText("Choose an epic name for your character!");
+        nameDialog.setContentText("Epic name:");
+        nameDialog.setGraphic(null);
 
+        Button cancelButton = (Button) nameDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cancelButton.setVisible(false);
+
+        TextField nameInputField = nameDialog.getEditor();
+        Button OKButton = (Button) nameDialog.getDialogPane().lookupButton(ButtonType.OK);
+        nameInputField.textProperty().addListener((observable, oldValue, newValue) -> {
+            OKButton.setDisable(!(newValue.length() > 0 && newValue.length() <= 9));
+        });
+
+        return nameDialog;
+    }
+
+    private void setCharacterName(TextInputDialog dialog) {
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(name -> this.characterNameLabel.setText(name));
+    }
 
     private void onKeyPressed(KeyEvent keyEvent) {
 
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
-                refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
-                refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
-                refresh();
+                map.getPlayer().move(1, 0);
                 break;
         }
-        map.getSkeletons().forEach(Skeleton::move);
+        Skeleton.getSkeletons().forEach(Skeleton::move);
+        Bat.getBats().forEach(Bat::move);
+        Duck.getDucks().forEach(Duck::move);
+        Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
+        refresh();
     }
 
     private void refresh() {
@@ -122,5 +169,4 @@ public class Main extends Application {
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
     }
-
 }
