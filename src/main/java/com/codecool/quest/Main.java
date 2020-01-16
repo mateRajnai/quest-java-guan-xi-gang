@@ -40,7 +40,7 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Button pickUpButton = new Button("Pick up");
 
-    ListView<String> inventory = new ListView<String>();
+    ListView<String> inventory = new ListView<>();
 
     Label characterNameLabel = new Label("hackerman");
     ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
@@ -51,28 +51,24 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        prepareStage(primaryStage);
+        GridPane ui = createUI();
+        BorderPane borderPane = createBorderPane(ui);
+        Scene scene = createScene(borderPane);
+        prepareStage(primaryStage, scene);
         refresh();
         primaryStage.show();
+        borderPane.requestFocus();
         setCharacterName();
         activateBots();
     }
 
-    private void prepareStage(Stage primaryStage) {
-        Scene scene = createScene();
+    private void prepareStage(Stage primaryStage, Scene scene) {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Codecool Quest");
         primaryStage.setOnCloseRequest(windowEvent -> botActuator.shutdown());
     }
 
-    private Scene createScene() {
-        GridPane ui = createUI();
-
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
-
-        borderPane.requestFocus();
+    private Scene createScene(BorderPane borderPane) {
         ObservableList<String> items = FXCollections.observableArrayList();
         pickUpButton.setOnAction(actionEvent -> {
             addItemToInventory(map, "hammer", items);
@@ -84,6 +80,13 @@ public class Main extends Application {
         Scene scene = new Scene(borderPane);
         scene.setOnKeyPressed(this::onKeyPressed);
         return scene;
+    }
+
+    private BorderPane createBorderPane(GridPane ui) {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+        borderPane.setRight(ui);
+        return borderPane;
     }
 
     private GridPane createUI() {
@@ -114,8 +117,7 @@ public class Main extends Application {
                 items.add(itemToBeAdd);
                 inventory.setItems(items);
             }
-        } catch (NullPointerException e1) {
-            int test = 1;
+        } catch (NullPointerException ignored) {
         }
         if (map.getPlayer().getCell().getTileName().equals(itemToBeAdd))
             items.add(itemToBeAdd);
