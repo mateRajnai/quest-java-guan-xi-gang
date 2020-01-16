@@ -19,11 +19,11 @@ public class Player extends Actor {
     }
 
 
-
     @Override
     public void move(int dx, int dy) {
-
         Cell nextCell = super.getCell().getNeighbor(dx, dy);
+        if (nextCell == null) return;
+
         if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
             super.getCell().setActor(null);
             nextCell.setActor(this);

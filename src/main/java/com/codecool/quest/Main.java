@@ -1,17 +1,25 @@
 package com.codecool.quest;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.actors.Bat;
 import com.codecool.quest.logic.actors.Duck;
 import com.codecool.quest.logic.actors.Golem;
 import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.items.Hammer;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -19,6 +27,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class Main extends Application {
@@ -28,7 +39,12 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Button pickUpButton = new Button("Pick up");
+
+    ListView<String> inventory = new ListView<>();
+
     Label characterNameLabel = new Label("hackerman");
+    ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
 
     public static void main(String[] args) {
         launch(args);
@@ -36,7 +52,47 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        GridPane ui = createUI();
+        BorderPane borderPane = createBorderPane(ui);
+        Scene scene = createScene(borderPane);
+        prepareStage(primaryStage, scene);
+        refresh();
+        primaryStage.show();
+        borderPane.requestFocus();
+        setCharacterName();
+        activateBots();
+    }
+
+    private void prepareStage(Stage primaryStage, Scene scene) {
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Codecool Quest");
+        primaryStage.setOnCloseRequest(windowEvent -> botActuator.shutdown());
+    }
+
+    private Scene createScene(BorderPane borderPane) {
+        ObservableList<String> items = FXCollections.observableArrayList();
+        pickUpButton.setOnAction(actionEvent -> {
+            addItemToInventory(map, "hammer", items);
+            addItemToInventory(map, "key", items);
+            pickUpCoins(items);
+            borderPane.requestFocus();
+        });
+
+        Scene scene = new Scene(borderPane);
+        scene.setOnKeyPressed(this::onKeyPressed);
+        return scene;
+    }
+
+    private BorderPane createBorderPane(GridPane ui) {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+        borderPane.setRight(ui);
+        return borderPane;
+    }
+
+    private GridPane createUI() {
         GridPane ui = new GridPane();
+
         ColumnConstraints col1 = new ColumnConstraints(85);
         ui.getColumnConstraints().add(col1);
 
@@ -48,21 +104,30 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 1);
         ui.add(healthLabel, 1, 1);
 
-        BorderPane borderPane = new BorderPane();
+        ui.add(pickUpButton, 0, 2);
+        ui.add(inventory, 0, 3);
+        inventory.setPrefWidth(30);
+        inventory.setPrefHeight(70);
 
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
+        return ui;
+    }
 
-        Scene scene = new Scene(borderPane);
-        primaryStage.setScene(scene);
-        refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
+    private void addItemToInventory(GameMap map, String itemToBeAdd, ObservableList<String> items) {
+        System.out.println(map.getPlayer().getCell().getTileName());
+        try {
+            if (map.getPlayer().getCell().getItem().pickUpItem(map, itemToBeAdd)) {
+                items.add(itemToBeAdd);
+                inventory.setItems(items);
+            }
+        } catch (NullPointerException ignored) {
+        }
+    }
 
-        primaryStage.setTitle("Codecool Quest");
-
-        TextInputDialog nameDialog = createCharacterNameDialog();
-        primaryStage.show();
-        setCharacterName(nameDialog);
+    private void pickUpCoins(ObservableList<String> items) {
+        if (map.getPlayer().getCell().getTileName().equals("coins"))
+            items.add("coins");
+        inventory.setItems(items);
+        map.getPlayer().getCell().setType(CellType.FLOOR);
     }
 
     private TextInputDialog createCharacterNameDialog() {
@@ -84,9 +149,21 @@ public class Main extends Application {
         return nameDialog;
     }
 
-    private void setCharacterName(TextInputDialog dialog) {
+    private void setCharacterName() {
+        TextInputDialog dialog = createCharacterNameDialog();
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> this.characterNameLabel.setText(name));
+    }
+
+    private void activateBots() {
+        Runnable actuate = () -> Platform.runLater(() -> {
+            Skeleton.getSkeletons().forEach(Skeleton::move);
+            Bat.getBats().forEach(Bat::move);
+            Duck.getDucks().forEach(Duck::move);
+            Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
+            refresh();
+        });
+        botActuator.scheduleAtFixedRate(actuate, 0, 500, TimeUnit.MILLISECONDS);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -105,10 +182,6 @@ public class Main extends Application {
                 map.getPlayer().move(1, 0);
                 break;
         }
-        Skeleton.getSkeletons().forEach(Skeleton::move);
-        Bat.getBats().forEach(Bat::move);
-        Duck.getDucks().forEach(Duck::move);
-        Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
         refresh();
     }
 
