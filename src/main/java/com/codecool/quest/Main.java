@@ -1,13 +1,13 @@
 package com.codecool.quest;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.actors.Bat;
 import com.codecool.quest.logic.actors.Duck;
 import com.codecool.quest.logic.actors.Golem;
 import com.codecool.quest.logic.actors.Skeleton;
-import com.codecool.quest.logic.items.Hammer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -39,6 +39,7 @@ public class Main extends Application {
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Button pickUpButton = new Button("Pick up");
+    Visuals visuals = new Visuals();
 
     ListView<String> inventory = new ListView<>();
 
@@ -177,6 +178,7 @@ public class Main extends Application {
                 break;
         }
         refresh();
+        checkEndGame();
     }
 
     private void refresh() {
@@ -195,5 +197,17 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+    }
+
+    public void checkEndGame() {
+        if (map.getPlayer().getCell().getType() == CellType.STAIRS_DOWN) {
+            botActuator.shutdown();
+            botActuator = Executors.newSingleThreadScheduledExecutor();
+            Alert gameWonAlert = visuals.getGameWonAlert();
+            gameWonAlert.showAndWait();
+            map = MapLoader.loadMap();
+            refresh();
+            activateBots();
+        }
     }
 }
