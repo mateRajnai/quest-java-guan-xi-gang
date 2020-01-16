@@ -54,6 +54,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = createUI();
         BorderPane borderPane = createBorderPane(ui);
+        preparePickUpButton(borderPane);
         Scene scene = createScene(borderPane);
         prepareStage(primaryStage, scene);
         refresh();
@@ -61,33 +62,6 @@ public class Main extends Application {
         borderPane.requestFocus();
         setCharacterName();
         activateBots();
-    }
-
-    private void prepareStage(Stage primaryStage, Scene scene) {
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Codecool Quest");
-        primaryStage.setOnCloseRequest(windowEvent -> botActuator.shutdown());
-    }
-
-    private Scene createScene(BorderPane borderPane) {
-        ObservableList<String> items = FXCollections.observableArrayList();
-        pickUpButton.setOnAction(actionEvent -> {
-            addItemToInventory(map, "hammer", items);
-            addItemToInventory(map, "key", items);
-            addItemToInventory(map, "coin", items);
-            borderPane.requestFocus();
-        });
-
-        Scene scene = new Scene(borderPane);
-        scene.setOnKeyPressed(this::onKeyPressed);
-        return scene;
-    }
-
-    private BorderPane createBorderPane(GridPane ui) {
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
-        return borderPane;
     }
 
     private GridPane createUI() {
@@ -110,6 +84,35 @@ public class Main extends Application {
         inventory.setPrefHeight(70);
 
         return ui;
+    }
+
+    private BorderPane createBorderPane(GridPane ui) {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+        borderPane.setRight(ui);
+        return borderPane;
+    }
+
+    private void preparePickUpButton(BorderPane borderPane) {
+        ObservableList<String> items = FXCollections.observableArrayList();
+        pickUpButton.setOnAction(actionEvent -> {
+            addItemToInventory(map, "hammer", items);
+            addItemToInventory(map, "key", items);
+            addItemToInventory(map, "coin", items);
+            borderPane.requestFocus();
+        });
+    }
+
+    private Scene createScene(BorderPane borderPane) {
+        Scene scene = new Scene(borderPane);
+        scene.setOnKeyPressed(this::onKeyPressed);
+        return scene;
+    }
+
+    private void prepareStage(Stage primaryStage, Scene scene) {
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Codecool Quest");
+        primaryStage.setOnCloseRequest(windowEvent -> botActuator.shutdown());
     }
 
     private void addItemToInventory(GameMap map, String itemToBeAdd, ObservableList<String> items) {
