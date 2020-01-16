@@ -41,6 +41,33 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        prepareStage(primaryStage);
+        refresh();
+        primaryStage.show();
+        setCharacterName();
+        activateBots();
+    }
+
+    private void prepareStage(Stage primaryStage) {
+        Scene scene = createScene();
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Codecool Quest");
+        primaryStage.setOnCloseRequest(windowEvent -> botActuator.shutdown());
+    }
+
+    private Scene createScene() {
+        GridPane ui = createUI();
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+        borderPane.setRight(ui);
+
+        Scene scene = new Scene(borderPane);
+        scene.setOnKeyPressed(this::onKeyPressed);
+        return scene;
+    }
+
+    private GridPane createUI() {
         GridPane ui = new GridPane();
 
         ColumnConstraints col1 = new ColumnConstraints(85);
@@ -54,23 +81,7 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 1);
         ui.add(healthLabel, 1, 1);
 
-        BorderPane borderPane = new BorderPane();
-
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
-
-        Scene scene = new Scene(borderPane);
-        primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest(windowEvent -> botActuator.shutdown());
-        refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
-
-        primaryStage.setTitle("Codecool Quest");
-
-        TextInputDialog nameDialog = createCharacterNameDialog();
-        primaryStage.show();
-        setCharacterName(nameDialog);
-        activateBots();
+        return ui;
     }
 
     private TextInputDialog createCharacterNameDialog() {
@@ -92,7 +103,8 @@ public class Main extends Application {
         return nameDialog;
     }
 
-    private void setCharacterName(TextInputDialog dialog) {
+    private void setCharacterName() {
+        TextInputDialog dialog = createCharacterNameDialog();
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> this.characterNameLabel.setText(name));
     }
