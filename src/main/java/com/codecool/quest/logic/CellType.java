@@ -9,6 +9,7 @@ public enum CellType {
     DEAD_SKELETON("dead skeleton"),
     BONE("bone"),
     STAIRS_FROM_UP("stairs from up"),
+    STAIRS_DOWN("stairs down"),
     CAMPFIRE("campfire"),
     BRONZE_TORCH("bronze torch"),
     DRIED_BRANCH("dried branch"),

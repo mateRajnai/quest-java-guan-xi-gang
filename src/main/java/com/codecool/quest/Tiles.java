@@ -35,6 +35,7 @@ public class Tiles {
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("hammer", new Tile(7, 29));
         tileMap.put("stairs from up", new Tile(2, 6));
+        tileMap.put("stairs down", new Tile(3, 6));
         tileMap.put("dead skeleton", new Tile(0, 15));
         tileMap.put("bronze torch", new Tile(3, 15));
         tileMap.put("campfire", new Tile(14, 10));

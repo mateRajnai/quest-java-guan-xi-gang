@@ -65,6 +65,9 @@ public class MapLoader {
                         case 'u':
                             cell.setType(CellType.STAIRS_FROM_UP);
                             break;
+                        case '\\':
+                            cell.setType(CellType.STAIRS_DOWN);
+                            break;
                         case 'c':
                             cell.setType(CellType.CAMPFIRE);
                             break;
