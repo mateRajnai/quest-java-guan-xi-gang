@@ -34,6 +34,19 @@ public class Tiles {
         tileMap.put("duck", new Tile(25, 7));
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("hammer", new Tile(7, 29));
+        tileMap.put("stairs from up", new Tile(2, 6));
+        tileMap.put("dead skeleton", new Tile(0, 15));
+        tileMap.put("bronze torch", new Tile(3, 15));
+        tileMap.put("campfire", new Tile(14, 10));
+        tileMap.put("dried branch", new Tile(6, 2));
+        tileMap.put("stones", new Tile(5, 2));
+        tileMap.put("grass2", new Tile(6, 0));
+        tileMap.put("pot", new Tile(14, 26));
+        tileMap.put("chest closed", new Tile(8, 6));
+        tileMap.put("chest open", new Tile(9, 7));
+        tileMap.put("bone", new Tile(16, 24));
+        tileMap.put("coins", new Tile(9, 26));
+
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
