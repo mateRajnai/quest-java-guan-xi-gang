@@ -22,7 +22,6 @@ public class Chest extends Actor {
 
     @Override
     public void terminate() {
-        System.out.println("dead chest");
         this.getCell().setActor(null);
         this.getCell().setType(CellType.CHEST_OPEN);
         whoAmI = "open chest";
