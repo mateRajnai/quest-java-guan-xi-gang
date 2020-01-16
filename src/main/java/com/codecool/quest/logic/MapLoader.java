@@ -87,6 +87,7 @@ public class MapLoader {
                             break;
                         case 'e':
                             cell.setType(CellType.CHEST_CLOSED);
+                            Chest.addChest(new Chest(cell));
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
