@@ -13,8 +13,7 @@ public abstract class Actor implements Drawable {
     protected int health;
     protected int attackDamage;
     protected int armor;
-    protected String characterType;
-    protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire"));
+    protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire", "chest open"));
 
 
     public Actor(Cell cell) {
