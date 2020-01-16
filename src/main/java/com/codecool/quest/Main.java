@@ -8,6 +8,7 @@ import com.codecool.quest.logic.actors.Duck;
 import com.codecool.quest.logic.actors.Golem;
 import com.codecool.quest.logic.actors.Skeleton;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -19,6 +20,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class Main extends Application {
@@ -29,6 +33,7 @@ public class Main extends Application {
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Label characterNameLabel = new Label("hackerman");
+    ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
 
     public static void main(String[] args) {
         launch(args);
@@ -37,6 +42,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
+
         ColumnConstraints col1 = new ColumnConstraints(85);
         ui.getColumnConstraints().add(col1);
 
@@ -55,6 +61,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
+        primaryStage.setOnCloseRequest(windowEvent -> botActuator.shutdown());
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
@@ -63,6 +70,7 @@ public class Main extends Application {
         TextInputDialog nameDialog = createCharacterNameDialog();
         primaryStage.show();
         setCharacterName(nameDialog);
+        activateBots();
     }
 
     private TextInputDialog createCharacterNameDialog() {
@@ -89,6 +97,17 @@ public class Main extends Application {
         result.ifPresent(name -> this.characterNameLabel.setText(name));
     }
 
+    private void activateBots() {
+        Runnable actuate = () -> Platform.runLater(() -> {
+            Skeleton.getSkeletons().forEach(Skeleton::move);
+            Bat.getBats().forEach(Bat::move);
+            Duck.getDucks().forEach(Duck::move);
+            Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
+            refresh();
+        });
+        botActuator.scheduleAtFixedRate(actuate, 0, 500, TimeUnit.MILLISECONDS);
+    }
+
     private void onKeyPressed(KeyEvent keyEvent) {
 
         switch (keyEvent.getCode()) {
@@ -105,10 +124,6 @@ public class Main extends Application {
                 map.getPlayer().move(1, 0);
                 break;
         }
-        Skeleton.getSkeletons().forEach(Skeleton::move);
-        Bat.getBats().forEach(Bat::move);
-        Duck.getDucks().forEach(Duck::move);
-        Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
         refresh();
     }
 
