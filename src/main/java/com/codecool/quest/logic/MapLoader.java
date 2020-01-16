@@ -10,9 +10,15 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
+    private static int currentLevel;
 
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    public static int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public static GameMap loadMap(int level) {
+        currentLevel = level;
+        InputStream is = MapLoader.class.getResourceAsStream(String.format("/map%d.txt", level));
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();

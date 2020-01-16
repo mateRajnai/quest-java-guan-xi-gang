@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap();
+    GameMap map = MapLoader.loadMap(1);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -194,10 +194,14 @@ public class Main extends Application {
     public void checkEndGame() {
         if (map.getPlayer().getCell().getType() == CellType.STAIRS_DOWN) {
             botActuator.shutdown();
+            if (MapLoader.getCurrentLevel() == 1) {
+                map = MapLoader.loadMap(2);
+            } else {
+                Alert gameWonAlert = visuals.getGameWonAlert();
+                gameWonAlert.showAndWait();
+                map = MapLoader.loadMap(1);
+            }
             botActuator = Executors.newSingleThreadScheduledExecutor();
-            Alert gameWonAlert = visuals.getGameWonAlert();
-            gameWonAlert.showAndWait();
-            map = MapLoader.loadMap();
             refresh();
             activateBots();
         }
