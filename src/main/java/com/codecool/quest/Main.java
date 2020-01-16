@@ -99,6 +99,7 @@ public class Main extends Application {
             addItemToInventory(map, "hammer", items);
             addItemToInventory(map, "key", items);
             addItemToInventory(map, "coin", items);
+            pickUpCoins(items);
             borderPane.requestFocus();
         });
     }
@@ -126,10 +127,11 @@ public class Main extends Application {
     }
 
     private void pickUpCoins(ObservableList<String> items) {
-        if (map.getPlayer().getCell().getTileName().equals("coins"))
+        if (map.getPlayer().getCell().getTileName().equals("coins")) {
             items.add("coins");
-        inventory.setItems(items);
-        map.getPlayer().getCell().setType(CellType.FLOOR);
+            inventory.setItems(items);
+            map.getPlayer().getCell().setType(CellType.FLOOR);
+        }
     }
 
     private void setCharacterName() {
