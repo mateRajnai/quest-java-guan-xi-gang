@@ -69,10 +69,10 @@ public class Main extends Application {
         borderPane.requestFocus();
         ObservableList<String> items = FXCollections.observableArrayList();
         pickUpButton.setOnAction(actionEvent -> {
-            if (map.removeHammer(map)) {
+            if (map.getHammer().pickUpItem(map, "hammer")) {
                 items.add(map.getHammer().getTileName());
                 inventory.setItems(items);
-            } else if (map.removeKey(map)) {
+            } else if (map.getKey().pickUpItem(map, "key")) {
                 items.add(map.getKey().getTileName());
                 inventory.setItems(items);
             }

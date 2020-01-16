@@ -70,31 +70,4 @@ public class GameMap {
 
     public void setKey(Key key) {this.key = key;}
 
-    public boolean removeHammer(GameMap map) {
-        int playerPositionX = map.getPlayer().getX();
-        int playerPositionY = map.getPlayer().getY();
-        Cell cell = map.getCell(playerPositionX, playerPositionY);
-        if (cell.getTileName().equals("hammer")) {
-            Hammer hammer = map.getHammer();
-            hammer.getCell().setItem(null);
-            cell.setType(CellType.FLOOR);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean removeKey(GameMap map) {
-        int playerPositionX = map.getPlayer().getX();
-        int playerPositionY = map.getPlayer().getY();
-        Cell cell = map.getCell(playerPositionX, playerPositionY);
-        if (cell.getTileName().equals("key")) {
-            Key key = map.getKey();
-            key.getCell().setItem(null);
-            cell.setType(CellType.FLOOR);
-            return true;
-        }
-        return false;
-    }
-
-
 }
