@@ -7,12 +7,18 @@ import com.codecool.quest.logic.actors.Bat;
 import com.codecool.quest.logic.actors.Duck;
 import com.codecool.quest.logic.actors.Golem;
 import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.items.Hammer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -32,6 +38,10 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Button pickUpButton = new Button("Pick up");
+
+    ListView<String> inventory = new ListView<String>();
+
     Label characterNameLabel = new Label("hackerman");
     ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
 
@@ -62,6 +72,15 @@ public class Main extends Application {
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
 
+        borderPane.requestFocus();
+        ObservableList<String> items = FXCollections.observableArrayList();
+        pickUpButton.setOnAction(actionEvent -> {
+            addItemToInventory(map, "hammer", items);
+            addItemToInventory(map, "key", items);
+            addItemToInventory(map, "coin", items);
+            borderPane.requestFocus();
+        });
+
         Scene scene = new Scene(borderPane);
         scene.setOnKeyPressed(this::onKeyPressed);
         return scene;
@@ -81,8 +100,27 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 1);
         ui.add(healthLabel, 1, 1);
 
+        ui.add(pickUpButton, 0, 2);
+        ui.add(inventory, 0, 3);
+        inventory.setPrefWidth(30);
+        inventory.setPrefHeight(70);
+
         return ui;
     }
+
+    private void addItemToInventory(GameMap map, String itemToBeAdd, ObservableList<String> items) {
+        try {
+            if (map.getPlayer().getCell().getItem().pickUpItem(map, itemToBeAdd)) {
+                items.add(itemToBeAdd);
+                inventory.setItems(items);
+            }
+        } catch (NullPointerException e1) {
+            int test = 1;
+        }
+        if (map.getPlayer().getCell().getTileName().equals(itemToBeAdd))
+            items.add(itemToBeAdd);
+    }
+
 
     private TextInputDialog createCharacterNameDialog() {
         TextInputDialog nameDialog = new TextInputDialog("hackerman");

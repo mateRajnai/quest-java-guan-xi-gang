@@ -17,8 +17,7 @@ public class MapLoader {
         int width = scanner.nextInt();
         int height = scanner.nextInt();
 
-        scanner.nextLine(); // empty line
-
+        scanner.nextLine();
         GameMap map = new GameMap(width, height, CellType.EMPTY);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
@@ -40,12 +39,12 @@ public class MapLoader {
                             Skeleton.addSkeleton(new Skeleton(cell));
                             break;
                         case 'k':
-                            cell.setType(CellType.FLOOR);
-                            new Key(cell);
+                            cell.setType(CellType.KEY);
+                            map.setKey(new Key(cell));
                             break;
                         case 'h':
-                            cell.setType(CellType.FLOOR);
-                            new Hammer(cell);
+                            cell.setType(CellType.HAMMER);
+                            map.setHammer(new Hammer(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);

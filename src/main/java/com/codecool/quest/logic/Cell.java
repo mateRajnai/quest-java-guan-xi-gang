@@ -1,6 +1,7 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Actor;
+import com.codecool.quest.logic.items.Hammer;
 import com.codecool.quest.logic.items.Item;
 
 public class Cell implements Drawable {
@@ -53,6 +54,7 @@ public class Cell implements Drawable {
     public String getTileName() {
         return type.getTileName();
     }
+
 
     public int getX() {
         return x;

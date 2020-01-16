@@ -4,6 +4,8 @@ public enum CellType {
     EMPTY("empty"),
     FLOOR("floor"),
     WALL("wall"),
+    HAMMER("hammer"),
+    KEY("key"),
     DEAD_SKELETON("dead skeleton"),
     BONE("bone"),
     STAIRS_FROM_UP("stairs from up"),
