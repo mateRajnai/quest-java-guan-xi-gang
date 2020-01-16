@@ -124,41 +124,23 @@ public class Main extends Application {
             items.add(itemToBeAdd);
     }
 
-
-    private TextInputDialog createCharacterNameDialog() {
-        TextInputDialog nameDialog = new TextInputDialog("hackerman");
-        nameDialog.setTitle("Character setup");
-        nameDialog.setHeaderText("Choose an epic name for your character!");
-        nameDialog.setContentText("Epic name:");
-        nameDialog.setGraphic(null);
-
-        Button cancelButton = (Button) nameDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-        cancelButton.setVisible(false);
-
-        TextField nameInputField = nameDialog.getEditor();
-        Button OKButton = (Button) nameDialog.getDialogPane().lookupButton(ButtonType.OK);
-        nameInputField.textProperty().addListener((observable, oldValue, newValue) -> {
-            OKButton.setDisable(!(newValue.length() > 0 && newValue.length() <= 9));
-        });
-
-        return nameDialog;
-    }
-
     private void setCharacterName() {
-        TextInputDialog dialog = createCharacterNameDialog();
+        TextInputDialog dialog = visuals.getCharacterNameDialog();
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> this.characterNameLabel.setText(name));
     }
 
     private void activateBots() {
-        Runnable actuate = () -> Platform.runLater(() -> {
-            Skeleton.getSkeletons().forEach(Skeleton::move);
-            Bat.getBats().forEach(Bat::move);
-            Duck.getDucks().forEach(Duck::move);
-            Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
-            refresh();
-        });
+        Runnable actuate = () -> Platform.runLater(this::actuateBots);
         botActuator.scheduleAtFixedRate(actuate, 0, 500, TimeUnit.MILLISECONDS);
+    }
+
+    private void actuateBots() {
+        Skeleton.getSkeletons().forEach(Skeleton::move);
+        Bat.getBats().forEach(Bat::move);
+        Duck.getDucks().forEach(Duck::move);
+        Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
+        refresh();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
