@@ -34,7 +34,7 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
-    Button pickUpButton = new Button("Pick up item");
+    Button pickUpButton = new Button("Pick up");
 
     ListView<String> inventory = new ListView<String>();
 
@@ -83,27 +83,28 @@ public class Main extends Application {
         borderPane.requestFocus();
         ObservableList<String> items = FXCollections.observableArrayList();
         pickUpButton.setOnAction(actionEvent -> {
-            try {
-                if (map.getHammer().pickUpItem(map, "hammer")) {
-                    items.add(map.getHammer().getTileName());
-                    inventory.setItems(items);
-                }
-            } catch (NullPointerException e1) {
-                    int test = 1;
-                }
-            try {
-                if (map.getKey().pickUpItem(map, "key")) {
-                    System.out.println("1");
-                    items.add(map.getKey().getTileName());
-                    inventory.setItems(items);
-                }
-            } catch (NullPointerException e1) {
-                int test = 1;
-            }
+            addItemToInventory(map, "hammer", items);
+            addItemToInventory(map, "key", items);
+            addItemToInventory(map, "coin", items);
             borderPane.requestFocus();
         });
+
         setCharacterName(nameDialog);
     }
+
+    private void addItemToInventory(GameMap map, String itemToBeAdd, ObservableList<String> items) {
+        try {
+            if (map.getPlayer().getCell().getItem().pickUpItem(map, itemToBeAdd)) {
+                items.add(itemToBeAdd);
+                inventory.setItems(items);
+            }
+        } catch (NullPointerException e1) {
+            int test = 1;
+        }
+        if (map.getPlayer().getCell().getTileName().equals(itemToBeAdd))
+            items.add(itemToBeAdd);
+    }
+
 
     private TextInputDialog createCharacterNameDialog() {
         TextInputDialog nameDialog = new TextInputDialog("hackerman");
