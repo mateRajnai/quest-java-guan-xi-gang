@@ -43,7 +43,7 @@ public class Tiles {
         tileMap.put("grass2", new Tile(6, 0));
         tileMap.put("pot", new Tile(14, 26));
         tileMap.put("chest closed", new Tile(8, 6));
-        tileMap.put("chest open", new Tile(9, 7));
+        tileMap.put("chest open", new Tile(9, 6));
         tileMap.put("bone", new Tile(16, 24));
         tileMap.put("coins", new Tile(9, 26));
 
