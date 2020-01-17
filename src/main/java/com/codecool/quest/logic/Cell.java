@@ -1,7 +1,7 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Actor;
-import com.codecool.quest.logic.items.Hammer;
+import com.codecool.quest.logic.items.Coins;
 import com.codecool.quest.logic.items.Item;
 
 public class Cell implements Drawable {
@@ -35,6 +35,7 @@ public class Cell implements Drawable {
     }
 
     public void setItem(Item item) { this.item = item; }
+
 
     public Item getItem() { return item; }
 
