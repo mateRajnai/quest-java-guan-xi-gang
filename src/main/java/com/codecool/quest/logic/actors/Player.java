@@ -3,6 +3,7 @@ package com.codecool.quest.logic.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.HandleAttack;
+import com.codecool.quest.logic.items.Key;
 
 public class Player extends Actor {
 
@@ -61,5 +62,6 @@ public class Player extends Actor {
             getCell().getNeighbor(0, 1).setType(CellType.DOOR_OPENED);
         else if (getCell().getNeighbor(0, -1).getTileName().equals("door closed"))
             getCell().getNeighbor(0, -1).setType(CellType.DOOR_OPENED);
+        Key.removeKeyRandomly();
     }
 }
