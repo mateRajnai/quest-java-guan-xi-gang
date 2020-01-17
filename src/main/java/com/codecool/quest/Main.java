@@ -74,7 +74,7 @@ public class Main extends Application {
         pickUpButton.setOnAction(actionEvent -> {
             addItemToInventory(map, "hammer", items);
             addItemToInventory(map, "key", items);
-            pickUpCoins(items);
+            addItemToInventory(map, "coins", items);
             borderPane.requestFocus();
         });
 
@@ -113,7 +113,6 @@ public class Main extends Application {
     }
 
     private void addItemToInventory(GameMap map, String itemToBeAdd, ObservableList<String> items) {
-        System.out.println(map.getPlayer().getCell().getTileName());
         try {
             if (map.getPlayer().getCell().getItem().pickUpItem(map, itemToBeAdd)) {
                 items.add(itemToBeAdd);
@@ -121,13 +120,6 @@ public class Main extends Application {
             }
         } catch (NullPointerException ignored) {
         }
-    }
-
-    private void pickUpCoins(ObservableList<String> items) {
-        if (map.getPlayer().getCell().getTileName().equals("coins"))
-            items.add("coins");
-        inventory.setItems(items);
-        map.getPlayer().getCell().setType(CellType.FLOOR);
     }
 
     private TextInputDialog createCharacterNameDialog() {

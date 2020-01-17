@@ -40,11 +40,11 @@ public class MapLoader {
                             break;
                         case 'k':
                             cell.setType(CellType.KEY);
-                            map.setKey(new Key(cell));
+                            Key.addKey(new Key(cell));
                             break;
                         case 'h':
                             cell.setType(CellType.HAMMER);
-                            map.setHammer(new Hammer(cell));
+                            Hammer.addHammer(new Hammer(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
