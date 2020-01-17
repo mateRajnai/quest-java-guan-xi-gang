@@ -46,6 +46,8 @@ public class Tiles {
         tileMap.put("chest open", new Tile(9, 6));
         tileMap.put("bone", new Tile(16, 24));
         tileMap.put("coins", new Tile(9, 26));
+        tileMap.put("door closed", new Tile(3, 9));
+        tileMap.put("door opened", new Tile(3, 6));
 
     }
 
