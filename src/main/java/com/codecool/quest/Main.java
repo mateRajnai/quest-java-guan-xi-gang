@@ -1,18 +1,18 @@
 package com.codecool.quest;
 
 import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.actors.Bat;
 import com.codecool.quest.logic.actors.Duck;
 import com.codecool.quest.logic.actors.Golem;
 import com.codecool.quest.logic.actors.Skeleton;
-import com.codecool.quest.logic.items.Hammer;
+import com.codecool.quest.logic.items.Key;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -22,6 +22,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -76,6 +78,22 @@ public class Main extends Application {
             addItemToInventory(map, "key", items);
             addItemToInventory(map, "coins", items);
             borderPane.requestFocus();
+        });
+
+        inventory.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+                    String selectedItem = inventory.getSelectionModel().getSelectedItem();
+                    if (selectedItem.equals("key") && map.getPlayer().isDoorInNeighbourCell()) {
+                        map.getPlayer().openDoorInNeighbourCell();
+                        int indexOfKey = inventory.getSelectionModel().getSelectedIndex();
+                        inventory.getItems().remove(indexOfKey);
+
+                    }
+
+                }
+            }
         });
 
         Scene scene = new Scene(borderPane);
