@@ -1,6 +1,7 @@
 package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.HandleAttack;
 
 public class Player extends Actor {
@@ -25,9 +26,9 @@ public class Player extends Actor {
         if (nextCell == null) return;
 
         if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
-            super.getCell().setActor(null);
-            nextCell.setActor(this);
-            super.setCell(nextCell);
+                super.getCell().setActor(null);
+                nextCell.setActor(this);
+                super.setCell(nextCell);
 
         } else if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() != null) {
             int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
@@ -42,5 +43,23 @@ public class Player extends Actor {
 
     public String getTileName() {
         return "player";
+    }
+
+    public boolean isDoorInNeighbourCell() {
+        return getCell().getNeighbor(1, 0).getTileName().equals("door closed") ||
+                getCell().getNeighbor(-1, 0).getTileName().equals("door closed") ||
+                getCell().getNeighbor(0, 1).getTileName().equals("door closed") ||
+                getCell().getNeighbor(0, -1).getTileName().equals("door closed");
+    }
+
+    public void openDoorInNeighbourCell() {
+        if (getCell().getNeighbor(1, 0).getTileName().equals("door closed"))
+            getCell().getNeighbor(1, 0).setType(CellType.DOOR_OPENED);
+        else if (getCell().getNeighbor(-1, 0).getTileName().equals("door closed"))
+            getCell().getNeighbor(-1, 0).setType(CellType.DOOR_OPENED);
+        else if (getCell().getNeighbor(0, 1).getTileName().equals("door closed"))
+            getCell().getNeighbor(0, 1).setType(CellType.DOOR_OPENED);
+        else if (getCell().getNeighbor(0, -1).getTileName().equals("door closed"))
+            getCell().getNeighbor(0, -1).setType(CellType.DOOR_OPENED);
     }
 }
