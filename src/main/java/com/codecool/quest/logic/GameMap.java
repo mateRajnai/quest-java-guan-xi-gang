@@ -52,9 +52,4 @@ public class GameMap {
     public int getHeight() {
         return height;
     }
-
-    public void setHammer(Hammer hammer) {this.hammer = hammer;}
-
-    public void setKey(Key key) {this.key = key;}
-
 }
