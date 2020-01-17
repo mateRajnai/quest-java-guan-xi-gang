@@ -9,13 +9,19 @@ import com.codecool.quest.logic.actors.Player;
 public abstract class Item implements Drawable {
     private Cell cell;
     private Player player;
+    private boolean isInInventory;
 
     public Item(Cell cell) {
         this.cell = cell;
         this.cell.setItem(this);
+        this.isInInventory = false;
     }
 
     public void setCell(Cell cell) { this.cell = cell; }
+
+    public boolean isInInventory() {
+        return isInInventory;
+    }
 
     public Cell getCell() { return cell; }
 
