@@ -24,8 +24,8 @@ public class Visuals {
     private static Label healthPoints = new Label();
     private static Label characterNameLabel = new Label("Epic name: ");
     private static Label characterName = new Label("hackerman");
-    private static Button pickUpButton = new Button("Pick up");
-    private static ListView<String> inventory = new ListView<>();
+//    private static Button pickUpButton = new Button("Pick up");
+//    private static ListView<String> inventory = new ListView<>();
 
     private static TextInputDialog characterNameDialog;
     private static Alert gameWonAlert;
@@ -61,10 +61,10 @@ public class Visuals {
         ui.add(healthLabel, 0, 0);
         ui.add(healthPoints, 1, 0);
 
-        ui.add(pickUpButton, 0, 2);
-        ui.add(inventory, 0, 3);
-        inventory.setPrefWidth(30);
-        inventory.setPrefHeight(70);
+//        ui.add(pickUpButton, 0, 2);
+//        ui.add(inventory, 0, 3);
+//        inventory.setPrefWidth(30);
+//        inventory.setPrefHeight(70);
     }
 
     private static void initCharacterNameDialog() {
@@ -95,20 +95,12 @@ public class Visuals {
         gameWonAlert.setTitle("Epic victory message");
     }
 
-    public Button getPickUpButton() {
-        return pickUpButton;
-    }
-
     public BorderPane getLayout() {
         return layout;
     }
 
     public Scene getScene() {
         return scene;
-    }
-
-    public ListView<String> getInventory() {
-        return inventory;
     }
 
     public void setCharacterName(String name) {

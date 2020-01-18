@@ -35,7 +35,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         visuals = new Visuals(map);
         Scene scene = visuals.getScene();
-        initPickUpButton();
         scene.setOnKeyPressed(this::onKeyPressed);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Codecool quest");
@@ -45,35 +44,6 @@ public class Main extends Application {
         visuals.getLayout().requestFocus();
         setCharacterName();
         activateBots();
-    }
-
-    private void initPickUpButton() {
-        ObservableList<String> items = FXCollections.observableArrayList();
-        visuals.getPickUpButton().setOnAction(actionEvent -> {
-            addItemToInventory(map, "hammer", items);
-            addItemToInventory(map, "key", items);
-            addItemToInventory(map, "coin", items);
-            pickUpCoins(items);
-            visuals.getLayout().requestFocus();
-        });
-    }
-
-    private void addItemToInventory(GameMap map, String itemToBeAdd, ObservableList<String> items) {
-        try {
-            if (map.getPlayer().getCell().getItem().pickUpItem(map, itemToBeAdd)) {
-                items.add(itemToBeAdd);
-                visuals.getInventory().setItems(items);
-            }
-        } catch (NullPointerException ignored) {
-        }
-    }
-
-    private void pickUpCoins(ObservableList<String> items) {
-        if (map.getPlayer().getCell().getTileName().equals("coins")) {
-            items.add("coins");
-            visuals.getInventory().setItems(items);
-            map.getPlayer().getCell().setType(CellType.FLOOR);
-        }
     }
 
     private void setCharacterName() {
