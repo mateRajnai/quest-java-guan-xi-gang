@@ -2,6 +2,7 @@ package com.codecool.quest;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
+import com.codecool.quest.logic.Inventory;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -25,12 +26,12 @@ public class Visuals {
     private static Label characterNameLabel = new Label("Epic name: ");
     private static Label characterName = new Label("hackerman");
 //    private static Button pickUpButton = new Button("Pick up");
-//    private static ListView<String> inventory = new ListView<>();
 
     private static TextInputDialog characterNameDialog;
     private static Alert gameWonAlert;
 
     private GameMap map;
+    private static Inventory inventory = new Inventory();
 
     static {
         int canvasWidth = 800;
@@ -62,9 +63,7 @@ public class Visuals {
         ui.add(healthPoints, 1, 0);
 
 //        ui.add(pickUpButton, 0, 2);
-//        ui.add(inventory, 0, 3);
-//        inventory.setPrefWidth(30);
-//        inventory.setPrefHeight(70);
+        ui.add(inventory.asListView(), 0, 3);
     }
 
     private static void initCharacterNameDialog() {

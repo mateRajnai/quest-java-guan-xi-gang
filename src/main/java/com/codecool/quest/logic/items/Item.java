@@ -15,4 +15,8 @@ public abstract class Item implements Drawable {
 
     public Cell getCell() { return cell; }
 
+    @Override
+    public String toString() {
+        return this.getTileName();
+    }
 }
