@@ -25,13 +25,13 @@ public class Visuals {
     private static Label healthPoints = new Label();
     private static Label characterNameLabel = new Label("Epic name: ");
     private static Label characterName = new Label("hackerman");
+    private static Inventory inventory = new Inventory();
 //    private static Button pickUpButton = new Button("Pick up");
 
     private static TextInputDialog characterNameDialog;
     private static Alert gameWonAlert;
 
     private GameMap map;
-    private static Inventory inventory = new Inventory();
 
     static {
         int canvasWidth = 800;
