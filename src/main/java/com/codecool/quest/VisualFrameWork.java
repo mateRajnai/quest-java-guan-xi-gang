@@ -1,7 +1,6 @@
 package com.codecool.quest;
 
 import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.GameMap;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,10 +32,6 @@ public class VisualFrameWork {
 
     public Scene getScene() {
         return scene;
-    }
-
-    public void setUi(UI ui) {
-        this.ui = ui;
     }
 
     public static void focusLayout() {

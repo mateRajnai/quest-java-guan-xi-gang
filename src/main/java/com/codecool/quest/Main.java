@@ -63,7 +63,6 @@ public class Main extends Application {
                 map = MapLoader.loadMap(1);
             }
             ui.setMap(map);
-            visuals.setUi(ui);
             visuals.refresh();
             botControl.reactivate();
         }
