@@ -15,6 +15,10 @@ public abstract class Item implements Drawable {
 
     public Cell getCell() { return cell; }
 
+    public void removeFromCell() {
+        this.cell.setItem(null);
+    }
+
     @Override
     public String toString() {
         return this.getTileName();

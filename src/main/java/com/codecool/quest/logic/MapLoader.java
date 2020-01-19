@@ -45,12 +45,12 @@ public class MapLoader {
                             Skeleton.addSkeleton(new Skeleton(cell));
                             break;
                         case 'k':
-                            cell.setType(CellType.KEY);
-                            map.setKey(new Key(cell));
+                            cell.setType(CellType.FLOOR);
+                            new Key(cell);
                             break;
                         case 'h':
                             cell.setType(CellType.HAMMER);
-                            map.setHammer(new Hammer(cell));
+                            new Hammer(cell);
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);

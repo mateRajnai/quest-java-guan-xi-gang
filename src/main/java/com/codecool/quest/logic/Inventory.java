@@ -13,6 +13,7 @@ public class Inventory{
 
     public void add(Item item) {
         element.getItems().add(item);
+        item.removeFromCell();
     }
 
     public ListView<Item> asListView() {

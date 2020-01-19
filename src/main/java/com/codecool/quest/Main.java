@@ -9,8 +9,6 @@ import com.codecool.quest.logic.actors.Golem;
 import com.codecool.quest.logic.actors.Skeleton;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -24,7 +22,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap(1);
-    Visuals visuals;
+    VisualFrameWork visuals;
+    UI ui;
     ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
 
     public static void main(String[] args) {
@@ -33,7 +32,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        visuals = new Visuals(map);
+        visuals = new VisualFrameWork(map);
+        ui = visuals.getUi();
         Scene scene = visuals.getScene();
         scene.setOnKeyPressed(this::onKeyPressed);
         primaryStage.setScene(scene);
@@ -41,15 +41,9 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(windowEvent -> botActuator.shutdown());
         visuals.refresh();
         primaryStage.show();
-        visuals.getLayout().requestFocus();
-        setCharacterName();
+        VisualFrameWork.focusLayout();
+        ui.setCharacterName();
         activateBots();
-    }
-
-    private void setCharacterName() {
-        TextInputDialog dialog = visuals.getCharacterNameDialog();
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(name -> visuals.setCharacterName(name));
     }
 
     private void activateBots() {
@@ -91,12 +85,11 @@ public class Main extends Application {
             if (MapLoader.getCurrentLevel() == 1) {
                 map = MapLoader.loadMap(2);
             } else {
-                Alert gameWonAlert = visuals.getGameWonAlert();
-                gameWonAlert.showAndWait();
+                ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
             }
             botActuator = Executors.newSingleThreadScheduledExecutor();
-            visuals = new Visuals(map);
+            visuals = new VisualFrameWork(map);
             visuals.refresh();
             activateBots();
         }
