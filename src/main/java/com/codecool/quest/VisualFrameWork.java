@@ -12,10 +12,9 @@ public class VisualFrameWork {
 
     private static Canvas canvas;
     private static GraphicsContext context;
-
-    private GameMap map;
-    private UI ui;
     private static BorderPane layout = new BorderPane();
+
+    private UI ui;
     private Scene scene;
 
     static {
@@ -23,12 +22,11 @@ public class VisualFrameWork {
         int canvasHeight = 640;
         canvas = new Canvas(canvasWidth, canvasHeight);
         context = canvas.getGraphicsContext2D();
+        layout.setCenter(canvas);
     }
 
-    public VisualFrameWork(GameMap map) {
-        this.map = map;
-        layout.setCenter(canvas);
-        ui = new UI(map);
+    public VisualFrameWork(UI ui) {
+        this.ui = ui;
         layout.setRight(ui);
         scene = new Scene(layout);
     }
@@ -37,8 +35,8 @@ public class VisualFrameWork {
         return scene;
     }
 
-    public UI getUi() {
-        return ui;
+    public void setUi(UI ui) {
+        this.ui = ui;
     }
 
     public static void focusLayout() {
@@ -48,9 +46,9 @@ public class VisualFrameWork {
     public void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
+        for (int x = 0; x < ui.getMap().getWidth(); x++) {
+            for (int y = 0; y < ui.getMap().getHeight(); y++) {
+                Cell cell = ui.getMap().getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
                 } else if (cell.getItem() != null) {

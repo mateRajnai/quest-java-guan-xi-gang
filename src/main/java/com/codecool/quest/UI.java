@@ -93,4 +93,12 @@ public class UI extends GridPane {
     public void showEndingAlert() {
         endingAlert.showAndWait();
     }
+
+    public GameMap getMap() {
+        return map;
+    }
+
+    public void setMap(GameMap map) {
+        this.map = map;
+    }
 }

@@ -30,8 +30,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        visuals = new VisualFrameWork(map);
-        ui = visuals.getUi();
+        ui = new UI(map);
+        visuals = new VisualFrameWork(ui);
         Scene scene = visuals.getScene();
         scene.setOnKeyPressed(this::onKeyPressed);
         primaryStage.setScene(scene);
@@ -87,7 +87,8 @@ public class Main extends Application {
                 map = MapLoader.loadMap(1);
             }
             botActuator = Executors.newSingleThreadScheduledExecutor();
-            visuals = new VisualFrameWork(map);
+            ui.setMap(map);
+            visuals.setUi(ui);
             visuals.refresh();
             activateBots();
         }
