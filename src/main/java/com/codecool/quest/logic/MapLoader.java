@@ -49,7 +49,7 @@ public class MapLoader {
                             new Key(cell);
                             break;
                         case 'h':
-                            cell.setType(CellType.HAMMER);
+                            cell.setType(CellType.FLOOR);
                             new Hammer(cell);
                             break;
                         case '@':
@@ -69,10 +69,10 @@ public class MapLoader {
                             Duck.addDuck(new Duck(cell));
                             break;
                         case 'u':
-                            cell.setType(CellType.STAIRS_FROM_UP);
+                            cell.setType(CellType.UPSTAIRS);
                             break;
                         case '\\':
-                            cell.setType(CellType.STAIRS_DOWN);
+                            cell.setType(CellType.DOWNSTAIRS);
                             break;
                         case 'c':
                             cell.setType(CellType.CAMPFIRE);

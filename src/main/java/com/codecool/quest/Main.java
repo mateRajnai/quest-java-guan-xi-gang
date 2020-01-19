@@ -78,7 +78,7 @@ public class Main extends Application {
     }
 
     public void checkEndGame() {
-        if (map.getPlayer().getCell().getType() == CellType.STAIRS_DOWN) {
+        if (map.getPlayer().getCell().getType() == CellType.DOWNSTAIRS) {
             botActuator.shutdown();
             if (MapLoader.getCurrentLevel() == 1) {
                 map = MapLoader.loadMap(2);
