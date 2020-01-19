@@ -5,7 +5,6 @@ import com.codecool.quest.logic.Inventory;
 import com.codecool.quest.logic.items.Item;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
