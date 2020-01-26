@@ -7,6 +7,7 @@ public class Player extends Actor {
 
     HandleAttack handleAttack = new HandleAttack();
 
+    private static Player player;
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 5;
     private static final int INITIAL_ARMOR = 0;
@@ -16,8 +17,12 @@ public class Player extends Actor {
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
+        player = this;
     }
 
+    public static Player getInstance() {
+        return player;
+    }
 
     @Override
     public void move(int dx, int dy) {

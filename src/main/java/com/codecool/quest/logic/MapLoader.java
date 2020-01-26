@@ -54,7 +54,14 @@ public class MapLoader {
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            Player player;
+                            if (currentLevel == 1) {
+                                player = new Player(cell);
+                            } else {
+                                player = Player.getInstance();
+                                player.setCell(cell);
+                            }
+                            map.setPlayer(player);
                             break;
                         case 'b':
                             cell.setType(CellType.FLOOR);
