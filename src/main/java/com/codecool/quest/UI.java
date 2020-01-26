@@ -40,12 +40,6 @@ public class UI extends GridPane {
         this.add(healthLabel, 0, 0);
         this.add(healthPoints, 1, 0);
         this.add(inventory.asListView(), 0, 3);
-        Button pickUpButton = new Button("Pick up");
-        pickUpButton.setOnAction(actionEvent -> {
-            handlePickUpButtonClick();
-            VisualFrameWork.focusLayout();
-        });
-        this.add(pickUpButton, 0, 2);
     }
 
     private static void initCharacterNameDialog() {
@@ -74,6 +68,15 @@ public class UI extends GridPane {
         endingAlert.setGraphic(null);
         endingAlert.setHeaderText(null);
         endingAlert.setTitle("Epic victory message");
+    }
+
+    public void initPickUpButton(VisualFrameWork visuals) {
+        Button pickUpButton = new Button("Pick up");
+        pickUpButton.setOnAction(actionEvent -> {
+            handlePickUpButtonClick();
+            visuals.focusLayout();
+        });
+        this.add(pickUpButton, 0, 2);
     }
 
     private void handlePickUpButtonClick() {

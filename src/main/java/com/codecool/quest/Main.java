@@ -27,12 +27,14 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Codecool quest");
         primaryStage.setOnCloseRequest(windowEvent -> botControl.deactivate());
+        ui.initPickUpButton(visuals);
         visuals.refresh();
         primaryStage.show();
-        VisualFrameWork.focusLayout();
+        visuals.focusLayout();
         ui.setCharacterName();
         botControl.activate();
     }
+
     private void onKeyPressed(KeyEvent keyEvent) {
 
         switch (keyEvent.getCode()) {

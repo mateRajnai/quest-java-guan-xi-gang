@@ -9,22 +9,20 @@ import javafx.scene.paint.Color;
 
 public class VisualFrameWork {
 
-    private static Canvas canvas;
-    private static GraphicsContext context;
-    private static BorderPane layout = new BorderPane();
+    private Canvas canvas;
+    private GraphicsContext context;
+    private BorderPane layout;
 
     private UI ui;
     private Scene scene;
 
-    static {
+    public VisualFrameWork(UI ui) {
         int canvasWidth = 800;
         int canvasHeight = 640;
         canvas = new Canvas(canvasWidth, canvasHeight);
         context = canvas.getGraphicsContext2D();
+        layout = new BorderPane();
         layout.setCenter(canvas);
-    }
-
-    public VisualFrameWork(UI ui) {
         this.ui = ui;
         layout.setRight(ui);
         scene = new Scene(layout);
@@ -34,7 +32,7 @@ public class VisualFrameWork {
         return scene;
     }
 
-    public static void focusLayout() {
+    public void focusLayout() {
         layout.requestFocus();
     }
 
