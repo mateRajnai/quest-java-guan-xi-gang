@@ -40,7 +40,7 @@ public class UI extends GridPane {
         this.add(characterName, 1, 1);
         this.add(healthLabel, 0, 0);
         this.add(healthPoints, 1, 0);
-        this.add(inventory.asListView(), 0, 3);
+        this.add(inventory, 0, 3);
         this.add(pickUpButton, 0, 2);
     }
 
