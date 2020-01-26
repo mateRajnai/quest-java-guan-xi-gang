@@ -22,6 +22,7 @@ public class UI extends GridPane {
     private Label healthPoints = new Label();
     private Label characterName = new Label("hackerman");
     private Inventory inventory = new Inventory();
+    private Button pickUpButton = new Button("Pick up");
 
     static {
         initCharacterNameDialog();
@@ -40,6 +41,7 @@ public class UI extends GridPane {
         this.add(healthLabel, 0, 0);
         this.add(healthPoints, 1, 0);
         this.add(inventory.asListView(), 0, 3);
+        this.add(pickUpButton, 0, 2);
     }
 
     private static void initCharacterNameDialog() {
@@ -71,12 +73,10 @@ public class UI extends GridPane {
     }
 
     public void initPickUpButton(VisualFrameWork visuals) {
-        Button pickUpButton = new Button("Pick up");
         pickUpButton.setOnAction(actionEvent -> {
             handlePickUpButtonClick();
             visuals.focusLayout();
         });
-        this.add(pickUpButton, 0, 2);
     }
 
     private void handlePickUpButtonClick() {
