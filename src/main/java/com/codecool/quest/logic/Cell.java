@@ -1,8 +1,8 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Actor;
-import com.codecool.quest.logic.items.Hammer;
 import com.codecool.quest.logic.items.Item;
+import com.codecool.quest.util.Direction;
 
 public class Cell implements Drawable {
     private CellType type;
@@ -32,6 +32,14 @@ public class Cell implements Drawable {
 
     public Actor getActor() {
         return actor;
+    }
+
+    public boolean hasActor() {
+        return actor != null;
+    }
+
+    public boolean isBlocking() {
+        return (type != CellType.FLOOR || hasActor());
     }
 
     public void setItem(Item item) { this.item = item; }
