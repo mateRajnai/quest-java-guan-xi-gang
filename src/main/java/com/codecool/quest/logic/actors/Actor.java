@@ -24,6 +24,12 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {}
 
+    protected void moveTo(Cell nextCell) {
+        this.cell.setActor(null);
+        nextCell.setActor(this);
+        this.setCell(nextCell);
+    }
+
     protected void attack(Actor target) {
         target.setHealth(target.getHealth() - this.getAttackDamage());
         if (target.getHealth() <= 0)
