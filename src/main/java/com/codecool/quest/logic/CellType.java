@@ -27,4 +27,18 @@ public enum CellType {
     public String getTileName() {
         return tileName;
     }
+
+    public boolean isTraversable() {
+        switch (this) {
+            case FLOOR:
+            case BONE:
+            case GRASS2:
+            case DEAD_SKELETON:
+            case UPSTAIRS:
+            case DOWNSTAIRS:
+                return true;
+            default:
+                return false;
+        }
+    }
 }

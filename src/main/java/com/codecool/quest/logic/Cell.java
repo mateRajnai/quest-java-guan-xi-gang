@@ -39,7 +39,7 @@ public class Cell implements Drawable {
     }
 
     public boolean isBlocking() {
-        return (type != CellType.FLOOR || hasActor());
+        return (!type.isTraversable() || hasActor());
     }
 
     public void setItem(Item item) { this.item = item; }
