@@ -46,6 +46,10 @@ public class Cell implements Drawable {
         }
     }
 
+    public Cell getNeighbor(Direction direction) {
+        return getNeighbor(direction.getDx(), direction.getDy());
+    }
+
     public GameMap getGameMap() {
         return gameMap;
     }
