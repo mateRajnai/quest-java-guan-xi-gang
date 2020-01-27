@@ -3,7 +3,6 @@ package com.codecool.quest.logic.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.util.Direction;
-import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +27,15 @@ public class Bat extends Actor {
     public void move() {
         Cell nextCell = this.getCell().getNeighbor(direction);
 
-        if (nextCell.getActor() instanceof Player)
+        if (nextCell.getActor() instanceof Player) {
             attack(nextCell.getActor());
-        else
-            moveToNewCell(nextCell);
+        } else {
+            changeDirection(nextCell);
+            this.moveTo(this.getCell().getNeighbor(direction));
+        }
     }
 
-    private void moveToNewCell(Cell defaultCell) {
-        chooseDirection(defaultCell);
-        Cell nextCell = this.getCell().getNeighbor(direction);
-        this.getCell().setActor(null);
-        this.setCell(nextCell);
-    }
-
-    private void chooseDirection(Cell defaultCell) {
+    private void changeDirection(Cell defaultCell) {
         Cell yNeighbor = this.getCell().getNeighbor(direction.yComponent());
         Cell xNeighbor = this.getCell().getNeighbor(direction.xComponent());
 
