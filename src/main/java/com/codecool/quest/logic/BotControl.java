@@ -30,7 +30,7 @@ public class BotControl {
     }
 
     public void activate() {
-        botActuator.scheduleAtFixedRate(actuate, 0, 500, TimeUnit.MILLISECONDS);
+        botActuator.scheduleAtFixedRate(actuate, 0, 250, TimeUnit.MILLISECONDS);
     }
 
     public void deactivate() {
