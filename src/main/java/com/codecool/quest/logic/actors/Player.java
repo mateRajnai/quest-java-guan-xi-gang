@@ -26,19 +26,13 @@ public class Player extends Actor {
 
     @Override
     public void move(int dx, int dy) {
-        Cell nextCell = super.getCell().getNeighbor(dx, dy);
+        Cell nextCell = this.getCell().getNeighbor(dx, dy);
         if (nextCell == null) return;
 
-        if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
-            super.getCell().setActor(null);
-            nextCell.setActor(this);
-            super.setCell(nextCell);
-
-        } else if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() != null) {
-            int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
-            nextCell.getActor().setHealth(modifiedDefenderHealth);
-            handleAttack.isDead(modifiedDefenderHealth, nextCell);
-        }
+        if (!nextCell.isBlocking())
+            this.moveTo(nextCell);
+        else if (nextCell.hasActor())
+            this.attack(nextCell.getActor());
     }
 
     public void terminate() {
