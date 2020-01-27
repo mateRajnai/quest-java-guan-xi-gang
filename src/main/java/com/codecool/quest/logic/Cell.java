@@ -58,10 +58,6 @@ public class Cell implements Drawable {
         return getNeighbor(direction.getDx(), direction.getDy());
     }
 
-    public GameMap getGameMap() {
-        return gameMap;
-    }
-
     @Override
     public String getTileName() {
         return type.getTileName();
