@@ -10,8 +10,6 @@ import java.util.List;
 
 public class Bat extends Actor {
 
-    HandleAttack handleAttack = new HandleAttack();
-
     private static final int INITIAL_HEALTH = 6;
     private static final int INITIAL_ATTACK_DAMAGE = 1;
     private static final int INITIAL_ARMOR = 0;
