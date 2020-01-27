@@ -16,7 +16,7 @@ public class Bat extends Actor {
     private static final int INITIAL_ATTACK_DAMAGE = 1;
     private static final int INITIAL_ARMOR = 0;
 
-    private Direction direction = Direction.RIGHT_DOWN;
+    private Direction direction = new Direction(1, 1);
     private static List<Bat> bats = new ArrayList<>();
 
 
@@ -48,13 +48,13 @@ public class Bat extends Actor {
         Cell xNeighbor = this.getCell().getNeighbor(direction.xComponent());
 
         if (yNeighbor.isBlocking() && xNeighbor.isBlocking())
-            direction = direction.fullFlipped();
+            direction = direction.reversed();
         else if (xNeighbor.isBlocking())
             direction = direction.xFlipped();
         else if (yNeighbor.isBlocking())
             direction = direction.yFlipped();
         else if (defaultCell.isBlocking())
-            direction = direction.fullFlipped();
+            direction = direction.reversed();
     }
 
     public void terminate() {
