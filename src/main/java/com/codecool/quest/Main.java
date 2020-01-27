@@ -42,7 +42,6 @@ public class Main extends Application {
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Button pickUpButton = new Button("Pick up");
-
     ListView<String> inventory = new ListView<>();
 
     Label characterNameLabel = new Label("hackerman");
@@ -72,6 +71,7 @@ public class Main extends Application {
     }
 
     private Scene createScene(BorderPane borderPane) {
+        // All of the list that you work with in javafx has a type of ObservableList
         ObservableList<String> items = FXCollections.observableArrayList();
         pickUpButton.setOnAction(actionEvent -> {
             addItemToInventory(map, "hammer", items);
@@ -80,19 +80,16 @@ public class Main extends Application {
             borderPane.requestFocus();
         });
 
-        inventory.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-                    String selectedItem = inventory.getSelectionModel().getSelectedItem();
-                    if (selectedItem.equals("key") && map.getPlayer().isDoorInNeighbourCell()) {
-                        map.getPlayer().openDoorInNeighbourCell();
-                        int indexOfKey = inventory.getSelectionModel().getSelectedIndex();
-                        inventory.getItems().remove(indexOfKey);
-
-                    }
+        inventory.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+                String selectedItem = inventory.getSelectionModel().getSelectedItem();
+                if (selectedItem.equals("key") && map.getPlayer().isDoorInNeighbourCell()) {
+                    map.getPlayer().openDoorInNeighbourCell();
+                    int indexOfKey = inventory.getSelectionModel().getSelectedIndex();
+                    inventory.getItems().remove(indexOfKey);
 
                 }
+
             }
         });
 
