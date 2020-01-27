@@ -23,11 +23,4 @@ public class HandleAttack {
         Actor target = targetCell.getActor();
         target.terminate();
     }
-
-    public void attackPlayer(Actor attacker, Cell nextCell) {
-        Player player = (Player) nextCell.getActor();
-        int playerHealth = attack(player.getHealth(), attacker.getAttackDamage());
-        player.setHealth(playerHealth);
-        isDead(playerHealth, nextCell);
-    }
 }

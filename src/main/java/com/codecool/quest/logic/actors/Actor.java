@@ -22,11 +22,12 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy) {
-    };
+    public void move(int dx, int dy) {}
 
-    public int attack(int targetHealth) {
-        return targetHealth - this.attackDamage;
+    protected void attack(Actor target) {
+        target.setHealth(target.getHealth() - this.getAttackDamage());
+        if (target.getHealth() <= 0)
+            target.terminate();
     }
 
     public int getHealth() {
@@ -37,11 +38,13 @@ public abstract class Actor implements Drawable {
     public int getAttackDamage() {
         return this.attackDamage;
     }
+
     public void setAttackDamage(int newAttackDamage) {this.attackDamage = newAttackDamage;}
 
     public int getArmor() {
         return this.armor;
     }
+
     public void setArmor(int newArmor) {this.armor = newArmor;}
 
     public Cell getCell() {

@@ -31,7 +31,7 @@ public class Bat extends Actor {
         Cell nextCell = this.getCell().getNeighbor(direction);
 
         if (nextCell.getActor() instanceof Player)
-            handleAttack.attackPlayer(this, nextCell);
+            attack(nextCell.getActor());
         else
             moveToNewCell(nextCell);
     }
