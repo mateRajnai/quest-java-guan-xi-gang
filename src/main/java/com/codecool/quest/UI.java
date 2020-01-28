@@ -27,6 +27,10 @@ public class UI extends GridPane {
     private Inventory inventory = new Inventory();
     private Button pickUpButton = new Button("Pick up");
 
+    private final Integer startTime = 30;
+    private Integer secondsLeft = startTime;
+
+
     static {
         initCharacterNameDialog();
         initGameWonAlert();
