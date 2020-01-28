@@ -47,6 +47,10 @@ public class Cell implements Drawable {
 
     public Item getItem() { return item; }
 
+    public boolean hasItem() {
+        return this.item != null;
+    }
+
     public Cell getNeighbor(int dx, int dy) {
         try {
             return gameMap.getCell(x + dx, y + dy);
