@@ -6,8 +6,8 @@ import com.codecool.quest.logic.actors.Player;
 public class MapView {
     private final static int CANVAS_WIDTH = 25;
     private final static int CANVAS_HEIGHT = 20;
-    private final static int WIDTH_BREAKPOINT = (int) (CANVAS_WIDTH * 0.66);
-    private final static int HEIGHT_BREAKPOINT = (int) (CANVAS_HEIGHT * 0.66);
+    private final static int X_OFFSET = 12;
+    private final static int Y_OFFSET = 9;
 
     private int mapWidth;
     private int mapHeight;
@@ -27,10 +27,10 @@ public class MapView {
 
     private int initialMinX() {
         int x = player.getX();
-        if (x < CANVAS_WIDTH / 2)
+        if (x <= X_OFFSET)
             return 0;
-        else if (x < mapWidth - CANVAS_WIDTH / 2)
-            return x - CANVAS_WIDTH / 2;
+        else if (x < mapWidth - CANVAS_WIDTH + X_OFFSET)
+            return x - X_OFFSET;
         else
             return mapWidth - CANVAS_WIDTH;
     }
@@ -47,33 +47,29 @@ public class MapView {
 
     public int minX() {
         int x = player.getX();
-        if (minX == 0 && x < WIDTH_BREAKPOINT)
+        if ((
+                minX == 0 && x <= X_OFFSET) || (
+                minX == mapWidth - CANVAS_WIDTH && x - X_OFFSET >= minX) || (
+                x - minX == X_OFFSET
+        ))
             return minX;
-
-        int relativeX = x - this.minX;
-        if (relativeX < CANVAS_WIDTH - WIDTH_BREAKPOINT)
-            return --minX;
-        else if (relativeX < WIDTH_BREAKPOINT)
-            return minX;
-        else if (x < mapWidth - (CANVAS_WIDTH - WIDTH_BREAKPOINT))
+        else if (x - minX > X_OFFSET)
             return ++minX;
         else
-            return minX;
+            return --minX;
     }
 
     public int minY() {
         int y = player.getY();
-        if (minY == 0 && y < HEIGHT_BREAKPOINT)
+        if ((
+                minY == 0 && y <= Y_OFFSET) || (
+                minY == mapHeight - CANVAS_HEIGHT && y - Y_OFFSET >= minY) || (
+                y - minY == Y_OFFSET
+        ))
             return minY;
-
-        int relativeY = y - this.minY;
-        if (relativeY < CANVAS_HEIGHT - HEIGHT_BREAKPOINT)
-            return --minY;
-        else if (relativeY < HEIGHT_BREAKPOINT)
-            return minY;
-        else if (y < mapHeight - (CANVAS_HEIGHT - HEIGHT_BREAKPOINT))
+        else if (y - minY > Y_OFFSET)
             return ++minY;
         else
-            return minY;
+            return --minY;
     }
 }
