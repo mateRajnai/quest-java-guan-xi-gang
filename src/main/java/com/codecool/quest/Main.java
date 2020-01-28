@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap(1);
+    GameMap map = MapLoader.loadMap();
     UI ui = new UI(map);
     VisualFrameWork visuals = new VisualFrameWork(ui);
     BotControl botControl = new BotControl(visuals);
@@ -65,7 +65,7 @@ public class Main extends Application {
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
             }
-            ui.setMap(map);
+            visuals.setMap(map);
             visuals.refresh();
             botControl.reactivate();
         }

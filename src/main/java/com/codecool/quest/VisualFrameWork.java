@@ -1,6 +1,7 @@
 package com.codecool.quest;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.util.MapView;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -29,6 +30,11 @@ public class VisualFrameWork {
         this.mapView = new MapView(ui.getMap());
         layout.setRight(ui);
         scene = new Scene(layout);
+    }
+
+    public void setMap(GameMap map) {
+        ui.setMap(map);
+        mapView = new MapView(map);
     }
 
     public Scene getScene() {
