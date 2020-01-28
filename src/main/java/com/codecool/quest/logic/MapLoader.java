@@ -17,6 +17,10 @@ public class MapLoader {
         return currentLevel;
     }
 
+    public static boolean hasNextLevel() {
+        return currentLevel < numberOfLevels;
+    }
+
     public static GameMap loadMap(int level) {
         currentLevel = level;
         InputStream is = MapLoader.class.getResourceAsStream(String.format("/map%d.txt", level));
