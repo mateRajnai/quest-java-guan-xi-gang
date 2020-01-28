@@ -15,13 +15,13 @@ public abstract class Item implements Drawable {
         this.isInInventory = false;
     }
 
+    public Cell getCell() { return cell; }
+
     public void setCell(Cell cell) { this.cell = cell; }
 
     public boolean isInInventory() {
         return isInInventory;
     }
-
-    public Cell getCell() { return cell; }
 
     public void removeFromCell() {
         this.cell.setItem(null);
