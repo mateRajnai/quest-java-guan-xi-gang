@@ -12,6 +12,6 @@ public class Inventory extends ListView<Item> {
 
     public void add(Item item) {
         this.getItems().add(item);
-        item.removeFromCell();
+        item.removeFromMap();
     }
 }

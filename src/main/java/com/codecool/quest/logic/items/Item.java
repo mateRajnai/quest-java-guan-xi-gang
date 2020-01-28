@@ -5,6 +5,8 @@ import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.Drawable;
 import com.codecool.quest.logic.GameMap;
 
+import java.util.List;
+
 public abstract class Item implements Drawable {
     private Cell cell;
     private boolean isInInventory;
@@ -23,8 +25,11 @@ public abstract class Item implements Drawable {
         return isInInventory;
     }
 
-    public void removeFromCell() {
+    public abstract List<Item> getInstances();
+
+    public void removeFromMap() {
         this.cell.setItem(null);
+        getInstances().removeIf(instance -> instance == this);
     }
 
     public boolean pickUpItem(GameMap map, String itemToBePickedUp) {

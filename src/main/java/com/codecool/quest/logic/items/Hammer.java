@@ -7,11 +7,16 @@ import java.util.List;
 
 public class Hammer extends Item {
 
-    private static List<Hammer> hammers = new ArrayList<>();
+    private static List<Item> hammers = new ArrayList<>();
 
     public Hammer(Cell cell) {
         super(cell);
         addHammer();
+    }
+
+    @Override
+    public List<Item> getInstances() {
+        return hammers;
     }
 
     private void addHammer() {
