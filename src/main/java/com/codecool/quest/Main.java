@@ -59,8 +59,8 @@ public class Main extends Application {
     public void checkEndGame() {
         if (map.getPlayer().getCell().getType() == CellType.DOWNSTAIRS) {
             botControl.deactivate();
-            if (MapLoader.getCurrentLevel() == 1) {
-                map = MapLoader.loadMap(2);
+            if (MapLoader.hasNextLevel()) {
+                map = MapLoader.loadMap();
             } else {
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
