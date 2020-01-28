@@ -4,11 +4,16 @@ import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.Inventory;
 import com.codecool.quest.logic.items.Item;
 import com.codecool.quest.logic.items.Key;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.util.Optional;
 
@@ -125,5 +130,25 @@ public class UI extends GridPane {
 
     public void setMap(GameMap map) {
         this.map = map;
+    }
+
+    public void countdown() {
+        Timeline time = new Timeline();
+        time.setCycleCount(Timeline.INDEFINITE);
+
+
+        KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                secondsLeft--;
+                countdownTimer.setText("Wait " + secondsLeft.toString() + " seconds if you want to fight the Boss");
+                if (secondsLeft <= 0) {
+                    time.stop();
+                }
+            }
+        });
+
+        time.getKeyFrames().add(frame);
+        time.playFromStart();
     }
 }
