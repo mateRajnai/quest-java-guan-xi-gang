@@ -21,8 +21,11 @@ public class MapLoader {
         return currentLevel < NUMBER_OF_LEVELS;
     }
 
+    public static GameMap loadMap() {
+        return loadMap(++currentLevel);
+    }
+
     public static GameMap loadMap(int level) {
-        currentLevel = level;
         InputStream is = MapLoader.class.getResourceAsStream(String.format("/map%d.txt", level));
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
