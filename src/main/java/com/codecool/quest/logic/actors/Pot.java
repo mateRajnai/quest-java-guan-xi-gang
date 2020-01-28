@@ -2,6 +2,7 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
+import com.codecool.quest.logic.items.Coins;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,11 @@ public class Pot extends Actor {
 
     public void rollForCoins() {
         int rolledNumber = random.nextInt(100);
-        if (rolledNumber > 50) {
-            this.getCell().setType(CellType.COINS);
+        if (rolledNumber > 0) {
+            Cell cell = this.getCell();
+            Coins coins = new Coins(cell);
+            cell.setType(CellType.COINS);
+            Coins.addCoins(coins);
         }
     }
 

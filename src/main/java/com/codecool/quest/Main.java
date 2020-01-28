@@ -2,11 +2,21 @@ package com.codecool.quest;
 
 import com.codecool.quest.logic.BotControl;
 import com.codecool.quest.logic.CellType;
+import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -33,6 +43,21 @@ public class Main extends Application {
         visuals.focusLayout();
         ui.setCharacterName();
         botControl.activate();
+    }
+
+    public void kamu() {
+        inventory.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+                String selectedItem = inventory.getSelectionModel().getSelectedItem();
+                if (selectedItem.equals("key") && map.getPlayer().isDoorInNeighbourCell()) {
+                    map.getPlayer().openDoorInNeighbourCell();
+                    int indexOfKey = inventory.getSelectionModel().getSelectedIndex();
+                    inventory.getItems().remove(indexOfKey);
+
+                }
+
+            }
+        });
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {

@@ -16,7 +16,9 @@ public enum CellType {
     POT("pot"),
     CHEST_OPEN("chest open"),
     CHEST_CLOSED("chest closed"),
-    COINS("coins");
+    COINS("coins"),
+    DOOR_CLOSED("door closed"),
+    DOOR_OPENED("door opened");
 
     private final String tileName;
 
