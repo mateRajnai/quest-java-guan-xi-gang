@@ -1,6 +1,7 @@
 package com.codecool.quest;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.util.MapView;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,6 +18,7 @@ public class VisualFrameWork {
 
     private UI ui;
     private Scene scene;
+    private MapView mapView;
 
     public VisualFrameWork(UI ui) {
         canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -24,6 +26,7 @@ public class VisualFrameWork {
         layout = new BorderPane();
         layout.setCenter(canvas);
         this.ui = ui;
+        this.mapView = new MapView(ui.getMap());
         layout.setRight(ui);
         scene = new Scene(layout);
     }
@@ -39,15 +42,17 @@ public class VisualFrameWork {
     public void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < ui.getMap().getWidth(); x++) {
-            for (int y = 0; y < ui.getMap().getHeight(); y++) {
+        int minY = mapView.minY();
+        int maxY = minY + (CANVAS_HEIGHT / Tiles.TILE_WIDTH);
+        for (int col = 0, x = 0; x < ui.getMap().getWidth(); x++, col++) {
+            for (int row = 0, y = minY; y < maxY; y++, row++) {
                 Cell cell = ui.getMap().getCell(x, y);
                 if (cell.hasActor()) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
+                    Tiles.drawTile(context, cell.getActor(), col, row);
                 } else if (cell.hasItem()) {
-                    Tiles.drawTile(context, cell.getItem(), x, y);
+                    Tiles.drawTile(context, cell.getItem(), col, row);
                 } else {
-                    Tiles.drawTile(context, cell, x, y);
+                    Tiles.drawTile(context, cell, col, row);
                 }
             }
         }
