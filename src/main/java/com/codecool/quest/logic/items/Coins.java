@@ -11,11 +11,11 @@ public class Coins extends Item {
 
     public Coins(Cell cell) {
         super(cell);
-        addCoins(this);
+        addCoins();
     }
 
-    public static void addCoins(Coins coin) {
-        coins.add(coin);
+    private void addCoins() {
+        coins.add(this);
     }
 
     @Override
