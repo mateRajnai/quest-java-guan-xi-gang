@@ -13,6 +13,7 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
+        setPlayerCurrentPosition(cell);
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -27,6 +28,7 @@ public class Player extends Actor {
         if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
             super.getCell().setActor(null);
             nextCell.setActor(this);
+            setPlayerCurrentPosition(nextCell);
             super.setCell(nextCell);
 
         } else if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() != null) {

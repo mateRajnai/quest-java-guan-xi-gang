@@ -9,8 +9,6 @@ import java.util.List;
 
 public class Golem extends Actor {
 
-    HandleAttack handleAttack = new HandleAttack();
-
     private static final int INITIAL_HEALTH = 30;
     private static final int INITIAL_ATTACK_DAMAGE = 2;
     private static final int INITIAL_ARMOR = 0;
