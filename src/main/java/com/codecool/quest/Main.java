@@ -34,10 +34,10 @@ public class Main extends Application {
         visuals.focusLayout();
         ui.setCharacterName();
         botControl.activate();
+        ui.countdown();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
