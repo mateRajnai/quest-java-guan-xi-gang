@@ -16,6 +16,7 @@ public class UI extends GridPane {
 
     private static Label healthLabel = new Label("Health: ");
     private static Label characterNameLabel = new Label("Epic name: ");
+    private static Label timer = new Label("Timer: ");
 
     private static TextInputDialog characterNameDialog;
     private static Alert endingAlert;
@@ -44,6 +45,7 @@ public class UI extends GridPane {
         this.add(healthPoints, 1, 0);
         this.add(inventory, 0, 3);
         this.add(pickUpButton, 0, 2);
+        this.add(timer, 0, 6);
     }
 
     private static void initCharacterNameDialog() {
