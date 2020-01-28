@@ -42,10 +42,12 @@ public class VisualFrameWork {
     public void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
         int minX = mapView.minX();
         int minY = mapView.minY();
         int maxY = minY + (CANVAS_HEIGHT / Tiles.TILE_WIDTH);
         int maxX = minX + (CANVAS_WIDTH / Tiles.TILE_WIDTH);
+
         for (int col = 0, x = minX; x < maxX; x++, col++) {
             for (int row = 0, y = minY; y < maxY; y++, row++) {
                 Cell cell = ui.getMap().getCell(x, y);
