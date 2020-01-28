@@ -15,6 +15,7 @@ public abstract class Actor implements Drawable {
     protected int armor;
     protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire", "chest open"));
     protected List<String> fixActors = new ArrayList<>(Arrays.asList("pot", "chest open", "chest closed"));
+    protected Cell playerCurrentPosition;
 
 
     public Actor(Cell cell) {
@@ -58,6 +59,18 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
+    public void setPlayerCurrentPosition(Cell playerCurrentPosition) {
+        this.playerCurrentPosition = playerCurrentPosition;
+    }
+
+    public Cell getPlayerCurrentPosition() {
+        return playerCurrentPosition;
+    }
+
     public abstract void terminate();
+
+    public boolean isPlayerNear() {
+        if(this.cell.getX() - playerCurrentPosition.getX() )
+    }
 
 }
