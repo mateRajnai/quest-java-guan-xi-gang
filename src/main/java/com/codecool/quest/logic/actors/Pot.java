@@ -31,10 +31,7 @@ public class Pot extends Actor {
     public void rollForCoins() {
         int rolledNumber = random.nextInt(100);
         if (rolledNumber > 0) {
-            Cell cell = this.getCell();
-            Coins coins = new Coins(cell);
-            cell.setType(CellType.COINS);
-            Coins.addCoins(coins);
+            new Coins(this.getCell());
         }
     }
 

@@ -11,6 +11,7 @@ public class Coins extends Item {
 
     public Coins(Cell cell) {
         super(cell);
+        addCoins(this);
     }
 
     public static void addCoins(Coins coin) {

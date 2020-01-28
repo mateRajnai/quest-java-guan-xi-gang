@@ -13,10 +13,8 @@ public enum CellType {
     DRIED_BRANCH("dried branch"),
     STONES("stones"),
     GRASS2("grass2"),
-    POT("pot"),
     CHEST_OPEN("chest open"),
     CHEST_CLOSED("chest closed"),
-    COINS("coins"),
     DOOR_CLOSED("door closed"),
     DOOR_OPENED("door opened");
 

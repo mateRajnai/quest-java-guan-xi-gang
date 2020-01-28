@@ -85,7 +85,7 @@ public class MapLoader {
                             cell.setType(CellType.CAMPFIRE);
                             break;
                         case 'p':
-                            cell.setType(CellType.POT);
+                            cell.setType(CellType.FLOOR);
                             Pot.addPot(new Pot(cell));
                             break;
                         case 't':
