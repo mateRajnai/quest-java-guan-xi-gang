@@ -36,17 +36,24 @@ public class Bat extends Actor {
     }
 
     private void changeDirection(Cell defaultCell) {
-        Cell yNeighbor = this.getCell().getNeighbor(direction.yComponent());
-        Cell xNeighbor = this.getCell().getNeighbor(direction.xComponent());
+        Cell currentCell = this.getCell();
+        Direction calculatedDirection = direction;
+        Cell yNeighbor = currentCell.getNeighbor(direction.yComponent());
+        Cell xNeighbor = currentCell.getNeighbor(direction.xComponent());
 
         if (yNeighbor.isBlocking() && xNeighbor.isBlocking())
-            direction = direction.reversed();
+            calculatedDirection = direction.reversed();
         else if (xNeighbor.isBlocking())
-            direction = direction.xFlipped();
+            calculatedDirection = direction.xFlipped();
         else if (yNeighbor.isBlocking())
-            direction = direction.yFlipped();
+            calculatedDirection = direction.yFlipped();
         else if (defaultCell.isBlocking())
-            direction = direction.reversed();
+            calculatedDirection = direction.reversed();
+
+        if (currentCell.getNeighbor(calculatedDirection).isBlocking())
+            calculatedDirection = direction.reversed();
+
+        direction = calculatedDirection;
     }
 
     public void terminate() {
