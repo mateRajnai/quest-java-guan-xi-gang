@@ -11,6 +11,7 @@ public class Key extends Item {
 
     public Key(Cell cell) {
         super(cell);
+        addKey(this);
     }
 
     public static void addKey(Key key) {

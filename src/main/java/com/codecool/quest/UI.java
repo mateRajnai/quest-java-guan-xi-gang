@@ -3,8 +3,10 @@ package com.codecool.quest;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.Inventory;
 import com.codecool.quest.logic.items.Item;
+import com.codecool.quest.logic.items.Key;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
@@ -70,6 +72,20 @@ public class UI extends GridPane {
         endingAlert.setGraphic(null);
         endingAlert.setHeaderText(null);
         endingAlert.setTitle("Epic victory message");
+    }
+
+    public void initInventory(VisualFrameWork visuals) {
+        inventory.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+                Item selectedItem = inventory.getSelectionModel().getSelectedItem();
+                if (selectedItem instanceof Key && map.getPlayer().isDoorInNeighbourCell()) {
+                    map.getPlayer().openDoorInNeighbourCell();
+                    int indexOfKey = inventory.getSelectionModel().getSelectedIndex();
+                    inventory.getItems().remove(indexOfKey);
+                    visuals.focusLayout();
+                }
+            }
+        });
     }
 
     public void initPickUpButton(VisualFrameWork visuals) {

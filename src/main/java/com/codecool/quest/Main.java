@@ -38,26 +38,12 @@ public class Main extends Application {
         primaryStage.setTitle("Codecool quest");
         primaryStage.setOnCloseRequest(windowEvent -> botControl.deactivate());
         ui.initPickUpButton(visuals);
+        ui.initInventory(visuals);
         visuals.refresh();
         primaryStage.show();
         visuals.focusLayout();
         ui.setCharacterName();
         botControl.activate();
-    }
-
-    public void kamu() {
-        inventory.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-                String selectedItem = inventory.getSelectionModel().getSelectedItem();
-                if (selectedItem.equals("key") && map.getPlayer().isDoorInNeighbourCell()) {
-                    map.getPlayer().openDoorInNeighbourCell();
-                    int indexOfKey = inventory.getSelectionModel().getSelectedIndex();
-                    inventory.getItems().remove(indexOfKey);
-
-                }
-
-            }
-        });
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {

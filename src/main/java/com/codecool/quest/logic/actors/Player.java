@@ -2,12 +2,9 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.HandleAttack;
 import com.codecool.quest.logic.items.Key;
 
 public class Player extends Actor {
-
-    HandleAttack handleAttack = new HandleAttack();
 
     private static Player player;
     private static final int INITIAL_HEALTH = 20;

@@ -38,6 +38,7 @@ public enum CellType {
             case DEAD_SKELETON:
             case UPSTAIRS:
             case DOWNSTAIRS:
+            case DOOR_OPENED:
                 return true;
             default:
                 return false;
