@@ -58,6 +58,5 @@ public class Player extends Actor {
             getCell().getNeighbor(0, 1).setType(CellType.DOOR_OPENED);
         else if (getCell().getNeighbor(0, -1).getTileName().equals("door closed"))
             getCell().getNeighbor(0, -1).setType(CellType.DOOR_OPENED);
-        Key.removeKeyRandomly();
     }
 }

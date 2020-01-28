@@ -23,11 +23,6 @@ public class Key extends Item {
         keys.add(key);
     }
 
-    public static void removeKeyRandomly() {
-        keys.remove(keys.get(0));
-        System.out.println(keys);
-    }
-
     @Override
     public String getTileName() {
         return "key";
