@@ -27,20 +27,32 @@ public class MapView {
 
     private int initialMinX() {
         int x = player.getX();
+
+        // player is close to left side of map
         if (x <= X_OFFSET)
             return 0;
+
+        // player's distance to left and right side of map is more than the specified offset
         else if (x < mapWidth - CANVAS_WIDTH + X_OFFSET)
             return x - X_OFFSET;
+
+        // player is close to right side of map
         else
             return mapWidth - CANVAS_WIDTH;
     }
 
     private int initialMinY() {
         int y = player.getY();
-        if (y < CANVAS_HEIGHT / 2)
+
+        // player is close to top of map
+        if (y <= Y_OFFSET)
             return 0;
-        else if (y < mapHeight - CANVAS_HEIGHT / 2)
-            return y - CANVAS_HEIGHT / 2;
+
+        // player's distance to top and bottom of map is more than the specified offset
+        else if (y < mapHeight - CANVAS_HEIGHT + Y_OFFSET)
+            return y - Y_OFFSET;
+
+        // player is close to bottom of map
         else
             return mapHeight - CANVAS_HEIGHT;
     }
