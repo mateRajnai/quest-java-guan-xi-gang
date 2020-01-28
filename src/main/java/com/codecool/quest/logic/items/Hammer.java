@@ -11,10 +11,11 @@ public class Hammer extends Item {
 
     public Hammer(Cell cell) {
         super(cell);
+        addHammer();
     }
 
-    public static void addHammer(Hammer hammer) {
-        hammers.add(hammer);
+    private void addHammer() {
+        hammers.add(this);
     }
 
     @Override

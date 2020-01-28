@@ -17,6 +17,7 @@ public class Pot extends Actor {
 
     public Pot(Cell cell) {
         super(cell);
+        addPot();
         this.setHealth(INITIAL_HEALTH);
     }
 
@@ -35,8 +36,8 @@ public class Pot extends Actor {
         }
     }
 
-    public static void addPot(Pot pot) {
-        pots.add(pot);
+    private void addPot() {
+        pots.add(this);
     }
 
     public static List<Pot> getPots() {

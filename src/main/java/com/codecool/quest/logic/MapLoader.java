@@ -42,7 +42,7 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            Skeleton.addSkeleton(new Skeleton(cell));
+                            new Skeleton(cell);
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
@@ -65,15 +65,15 @@ public class MapLoader {
                             break;
                         case 'b':
                             cell.setType(CellType.FLOOR);
-                            Bat.addBat(new Bat(cell));
+                            new Bat(cell);
                             break;
                         case 'g':
                             cell.setType(CellType.FLOOR);
-                            Golem.addGolem(new Golem(cell));
+                            new Golem(cell);
                             break;
                         case 'd':
                             cell.setType(CellType.FLOOR);
-                            Duck.addDuck(new Duck(cell));
+                            new Duck(cell);
                             break;
                         case 'u':
                             cell.setType(CellType.UPSTAIRS);
@@ -86,7 +86,7 @@ public class MapLoader {
                             break;
                         case 'p':
                             cell.setType(CellType.FLOOR);
-                            Pot.addPot(new Pot(cell));
+                            new Pot(cell);
                             break;
                         case 't':
                             cell.setType(CellType.BRONZE_TORCH);
@@ -102,7 +102,7 @@ public class MapLoader {
                             break;
                         case 'e':
                             cell.setType(CellType.CHEST_CLOSED);
-                            Chest.addChest(new Chest(cell));
+                            new Chest(cell);
                             break;
                         case 'x':
                             cell.setType(CellType.DOOR_CLOSED);

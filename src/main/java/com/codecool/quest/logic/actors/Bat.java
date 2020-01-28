@@ -19,6 +19,7 @@ public class Bat extends Actor {
 
     public Bat(Cell cell) {
         super(cell);
+        addBat();
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -62,8 +63,8 @@ public class Bat extends Actor {
         bats.removeIf(bat -> bat == this);
     }
 
-    public static void addBat(Bat bat) {
-        bats.add(bat);
+    private void addBat() {
+        bats.add(this);
     }
 
     public static List<Bat> getBats() {

@@ -20,6 +20,7 @@ public class Skeleton extends Actor {
 
     public Skeleton(Cell cell) {
         super(cell);
+        addSkeleton();
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -58,8 +59,8 @@ public class Skeleton extends Actor {
         skeletons.removeIf(skeleton -> skeleton == this);
     }
 
-    public static void addSkeleton(Skeleton skeleton) {
-        skeletons.add(skeleton);
+    private void addSkeleton() {
+        skeletons.add(this);
     }
 
     public static List<Skeleton> getSkeletons() {
