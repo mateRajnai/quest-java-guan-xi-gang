@@ -1,10 +1,8 @@
 package com.codecool.quest;
 
 import com.codecool.quest.layers.*;
-import com.codecool.quest.logic.BotControl;
-import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.GameMap;
-import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.*;
+import com.codecool.quest.logic.actors.TheBoss;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +32,7 @@ public class Main extends Application {
         screen.focusLayout();
         ui.setCharacterName();
         botControl.activate();
+        ui.countdown();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -55,6 +54,12 @@ public class Main extends Application {
                 ui.interact();
                 break;
         }
+
+        if (!MapLoader.hasNextLevel() && TheBoss.getTheBosses().size() == 0 && ui.isTimeZero() && !TheBoss.getIsTheBossKilled()) {
+            TheBoss theBoss = new TheBoss(map.getCellOfFinish(CellType.DOWNSTAIRS.getTileName()));
+            TheBoss.add(theBoss);
+        }
+
         screen.refresh();
         checkEndGame();
     }
@@ -64,9 +69,13 @@ public class Main extends Application {
             botControl.deactivate();
             if (MapLoader.hasNextLevel()) {
                 map = MapLoader.loadMap();
-            } else {
+            } else if ((TheBoss.getIsTheBossKilled() || !ui.isTimeZero())) {
                 MessageLoader.showEndingAlert();
                 map = MapLoader.loadMap(1);
+                // After restarting the game these fields must be set up again
+                TheBoss.setIsTheBossKilled(false);
+                ui.setCountdownTimer();
+                ui.countdown();
             }
             screen.updateMap(map);
             screen.refresh();
