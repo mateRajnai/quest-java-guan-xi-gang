@@ -53,7 +53,6 @@ public class Main extends Application {
         }
 
         if (!MapLoader.hasNextLevel() && TheBoss.getTheBosses().size() == 0 && ui.isTimeZero() && !TheBoss.getIsTheBossKilled()) {
-            // the cell is constant right now
             TheBoss theBoss = new TheBoss(map.getCellOfFinish(CellType.DOWNSTAIRS.getTileName()));
             TheBoss.add(theBoss);
         }
