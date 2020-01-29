@@ -52,6 +52,10 @@ public class Main extends Application {
                 map.getPlayer().move(1, 0);
                 break;
         }
+        if (MapLoader.getCurrentLevel() == 2 && !isBossAlive && isTimeZero) {
+            TheBoss theBoss = new TheBoss();
+
+        }
         visuals.refresh();
         checkEndGame();
     }
@@ -61,7 +65,8 @@ public class Main extends Application {
             botControl.deactivate();
             if (MapLoader.getCurrentLevel() == 1) {
                 map = MapLoader.loadMap(2);
-            } else {
+
+            } else if (!isBossAlive){
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
             }
