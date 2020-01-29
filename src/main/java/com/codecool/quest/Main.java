@@ -70,7 +70,7 @@ public class Main extends Application {
             if (MapLoader.getCurrentLevel() == 1) {
                 map = MapLoader.loadMap(2);
 
-            } else {
+            } else if (!GameMap.getIsTheBossAlive()) {
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
             }
