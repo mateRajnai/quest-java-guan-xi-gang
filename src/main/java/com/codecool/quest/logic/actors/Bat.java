@@ -41,12 +41,11 @@ public class Bat extends Actor {
         if(isPlayerNear()) {
             nextCell = autotarget.getClosestCellToPlayer();
 
-            if (!nextCell.isBlocking()) {
+            if (!nextCell.isBlocking() && !isPlayerNexToIt()) {
 
                 this.moveTo(nextCell);
 
-            } else if (!nextCell.isBlocking() &&
-                     nextCell.getActor().getTileName().equals("player")) {
+            } else {
 
                  Actor target = getPlayerCurrentPosition().getActor();
                  this.attack(target);

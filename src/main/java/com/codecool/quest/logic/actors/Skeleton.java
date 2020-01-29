@@ -39,7 +39,7 @@ public class Skeleton extends Actor {
             nextCell= autotarget.getClosestCellToPlayer();
 
             //step on nextCell if possible
-            if (!nextCell.isBlocking()) {
+            if (!nextCell.isBlocking() && !isPlayerNexToIt()) {
                 this.moveTo(nextCell);
             } else {
                 Actor target = getPlayerCurrentPosition().getActor();
