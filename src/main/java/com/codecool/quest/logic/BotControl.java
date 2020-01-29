@@ -1,10 +1,7 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.layers.Screen;
-import com.codecool.quest.logic.actors.Bat;
-import com.codecool.quest.logic.actors.Duck;
-import com.codecool.quest.logic.actors.Golem;
-import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.actors.*;
 import javafx.application.Platform;
 
 import java.util.concurrent.Executors;

@@ -15,6 +15,7 @@ public class SidePanel extends GridPane {
     private Label characterName = new Label("hackerman");
     private Inventory inventory = new Inventory();
     private Button pickUpButton = new Button("Pick up");
+    private Label countdownTimer = new Label();
 
     public SidePanel() {
         ColumnConstraints col1 = new ColumnConstraints(85);
@@ -27,6 +28,7 @@ public class SidePanel extends GridPane {
         this.add(healthPoints, 1, 0);
         this.add(inventory, 0, 3);
         this.add(pickUpButton, 0, 2);
+        this.add(countdownTimer, 0, 4);
     }
 
     public void setHealthPoints(int health) {
@@ -43,5 +45,9 @@ public class SidePanel extends GridPane {
 
     public Button getPickUpButton() {
         return pickUpButton;
+    }
+
+    public Label getCountdownTimer() {
+        return countdownTimer;
     }
 }

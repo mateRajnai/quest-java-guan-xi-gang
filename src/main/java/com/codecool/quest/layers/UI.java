@@ -33,6 +33,12 @@ public class UI {
         initPickUpButton();
     }
 
+    public void updateMap(GameMap map) {
+        this.map = map;
+        this.player = this.map.getPlayer();
+        this.screen.updateMap(map);
+    }
+
     public void setCharacterName() {
         Optional<String> result = MessageLoader.askForCharacterName();
         result.ifPresent(name -> characterName.setText(name));

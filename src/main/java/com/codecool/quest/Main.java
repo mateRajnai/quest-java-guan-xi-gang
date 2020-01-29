@@ -16,6 +16,7 @@ public class Main extends Application {
     UI ui = new UI(screen);
     BotControl botControl = new BotControl(screen);
     Scene scene = new Scene(layout);
+    CountdownTimer countdownTimer = new CountdownTimer(layout);
 
     public static void main(String[] args) {
         launch(args);
@@ -32,7 +33,7 @@ public class Main extends Application {
         screen.focusLayout();
         ui.setCharacterName();
         botControl.activate();
-        ui.countdown();
+        countdownTimer.countdown();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -55,7 +56,10 @@ public class Main extends Application {
                 break;
         }
 
-        if (!MapLoader.hasNextLevel() && TheBoss.getTheBosses().size() == 0 && ui.isTimeZero() && !TheBoss.getIsTheBossKilled()) {
+        if (!MapLoader.hasNextLevel()
+                && TheBoss.getTheBosses().size() == 0
+                && countdownTimer.isTimeZero() && !TheBoss.getIsTheBossKilled()
+        ) {
             TheBoss theBoss = new TheBoss(map.getCellOfFinish(CellType.DOWNSTAIRS.getTileName()));
             TheBoss.add(theBoss);
         }
@@ -69,15 +73,15 @@ public class Main extends Application {
             botControl.deactivate();
             if (MapLoader.hasNextLevel()) {
                 map = MapLoader.loadMap();
-            } else if ((TheBoss.getIsTheBossKilled() || !ui.isTimeZero())) {
+            } else if (TheBoss.getIsTheBossKilled() || !countdownTimer.isTimeZero()) {
                 MessageLoader.showEndingAlert();
                 map = MapLoader.loadMap(1);
                 // After restarting the game these fields must be set up again
                 TheBoss.setIsTheBossKilled(false);
-                ui.setCountdownTimer();
-                ui.countdown();
+                countdownTimer.setCountdownTimer();
+                countdownTimer.countdown();
             }
-            screen.updateMap(map);
+            ui.updateMap(map);
             screen.refresh();
             botControl.reactivate();
         }
