@@ -2,15 +2,12 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Duck extends Actor {
-
-    HandleAttack handleAttack = new HandleAttack();
 
     private static final int INITIAL_HEALTH = 5;
     private static final int INITIAL_ATTACK_DAMAGE = 0;
@@ -55,14 +52,6 @@ public class Duck extends Actor {
             super.getCell().setActor(null);
             nextCell.setActor(this);
             super.setCell(nextCell);
-
-        } else if (!fixTiles.contains(nextCell.getTileName()) &&
-                nextCell.getActor() != null &&
-                nextCell.getActor().getTileName().equals("player")) {
-
-            int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
-            nextCell.getActor().setHealth(modifiedDefenderHealth);
-            handleAttack.isDead(modifiedDefenderHealth, nextCell);
         }
     }
 

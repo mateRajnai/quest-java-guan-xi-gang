@@ -1,9 +1,7 @@
 package com.codecool.quest.logic.actors;
 
-import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,7 @@ import java.util.List;
 public class Golem extends Actor {
 
     private static final int INITIAL_HEALTH = 30;
-    private static final int INITIAL_ATTACK_DAMAGE = 2;
+    protected static final int INITIAL_ATTACK_DAMAGE = 2;
     private static final int INITIAL_ARMOR = 0;
     private static final int MONSTER_ATTACK_RANGE = 1;
 
@@ -27,10 +25,8 @@ public class Golem extends Actor {
 
     public void attackIfPlayerNextToIt() {
         if(isPlayerNexToIt()) {
-            Actor player = playerCurrentPosition.getActor();
-            int modifiedDefenderHealth = handleAttack.attack(player.getHealth(), this.attackDamage);
-            player.setHealth(modifiedDefenderHealth);
-            handleAttack.isDead(player);
+            Actor target = getPlayerCurrentPosition().getActor();
+            this.attack(target);
         }
     }
 

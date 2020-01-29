@@ -1,11 +1,8 @@
 package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.HandleAttack;
 
 public class Player extends Actor {
-
-    HandleAttack handleAttack = new HandleAttack();
 
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 5;
@@ -32,9 +29,8 @@ public class Player extends Actor {
             super.setCell(nextCell);
 
         } else if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() != null) {
-            int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
-            nextCell.getActor().setHealth(modifiedDefenderHealth);
-            handleAttack.isDead(modifiedDefenderHealth, nextCell);
+            Actor target = nextCell.getActor();
+            this.attack(target);
         }
     }
 

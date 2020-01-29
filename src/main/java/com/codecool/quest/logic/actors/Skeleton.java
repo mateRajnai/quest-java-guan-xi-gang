@@ -1,16 +1,12 @@
 package com.codecool.quest.logic.actors;
 
-import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Skeleton extends Actor {
-
-    HandleAttack handleAttack = new HandleAttack();
 
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 3;
@@ -42,7 +38,8 @@ public class Skeleton extends Actor {
             if (!this.isPlayerNexToIt() && !fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
                 stepOnNextCell(nextCell);
             } else {
-                attackPlayer();
+                Actor target = getPlayerCurrentPosition().getActor();
+                this.attack(target);
             }
         }
         //if player is not near it will do the standard movement
@@ -74,7 +71,8 @@ public class Skeleton extends Actor {
                 nextCell.getActor() != null &&
                 nextCell.getActor().getTileName().equals("player")) {
 
-            attackPlayer();
+            Actor target = getPlayerCurrentPosition().getActor();
+            this.attack(target);
 
         }
     }
@@ -89,13 +87,6 @@ public class Skeleton extends Actor {
         super.getCell().setActor(null);
         nextCell.setActor(this);
         super.setCell(nextCell);
-    }
-
-    private void attackPlayer() {
-        Actor player = playerCurrentPosition.getActor();
-        int modifiedDefenderHealth = handleAttack.attack(player.getHealth(), this.attackDamage);
-        player.setHealth(modifiedDefenderHealth);
-        handleAttack.isDead(player);
     }
 
     public static void addSkeleton(Skeleton skeleton) {

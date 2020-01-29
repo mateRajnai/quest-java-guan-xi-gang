@@ -3,7 +3,6 @@ package com.codecool.quest.logic.actors;
 import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.Drawable;
-import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +10,6 @@ import java.util.List;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
-    HandleAttack handleAttack = new HandleAttack();
     AutoTarget autotarget = new AutoTarget(this.monsterAttackRange, this);
 
     protected int health;
@@ -173,6 +171,17 @@ public abstract class Actor implements Drawable {
             }
         }
         return false;
+    }
+
+    protected void attack(Actor target) {
+        target.setHealth(target.getHealth() - this.getAttackDamage());
+        if(isDead(target)) {
+            target.terminate();
+        }
+    }
+
+    private boolean isDead(Actor target) {
+        return target.getHealth() <= 0;
     }
 
     public abstract void terminate();
