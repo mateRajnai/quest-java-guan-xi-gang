@@ -1,6 +1,7 @@
 package com.codecool.quest;
 
 import com.codecool.quest.logic.Drawable;
+import com.codecool.quest.util.OffsetMatrix;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -49,18 +50,41 @@ public class Tiles {
         tileMap.put("coins", new Tile(9, 26));
         tileMap.put("door closed", new Tile(3, 9));
         tileMap.put("door opened", new Tile(6, 9));
-
+        tileMap.put("crosshair", new Tile(22, 24));
+        tileMap.put("exclamation mark", new Tile(19, 25));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
-        Tile tile = tileMap.get(d.getTileName());
-        context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
-                x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+        drawTile(context, d.getTileName(), x, y);
     }
 
-    public static void drawHalfTile(GraphicsContext context, Drawable d, int x, int y) {
-        Tile tile = tileMap.get(d.getTileName());
+    public static void drawTile(GraphicsContext context, String tileName, int x, int y) {
+        drawTile(context, tileName, x, y, OffsetMatrix.LEAVE);
+    }
+
+    public static void drawTile(GraphicsContext context, Drawable d, int x, int y, OffsetMatrix om) {
+        drawTile(context, d.getTileName(), x, y, om);
+    }
+
+    public static void drawTile(GraphicsContext context, String tileName, int x, int y, OffsetMatrix om) {
+        Tile tile = tileMap.get(tileName);
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
-                x * TILE_WIDTH, y * TILE_WIDTH, (float) TILE_WIDTH / 2, (float) TILE_WIDTH / 2);
+                TILE_WIDTH * (x + om.kdx),
+                TILE_WIDTH * (y + om.kdy),
+                (float) TILE_WIDTH * om.kw,
+                (float) TILE_WIDTH * om.kh);
+    }
+
+    public static void drawHintCrossHair(GraphicsContext context, int x, int y) {
+        drawTile(context, "crosshair", x, y, OffsetMatrix.HINT_CROSSHAIR);
+    }
+
+    public static void drawHint(GraphicsContext context, Drawable d, int x, int y) {
+        drawHint(context, d.getTileName(), x, y);
+    }
+
+    public static void drawHint(GraphicsContext context, String tileName, int x, int y) {
+        drawHintCrossHair(context, x, y);
+        drawTile(context, tileName, x, y, OffsetMatrix.HINT_CONTENT);
     }
 }

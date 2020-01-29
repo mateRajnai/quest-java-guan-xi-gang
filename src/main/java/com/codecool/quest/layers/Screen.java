@@ -53,17 +53,33 @@ public class Screen {
         for (int col = 0, x = minX; x < maxX; x++, col++) {
             for (int row = 0, y = minY; y < maxY; y++, row++) {
                 Cell cell = map.getCell(x, y);
-                if (cell.hasActor()) {
+
+                if (cell.getActor() instanceof Player)
+                    drawPlayer(cell, col, row);
+
+                else if (cell.hasActor())
                     Tiles.drawTile(context, cell.getActor(), col, row);
-                    if (cell.getActor() instanceof Player && cell.hasItem())
-                        Tiles.drawHalfTile(context, cell.getItem(), col, row);
-                } else if (cell.hasItem()) {
+
+                else if (cell.hasItem())
                     Tiles.drawTile(context, cell.getItem(), col, row);
-                } else {
+
+                else
                     Tiles.drawTile(context, cell, col, row);
-                }
             }
         }
         sidePanel.setHealthPoints(map.getPlayer().getHealth());
+    }
+
+    private void drawPlayer(Cell cell, int col, int row) {
+        Tiles.drawTile(context, "player", col, row);
+        if (cell.hasItem()) {
+            Tiles.drawHint(context, cell.getItem(), col, row);
+        } else if (((Player) cell.getActor()).isDoorInNeighbourCell()) {
+            if (sidePanel.getInventory().hasKey()) {
+                Tiles.drawHint(context, "door opened", col, row);
+            } else {
+                Tiles.drawHint(context, "key", col, row);
+            }
+        }
     }
 }
