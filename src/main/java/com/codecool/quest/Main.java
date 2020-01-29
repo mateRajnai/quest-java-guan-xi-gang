@@ -53,11 +53,10 @@ public class Main extends Application {
         }
 
         // creates the boss on the second level
-        if (MapLoader.getCurrentLevel() == 2 && !map.getIsTheBossAlive() && ui.isTimeZero()) {
+        if (MapLoader.getCurrentLevel() == 2 && !GameMap.getIsTheBossAlive() && ui.isTimeZero() && !GameMap.isIsTheBossKilled()) {
             // the cell is constant right now
             TheBoss theBoss = new TheBoss(map.getCell(2, 3));
-            map.setIsTheBossAlive(true);
-
+            GameMap.setIsTheBossAlive(true);
         }
 
 
