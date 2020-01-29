@@ -7,16 +7,15 @@ import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.spi.AbstractResourceBundleProvider;
 
 public class Skeleton extends Actor {
 
     HandleAttack handleAttack = new HandleAttack();
-    AutoTarget autotarget = new AutoTarget(MONSTER_ATTACK_RANGE, this);
 
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 3;
     private static final int INITIAL_ARMOR = 0;
+    private static final int MONSTER_ATTACK_RANGE = 3;
     private int dx;
     private int dy;
 
@@ -28,6 +27,7 @@ public class Skeleton extends Actor {
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
+        this.setMonsterAttackRange(MONSTER_ATTACK_RANGE);
     }
 
     public void move() {
@@ -42,7 +42,7 @@ public class Skeleton extends Actor {
             if (!this.isPlayerNexToIt() && !fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
                 stepOnNextCell(nextCell);
             } else {
-                attackPlayer(playerCurrentPosition);
+                attackPlayer();
             }
         }
         //if player is not near it will do the standard movement
@@ -74,7 +74,7 @@ public class Skeleton extends Actor {
                 nextCell.getActor() != null &&
                 nextCell.getActor().getTileName().equals("player")) {
 
-            attackPlayer(nextCell);
+            attackPlayer();
 
         }
     }
@@ -91,10 +91,11 @@ public class Skeleton extends Actor {
         super.setCell(nextCell);
     }
 
-    private void attackPlayer(Cell nextCell) {
-        int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
-        nextCell.getActor().setHealth(modifiedDefenderHealth);
-        handleAttack.isDead(modifiedDefenderHealth, nextCell);
+    private void attackPlayer() {
+        Actor player = playerCurrentPosition.getActor();
+        int modifiedDefenderHealth = handleAttack.attack(player.getHealth(), this.attackDamage);
+        player.setHealth(modifiedDefenderHealth);
+        handleAttack.isDead(player);
     }
 
     public static void addSkeleton(Skeleton skeleton) {

@@ -6,17 +6,17 @@ import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Bat extends Actor {
 
     HandleAttack handleAttack = new HandleAttack();
-    AutoTarget autotarget = new AutoTarget(MONSTER_ATTACK_RANGE, this);
+
 
     private static final int INITIAL_HEALTH = 6;
     private static final int INITIAL_ATTACK_DAMAGE = 1;
     private static final int INITIAL_ARMOR = 0;
+    private static final int MONSTER_ATTACK_RANGE = 3;
 
     private int[] direction = new int[]{1,1};
     private static List<Bat> bats = new ArrayList<>();
@@ -27,6 +27,7 @@ public class Bat extends Actor {
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
+        this.setMonsterAttackRange(MONSTER_ATTACK_RANGE);
     }
 
     public void move() {
@@ -48,9 +49,10 @@ public class Bat extends Actor {
                 nextCell.getActor() != null &&
                 nextCell.getActor().getTileName().equals("player")) {
 
-            int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
-            nextCell.getActor().setHealth(modifiedDefenderHealth);
-            handleAttack.isDead(modifiedDefenderHealth, nextCell);
+            Actor player = playerCurrentPosition.getActor();
+            int modifiedDefenderHealth = handleAttack.attack(player.getHealth(), this.attackDamage);
+            player.setHealth(modifiedDefenderHealth);
+            handleAttack.isDead(player);
         }
     }
 

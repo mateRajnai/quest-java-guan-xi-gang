@@ -6,11 +6,11 @@ import java.util.Arrays;
 
 public class AutoTarget {
 
-    private int MONSTER_ATTACK_RANGE;
+    private int monsterAttackRange;
     private Actor attacker;
 
-    public AutoTarget(int MONSTER_ATTACK_RANGE, Actor attacker) {
-        this.MONSTER_ATTACK_RANGE = MONSTER_ATTACK_RANGE;
+    public AutoTarget(int monsterAttackRange, Actor attacker) {
+        this.monsterAttackRange = monsterAttackRange;
         this.attacker = attacker;
     }
 
@@ -28,7 +28,7 @@ public class AutoTarget {
         int[] upDownDirections = new int[2];
         int[] leftRightDirections = new int[2];
         String[] directionNames  = new String[] {"left", "right", "up", "down"};
-        int closestNumber = MONSTER_ATTACK_RANGE * 2;
+        int closestNumber = monsterAttackRange * 2;
         int horizontalIndex = 0;
         int verticalIndex = 0;
 

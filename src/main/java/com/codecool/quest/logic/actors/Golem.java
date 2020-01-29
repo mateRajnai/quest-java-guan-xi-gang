@@ -10,11 +10,10 @@ import java.util.List;
 
 public class Golem extends Actor {
 
-    AutoTarget autotarget = new AutoTarget(this);
-
     private static final int INITIAL_HEALTH = 30;
     private static final int INITIAL_ATTACK_DAMAGE = 2;
     private static final int INITIAL_ARMOR = 0;
+    private static final int MONSTER_ATTACK_RANGE = 1;
 
     private static List<Golem> golems = new ArrayList<>();
 
@@ -23,20 +22,15 @@ public class Golem extends Actor {
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
+        this.setMonsterAttackRange(MONSTER_ATTACK_RANGE);
     }
 
     public void attackIfPlayerNextToIt() {
-        int[] xDirections = {1, 0, -1, 0};
-        int[] yDirections = {0, 1, 0, -1};
-
-        for (int index = 0; index < xDirections.length; index++) {
-            Cell nextCell = super.getCell().getNeighbor(xDirections[index], yDirections[index]);
-
-            if (nextCell.getActor() != null && nextCell.getActor().getTileName().equals("player")) {
-                int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
-                nextCell.getActor().setHealth(modifiedDefenderHealth);
-                handleAttack.isDead(modifiedDefenderHealth, nextCell);
-            }
+        if(isPlayerNexToIt()) {
+            Actor player = playerCurrentPosition.getActor();
+            int modifiedDefenderHealth = handleAttack.attack(player.getHealth(), this.attackDamage);
+            player.setHealth(modifiedDefenderHealth);
+            handleAttack.isDead(player);
         }
     }
 

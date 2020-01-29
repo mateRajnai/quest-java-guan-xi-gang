@@ -12,9 +12,9 @@ public class HandleAttack {
         return targetHealth - attackDamage;
     }
 
-    public void isDead(int targetHealth, Cell targetCell) {
-        if(targetHealth <= 0) {
-            killTarget(targetCell);
+    public void isDead(Actor target) {
+        if(target.getHealth() <= 0) {
+            killTarget(target.getCell());
         }
     }
 

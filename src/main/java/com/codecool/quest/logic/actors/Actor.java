@@ -12,6 +12,7 @@ import java.util.List;
 public abstract class Actor implements Drawable {
     private Cell cell;
     HandleAttack handleAttack = new HandleAttack();
+    AutoTarget autotarget = new AutoTarget(this.monsterAttackRange, this);
 
     protected int health;
     protected int attackDamage;
@@ -19,7 +20,7 @@ public abstract class Actor implements Drawable {
     protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire", "chest open"));
     protected List<String> fixActors = new ArrayList<>(Arrays.asList("pot", "chest open", "chest closed"));
     protected static Cell playerCurrentPosition;
-    protected static final int MONSTER_ATTACK_RANGE = 3;
+    protected int monsterAttackRange = 3;
 
 
     public Actor(Cell cell) {
@@ -29,6 +30,14 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
     };
+
+    public int getMonsterAttackRange() {
+        return monsterAttackRange;
+    }
+
+    public void setMonsterAttackRange(int monsterAttackRange) {
+        this.monsterAttackRange = monsterAttackRange;
+    }
 
     public int attack(int targetHealth) {
         return targetHealth - this.attackDamage;
@@ -81,7 +90,7 @@ public abstract class Actor implements Drawable {
         int[] upDownDirections = new int[2];
         int[] leftRightDirections = new int[2];
         String[] directionNames  = new String[] {"left", "right", "up", "down"};
-        int closestNumber = MONSTER_ATTACK_RANGE * 2;
+        int closestNumber = monsterAttackRange * 2;
         int horizontalIndex = 0;
         int verticalIndex = 0;
 
@@ -169,8 +178,8 @@ public abstract class Actor implements Drawable {
     public abstract void terminate();
 
     public boolean isPlayerNear() {
-        return Math.abs(this.getX() - playerCurrentPosition.getX()) <= MONSTER_ATTACK_RANGE &&
-                Math.abs(this.getY() - playerCurrentPosition.getY()) <= MONSTER_ATTACK_RANGE;
+        return Math.abs(this.getX() - playerCurrentPosition.getX()) <= monsterAttackRange &&
+                Math.abs(this.getY() - playerCurrentPosition.getY()) <= monsterAttackRange;
     }
 
 
