@@ -66,7 +66,7 @@ public class UI {
     }
 
     public void addItemToInventory() {
-        Item item = map.getPlayer().getCell().getItem();
+        Item item = player.getCell().getItem();
         inventory.add(item);
     }
 
