@@ -29,25 +29,13 @@ public class Player extends Actor {
         Cell nextCell = this.getCell().getNeighbor(dx, dy);
         if (nextCell == null) return;
 
-        if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
-            super.getCell().setActor(null);
-            nextCell.setActor(this);
+        if (!nextCell.isBlocking()) {
             setPlayerCurrentPosition(nextCell);
-            super.setCell(nextCell);
-
-        } else if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() != null) {
+            this.moveTo(nextCell);
+        } else if (nextCell.hasActor()) {
             Actor target = nextCell.getActor();
             this.attack(target);
         }
-
-        /*Boti's version after first if
-
-        if (!nextCell.isBlocking())
-            this.moveTo(nextCell);
-        else if (nextCell.hasActor())
-            this.attack(nextCell.getActor());
-    }
-         */
     }
 
     public void terminate() {

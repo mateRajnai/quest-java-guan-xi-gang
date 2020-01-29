@@ -5,7 +5,6 @@ import com.codecool.quest.logic.CellType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Chest extends Actor {
 

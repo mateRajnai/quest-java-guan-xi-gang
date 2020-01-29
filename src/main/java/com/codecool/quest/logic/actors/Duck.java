@@ -40,7 +40,7 @@ public class Duck extends Actor {
         //wall on corner check and send set the actors direction to opposite
         nextCell = super.getCell().getNeighbor(0, dy);
         Cell nextCellSide = super.getCell().getNeighbor(dx, 0);
-        if(nextCell.getTileName().equals("wall") && nextCellSide.getTileName().equals("wall")) {
+        if(!nextCell.isBlocking()) {
             direction[0] *= -1;
             direction[1] *= -1;
             dx = direction[0];
@@ -49,10 +49,8 @@ public class Duck extends Actor {
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
 
-        if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
-            super.getCell().setActor(null);
-            nextCell.setActor(this);
-            super.setCell(nextCell);
+        if (!nextCell.isBlocking()) {
+            this.moveTo(nextCell);
         }
     }
 

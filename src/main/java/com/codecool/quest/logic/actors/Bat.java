@@ -1,5 +1,6 @@
 package com.codecool.quest.logic.actors;
 
+import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.util.Direction;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class Bat extends Actor {
 
-
+    AutoTarget autotarget = new AutoTarget(this.monsterAttackRange, this);
 
     private static final int INITIAL_HEALTH = 6;
     private static final int INITIAL_ATTACK_DAMAGE = 1;
@@ -35,22 +36,24 @@ public class Bat extends Actor {
         int dx = direction[0];
         int dy = direction[1];
 
-        Cell nextCell = wallBounceCheck(dx, dy);
+        Cell nextCell;
 
-        if (!fixTiles.contains(nextCell.getTileName()) &&
-                nextCell.getActor() == null &&
-                !fixActors.contains(nextCell.getTileName())) {
+        if(isPlayerNear()) {
+            nextCell = autotarget.getClosestCellToPlayer();
 
-            super.getCell().setActor(null);
-            nextCell.setActor(this);
-            super.setCell(nextCell);
+            if (!nextCell.isBlocking()) {
 
-        }  else if (!fixTiles.contains(nextCell.getTileName()) &&
-                nextCell.getActor() != null &&
-                nextCell.getActor().getTileName().equals("player")) {
+                this.moveTo(nextCell);
 
-            Actor target = getPlayerCurrentPosition().getActor();
-            this.attack(target);
+            } else if (!nextCell.isBlocking() &&
+                     nextCell.getActor().getTileName().equals("player")) {
+
+                 Actor target = getPlayerCurrentPosition().getActor();
+                 this.attack(target);
+             }
+         } else {
+            nextCell = wallBounceCheck(dx, dy);
+            this.moveTo(nextCell);
         }
     }
 

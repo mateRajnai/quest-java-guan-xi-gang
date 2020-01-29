@@ -1,5 +1,6 @@
 package com.codecool.quest.logic.actors;
 
+import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Skeleton extends Actor {
+
+    AutoTarget autotarget = new AutoTarget(this.monsterAttackRange, this);
 
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 3;
@@ -36,8 +39,8 @@ public class Skeleton extends Actor {
             nextCell= autotarget.getClosestCellToPlayer();
 
             //step on nextCell if possible
-            if (!this.isPlayerNexToIt() && !fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
-                stepOnNextCell(nextCell);
+            if (!nextCell.isBlocking()) {
+                this.moveTo(nextCell);
             } else {
                 Actor target = getPlayerCurrentPosition().getActor();
                 this.attack(target);
@@ -64,7 +67,7 @@ public class Skeleton extends Actor {
 
         //step on nextCell if possible
         if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
-            stepOnNextCell(nextCell);
+            this.moveTo(nextCell);
 
 
             //if player on the nextcell monster will attack it
@@ -82,12 +85,6 @@ public class Skeleton extends Actor {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.DEAD_SKELETON);
         skeletons.removeIf(skeleton -> skeleton == this);
-    }
-
-    private void stepOnNextCell(Cell nextCell) {
-        super.getCell().setActor(null);
-        nextCell.setActor(this);
-        super.setCell(nextCell);
     }
 
     private void addSkeleton() {
