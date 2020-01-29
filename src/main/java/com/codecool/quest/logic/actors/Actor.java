@@ -26,8 +26,13 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy) {
-    };
+    public void move(int dx, int dy) {}
+
+    protected void moveTo(Cell nextCell) {
+        this.cell.setActor(null);
+        nextCell.setActor(this);
+        this.setCell(nextCell);
+    }
 
     public int getMonsterAttackRange() {
         return monsterAttackRange;
@@ -49,18 +54,23 @@ public abstract class Actor implements Drawable {
     public int getAttackDamage() {
         return this.attackDamage;
     }
+
     public void setAttackDamage(int newAttackDamage) {this.attackDamage = newAttackDamage;}
 
     public int getArmor() {
         return this.armor;
     }
+
     public void setArmor(int newArmor) {this.armor = newArmor;}
 
     public Cell getCell() {
         return this.cell;
     }
 
-    public void setCell(Cell cell) { this.cell = cell;}
+    public void setCell(Cell cell) {
+        this.cell = cell;
+        cell.setActor(this);
+    }
 
     public int getX() {
         return cell.getX();

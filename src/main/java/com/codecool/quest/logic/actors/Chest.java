@@ -13,10 +13,9 @@ public class Chest extends Actor {
     private String whoAmI = "chest closed";
     private static List<Chest> chests = new ArrayList<>();
 
-    Random random = new Random();
-
     public Chest(Cell cell) {
         super(cell);
+        addChest();
         this.setHealth(INITIAL_HEALTH);
     }
 
@@ -27,8 +26,8 @@ public class Chest extends Actor {
         whoAmI = "open chest";
     }
 
-    public static void addChest(Chest chest) {
-        chests.add(chest);
+    private void addChest() {
+        chests.add(this);
     }
 
     public static List<Chest> getChests() {

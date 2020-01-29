@@ -17,6 +17,7 @@ public class Golem extends Actor {
 
     public Golem(Cell cell) {
         super(cell);
+        addGolem();
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -36,8 +37,8 @@ public class Golem extends Actor {
         golems.removeIf(golem -> golem == this);
     }
 
-    public static void addGolem(Golem golem) {
-        golems.add(golem);
+    private void addGolem() {
+        golems.add(this);
     }
 
     public static List<Golem> getGolems() {

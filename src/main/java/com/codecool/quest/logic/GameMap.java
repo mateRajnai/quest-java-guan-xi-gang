@@ -1,14 +1,7 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Player;
-import com.codecool.quest.logic.actors.Skeleton;
-import com.codecool.quest.logic.items.Hammer;
-import com.codecool.quest.logic.items.Item;
-import com.codecool.quest.logic.items.Key;
-import com.codecool.quest.logic.actors.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameMap {
     private int width;
@@ -16,8 +9,6 @@ public class GameMap {
     private Cell[][] cells;
 
     private Player player;
-    private Hammer hammer;
-    private Key key;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -50,9 +41,5 @@ public class GameMap {
     public int getHeight() {
         return height;
     }
-
-    public void setHammer(Hammer hammer) {this.hammer = hammer;}
-
-    public void setKey(Key key) {this.key = key;}
 
 }

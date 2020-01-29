@@ -21,6 +21,7 @@ public class Duck extends Actor {
 
     public Duck(Cell cell) {
         super(cell);
+        addDuck();
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -61,8 +62,8 @@ public class Duck extends Actor {
         ducks.removeIf(duck -> duck == this);
     }
 
-    public static void addDuck(Duck duck) {
-        ducks.add(duck);
+    private void addDuck() {
+        ducks.add(this);
     }
 
     public static List<Duck> getDucks() {

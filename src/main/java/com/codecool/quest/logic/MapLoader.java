@@ -10,10 +10,15 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    private static int currentLevel;
+    private static int currentLevel = 0;
+    private static final int NUMBER_OF_LEVELS = 3;
 
-    public static int getCurrentLevel() {
-        return currentLevel;
+    public static boolean hasNextLevel() {
+        return currentLevel < NUMBER_OF_LEVELS;
+    }
+
+    public static GameMap loadMap() {
+        return loadMap(currentLevel + 1);
     }
 
     public static GameMap loadMap(int level) {
@@ -42,44 +47,51 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            Skeleton.addSkeleton(new Skeleton(cell));
+                            new Skeleton(cell);
                             break;
                         case 'k':
-                            cell.setType(CellType.KEY);
-                            map.setKey(new Key(cell));
+                            cell.setType(CellType.FLOOR);
+                            new Key(cell);
                             break;
                         case 'h':
-                            cell.setType(CellType.HAMMER);
-                            map.setHammer(new Hammer(cell));
+                            cell.setType(CellType.FLOOR);
+                            new Hammer(cell);
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            Player player;
+                            if (currentLevel == 1) {
+                                player = new Player(cell);
+                            } else {
+                                player = Player.getInstance();
+                                player.setCell(cell);
+                            }
+                            map.setPlayer(player);
                             break;
                         case 'b':
                             cell.setType(CellType.FLOOR);
-                            Bat.addBat(new Bat(cell));
+                            new Bat(cell);
                             break;
                         case 'g':
                             cell.setType(CellType.FLOOR);
-                            Golem.addGolem(new Golem(cell));
+                            new Golem(cell);
                             break;
                         case 'd':
                             cell.setType(CellType.FLOOR);
-                            Duck.addDuck(new Duck(cell));
+                            new Duck(cell);
                             break;
                         case 'u':
-                            cell.setType(CellType.STAIRS_FROM_UP);
+                            cell.setType(CellType.UPSTAIRS);
                             break;
                         case '\\':
-                            cell.setType(CellType.STAIRS_DOWN);
+                            cell.setType(CellType.DOWNSTAIRS);
                             break;
                         case 'c':
                             cell.setType(CellType.CAMPFIRE);
                             break;
                         case 'p':
-                            cell.setType(CellType.POT);
-                            Pot.addPot(new Pot(cell));
+                            cell.setType(CellType.FLOOR);
+                            new Pot(cell);
                             break;
                         case 't':
                             cell.setType(CellType.BRONZE_TORCH);
@@ -95,7 +107,10 @@ public class MapLoader {
                             break;
                         case 'e':
                             cell.setType(CellType.CHEST_CLOSED);
-                            Chest.addChest(new Chest(cell));
+                            new Chest(cell);
+                            break;
+                        case 'x':
+                            cell.setType(CellType.DOOR_CLOSED);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

@@ -1,8 +1,9 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Actor;
-import com.codecool.quest.logic.items.Hammer;
+import com.codecool.quest.logic.items.Coins;
 import com.codecool.quest.logic.items.Item;
+import com.codecool.quest.util.Direction;
 
 public class Cell implements Drawable {
     private CellType type;
@@ -34,9 +35,21 @@ public class Cell implements Drawable {
         return actor;
     }
 
+    public boolean hasActor() {
+        return actor != null;
+    }
+
+    public boolean isBlocking() {
+        return (!type.isTraversable() || hasActor());
+    }
+
     public void setItem(Item item) { this.item = item; }
 
     public Item getItem() { return item; }
+
+    public boolean hasItem() {
+        return this.item != null;
+    }
 
     public Cell getNeighbor(int dx, int dy) {
         try {
@@ -46,8 +59,8 @@ public class Cell implements Drawable {
         }
     }
 
-    public GameMap getGameMap() {
-        return gameMap;
+    public Cell getNeighbor(Direction direction) {
+        return getNeighbor(direction.getDx(), direction.getDy());
     }
 
     @Override

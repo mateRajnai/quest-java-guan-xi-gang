@@ -5,26 +5,26 @@ import com.codecool.quest.logic.Cell;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Key extends Item {
+public class Coins extends Item {
 
-    private static List<Item> keys = new ArrayList<>();
+    private static List<Item> coins = new ArrayList<>();
 
-    public Key(Cell cell) {
+    public Coins(Cell cell) {
         super(cell);
-        addKey(this);
+        addCoins();
     }
 
     @Override
     public List<Item> getInstances() {
-        return keys;
+        return coins;
     }
 
-    public static void addKey(Key key) {
-        keys.add(key);
+    private void addCoins() {
+        coins.add(this);
     }
 
     @Override
     public String getTileName() {
-        return "key";
+        return "coins";
     }
 }

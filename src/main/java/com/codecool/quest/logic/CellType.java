@@ -4,21 +4,19 @@ public enum CellType {
     EMPTY("empty"),
     FLOOR("floor"),
     WALL("wall"),
-    HAMMER("hammer"),
-    KEY("key"),
     DEAD_SKELETON("dead skeleton"),
     BONE("bone"),
-    STAIRS_FROM_UP("stairs from up"),
-    STAIRS_DOWN("stairs down"),
+    UPSTAIRS("stairs from up"),
+    DOWNSTAIRS("stairs down"),
     CAMPFIRE("campfire"),
     BRONZE_TORCH("bronze torch"),
     DRIED_BRANCH("dried branch"),
     STONES("stones"),
     GRASS2("grass2"),
-    POT("pot"),
     CHEST_OPEN("chest open"),
     CHEST_CLOSED("chest closed"),
-    COINS("coins");
+    DOOR_CLOSED("door closed"),
+    DOOR_OPENED("door opened");
 
     private final String tileName;
 
@@ -28,5 +26,20 @@ public enum CellType {
 
     public String getTileName() {
         return tileName;
+    }
+
+    public boolean isTraversable() {
+        switch (this) {
+            case FLOOR:
+            case BONE:
+            case GRASS2:
+            case DEAD_SKELETON:
+            case UPSTAIRS:
+            case DOWNSTAIRS:
+            case DOOR_OPENED:
+                return true;
+            default:
+                return false;
+        }
     }
 }
