@@ -32,7 +32,7 @@ public class UI extends GridPane {
     private Inventory inventory = new Inventory();
     private Button pickUpButton = new Button("Pick up");
 
-    private final Integer startTime = 30;
+    private final Integer startTime = 10;
     private Integer secondsLeft = startTime;
 
 
@@ -130,6 +130,10 @@ public class UI extends GridPane {
 
     public void setMap(GameMap map) {
         this.map = map;
+    }
+
+    public boolean isTimeZero() {
+        return secondsLeft == 0;
     }
 
     public void countdown() {
