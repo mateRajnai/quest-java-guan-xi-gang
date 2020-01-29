@@ -10,10 +10,15 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    private static int currentLevel;
+    private static int currentLevel = 0;
+    private static final int NUMBER_OF_LEVELS = 3;
 
-    public static int getCurrentLevel() {
-        return currentLevel;
+    public static boolean hasNextLevel() {
+        return currentLevel < NUMBER_OF_LEVELS;
+    }
+
+    public static GameMap loadMap() {
+        return loadMap(currentLevel + 1);
     }
 
     public static GameMap loadMap(int level) {

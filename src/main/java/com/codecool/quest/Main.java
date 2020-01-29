@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap(1);
+    GameMap map = MapLoader.loadMap();
     UI ui = new UI(map);
     VisualFrameWork visuals = new VisualFrameWork(ui);
     BotControl botControl = new BotControl(visuals);
@@ -39,6 +39,7 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
@@ -54,9 +55,9 @@ public class Main extends Application {
                 break;
         }
 
-        if (MapLoader.getCurrentLevel() == 2 && TheBoss.getTheBosses().size() == 0 && ui.isTimeZero() && !TheBoss.getIsTheBossKilled()) {
+        if (!MapLoader.hasNextLevel() && TheBoss.getTheBosses().size() == 0 && ui.isTimeZero() && !TheBoss.getIsTheBossKilled()) {
             // the cell is constant right now
-            TheBoss theBoss = new TheBoss(map.getCell(2, 3));
+            TheBoss theBoss = new TheBoss(map.getCell(2, 2));
             TheBoss.add(theBoss);
         }
 
@@ -67,9 +68,9 @@ public class Main extends Application {
     public void checkEndGame() {
         if (map.getPlayer().getCell().getType() == CellType.DOWNSTAIRS) {
             botControl.deactivate();
-            if (MapLoader.getCurrentLevel() == 1) {
-                map = MapLoader.loadMap(2);
-            } else if (TheBoss.getIsTheBossKilled() || !ui.isTimeZero()) {
+            if (MapLoader.hasNextLevel()) {
+                map = MapLoader.loadMap();
+            } else if ((TheBoss.getIsTheBossKilled() || !ui.isTimeZero())) {
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
                 // After restarting the game these fields must be set up again
@@ -77,7 +78,7 @@ public class Main extends Application {
                 ui.setCountdownTimer();
                 ui.countdown();
             }
-            ui.setMap(map);
+            visuals.setMap(map);
             visuals.refresh();
             botControl.reactivate();
         }
