@@ -65,7 +65,7 @@ public class Main extends Application {
             if (MapLoader.hasNextLevel()) {
                 map = MapLoader.loadMap();
             } else {
-                ui.showEndingAlert();
+                MessageLoader.showEndingAlert();
                 map = MapLoader.loadMap(1);
             }
             screen.updateMap(map);

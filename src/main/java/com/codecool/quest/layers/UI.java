@@ -21,14 +21,6 @@ public class UI {
 
     private Screen screen;
 
-    private static TextInputDialog characterNameDialog;
-    private static Alert endingAlert;
-
-    static {
-        initCharacterNameDialog();
-        initEndingAlert();
-    }
-
     public UI(Screen screen) {
         SidePanel sidePanel = screen.getSidePanel();
         this.map = screen.getMap();
@@ -41,32 +33,9 @@ public class UI {
         initPickUpButton();
     }
 
-    private static void initCharacterNameDialog() {
-        characterNameDialog = new TextInputDialog("hackerman");
-        characterNameDialog.setTitle("Character setup");
-        characterNameDialog.setHeaderText("Choose an epic name for your character!");
-        characterNameDialog.setContentText("Epic name:");
-        characterNameDialog.setGraphic(null);
-
-        Button cancelButton = (Button) characterNameDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-        cancelButton.setVisible(false);
-
-        TextField nameInputField = characterNameDialog.getEditor();
-        Button OKButton = (Button) characterNameDialog.getDialogPane().lookupButton(ButtonType.OK);
-        nameInputField.textProperty().addListener((observable, oldValue, newValue) -> {
-            OKButton.setDisable(!(newValue.length() > 0 && newValue.length() <= 9));
-        });
-    }
-
-    private static void initEndingAlert() {
-        endingAlert = new Alert(
-                Alert.AlertType.INFORMATION,
-                "You have reached the stairs of wisdom!",
-                ButtonType.OK
-        );
-        endingAlert.setGraphic(null);
-        endingAlert.setHeaderText(null);
-        endingAlert.setTitle("Epic victory message");
+    public void setCharacterName() {
+        Optional<String> result = MessageLoader.askForCharacterName();
+        result.ifPresent(name -> characterName.setText(name));
     }
 
     public void initInventory() {
@@ -87,15 +56,6 @@ public class UI {
                 addItemToInventory();
             screen.focusLayout();
         });
-    }
-
-    public void setCharacterName() {
-        Optional<String> result = characterNameDialog.showAndWait();
-        result.ifPresent(name -> characterName.setText(name));
-    }
-
-    public void showEndingAlert() {
-        endingAlert.showAndWait();
     }
 
     public void interact() {
