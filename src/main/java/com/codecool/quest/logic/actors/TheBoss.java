@@ -16,7 +16,6 @@ public class TheBoss extends Actor {
     private static final int INITIAL_ARMOR = 0;
 
     private int coordinateSwitcher = -1;
-    private boolean isTheBossAlive = false;
 
 
 
@@ -25,16 +24,8 @@ public class TheBoss extends Actor {
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
-        this.isTheBossAlive = true;
     }
 
-    public boolean getIsTheBossAlive() {
-        return isTheBossAlive;
-    }
-
-    public void setIsTheBossAlive(boolean aliveness) {
-        this.isTheBossAlive = aliveness;
-    }
 
     public void move() {
         int dx = coordinateSwitcher;
