@@ -1,9 +1,8 @@
 package com.codecool.quest;
 
-import com.codecool.quest.logic.BotControl;
-import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.GameMap;
-import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.*;
+import com.codecool.quest.logic.actors.TheBoss;
+import com.sun.javafx.collections.MapAdapterChange;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -52,10 +51,16 @@ public class Main extends Application {
                 map.getPlayer().move(1, 0);
                 break;
         }
-        if (MapLoader.getCurrentLevel() == 2 && !isBossAlive && isTimeZero) {
-            TheBoss theBoss = new TheBoss();
+
+        // creates the boss on the second level
+        if (MapLoader.getCurrentLevel() == 2 && !map.getIsTheBossAlive() && ui.isTimeZero()) {
+            // the cell is constant right now
+            TheBoss theBoss = new TheBoss(map.getCell(2, 3));
+            map.setIsTheBossAlive(true);
 
         }
+
+
         visuals.refresh();
         checkEndGame();
     }
@@ -66,7 +71,7 @@ public class Main extends Application {
             if (MapLoader.getCurrentLevel() == 1) {
                 map = MapLoader.loadMap(2);
 
-            } else if (!isBossAlive){
+            } else {
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
             }
