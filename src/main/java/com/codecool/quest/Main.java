@@ -51,6 +51,9 @@ public class Main extends Application {
             case RIGHT:
                 map.getPlayer().move(1, 0);
                 break;
+            case E:
+                ui.interact();
+                break;
         }
         screen.refresh();
         checkEndGame();
