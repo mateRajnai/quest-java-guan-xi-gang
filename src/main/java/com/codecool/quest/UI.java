@@ -44,7 +44,7 @@ public class UI extends GridPane {
     public UI(GameMap map) {
         this.map = map;
 
-        ColumnConstraints col1 = new ColumnConstraints(85);
+        ColumnConstraints col1 = new ColumnConstraints(115);
         this.getColumnConstraints().add(col1);
         this.setPrefWidth(200);
         this.setPadding(new Insets(10));
@@ -54,7 +54,7 @@ public class UI extends GridPane {
         this.add(healthPoints, 1, 0);
         this.add(inventory, 0, 3);
         this.add(pickUpButton, 0, 2);
-        this.add(countdownTimer, 0, 6);
+        this.add(countdownTimer, 0, 4);
     }
 
     private static void initCharacterNameDialog() {
@@ -141,7 +141,7 @@ public class UI extends GridPane {
             @Override
             public void handle(ActionEvent actionEvent) {
                 secondsLeft--;
-                countdownTimer.setText("Wait " + secondsLeft.toString() + " seconds if you want to fight the Boss");
+                countdownTimer.setText("Wait " + secondsLeft.toString() + " seconds\nif you want to\nfight the Boss");
                 if (secondsLeft <= 0) {
                     time.stop();
                 }
