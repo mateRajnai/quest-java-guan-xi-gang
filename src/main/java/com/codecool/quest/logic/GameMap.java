@@ -3,6 +3,10 @@ package com.codecool.quest.logic;
 import com.codecool.quest.logic.actors.Player;
 import com.codecool.quest.logic.actors.TheBoss;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 
 public class GameMap {
     private int width;
@@ -41,6 +45,16 @@ public class GameMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public Cell getCellOfFinish(String finish) {
+        for (Cell[] column: cells) {
+            for (Cell cell: column) {
+                if (cell.getTileName().equals(finish))
+                    return cell;
+            }
+        }
+        return null;
     }
 
 }
