@@ -57,4 +57,10 @@ public class Tiles {
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
+
+    public static void drawHalfTile(GraphicsContext context, Drawable d, int x, int y) {
+        Tile tile = tileMap.get(d.getTileName());
+        context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
+                x * TILE_WIDTH, y * TILE_WIDTH, (float) TILE_WIDTH / 2, (float) TILE_WIDTH / 2);
+    }
 }

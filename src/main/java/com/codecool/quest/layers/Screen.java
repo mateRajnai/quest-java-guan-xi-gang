@@ -3,6 +3,7 @@ package com.codecool.quest.layers;
 import com.codecool.quest.Tiles;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
+import com.codecool.quest.logic.actors.Player;
 import com.codecool.quest.util.LengthUnit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -54,6 +55,8 @@ public class Screen {
                 Cell cell = map.getCell(x, y);
                 if (cell.hasActor()) {
                     Tiles.drawTile(context, cell.getActor(), col, row);
+                    if (cell.getActor() instanceof Player && cell.hasItem())
+                        Tiles.drawHalfTile(context, cell.getItem(), col, row);
                 } else if (cell.hasItem()) {
                     Tiles.drawTile(context, cell.getItem(), col, row);
                 } else {
