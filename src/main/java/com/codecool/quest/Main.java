@@ -69,7 +69,7 @@ public class Main extends Application {
             botControl.deactivate();
             if (MapLoader.getCurrentLevel() == 1) {
                 map = MapLoader.loadMap(2);
-            } else {
+            } else if (TheBoss.getIsTheBossKilled() || !ui.isTimeZero()) {
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
                 // After restarting the game these fields must be set up again
