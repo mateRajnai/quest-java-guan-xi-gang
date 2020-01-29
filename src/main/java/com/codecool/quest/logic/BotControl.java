@@ -1,10 +1,7 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.VisualFrameWork;
-import com.codecool.quest.logic.actors.Bat;
-import com.codecool.quest.logic.actors.Duck;
-import com.codecool.quest.logic.actors.Golem;
-import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.actors.*;
 import javafx.application.Platform;
 
 import java.util.concurrent.Executors;
@@ -26,6 +23,7 @@ public class BotControl {
         Bat.getBats().forEach(Bat::move);
         Duck.getDucks().forEach(Duck::move);
         Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
+        TheBoss.getTheBosses().forEach(TheBoss::move);
         visuals.refresh();
     }
 
