@@ -64,6 +64,10 @@ public class Main extends Application {
             } else {
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
+                // After restarting the game these fields must be set up again
+                TheBoss.setIsTheBossKilled(false);
+                ui.setCountdownTimer();
+                ui.countdown();
             }
             ui.setMap(map);
             visuals.refresh();

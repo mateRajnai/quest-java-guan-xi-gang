@@ -32,7 +32,7 @@ public class UI extends GridPane {
     private Inventory inventory = new Inventory();
     private Button pickUpButton = new Button("Pick up");
 
-    private final Integer startTime = 30;
+    private final Integer startTime = 15;
     private Integer secondsLeft = startTime;
 
 
@@ -132,6 +132,10 @@ public class UI extends GridPane {
         this.map = map;
     }
 
+    public boolean isTimeZero() {
+        return secondsLeft == 0;
+    }
+
     public void countdown() {
         Timeline time = new Timeline();
         time.setCycleCount(Timeline.INDEFINITE);
@@ -150,5 +154,9 @@ public class UI extends GridPane {
 
         time.getKeyFrames().add(frame);
         time.playFromStart();
+    }
+
+    public void setCountdownTimer() {
+        this.secondsLeft = startTime;
     }
 }
