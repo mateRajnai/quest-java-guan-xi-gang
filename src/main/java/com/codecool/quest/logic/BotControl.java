@@ -1,6 +1,6 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.layers.VisualFrameWork;
+import com.codecool.quest.layers.Screen;
 import com.codecool.quest.logic.actors.Bat;
 import com.codecool.quest.logic.actors.Duck;
 import com.codecool.quest.logic.actors.Golem;
@@ -13,12 +13,12 @@ import java.util.concurrent.TimeUnit;
 
 public class BotControl {
 
-    private VisualFrameWork visuals;
+    private Screen screen;
     private ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
     private Runnable actuate = () -> Platform.runLater(this::actuateBots);
 
-    public BotControl(VisualFrameWork visuals) {
-        this.visuals = visuals;
+    public BotControl(Screen screen) {
+        this.screen = screen;
     }
 
     private void actuateBots() {
@@ -26,7 +26,7 @@ public class BotControl {
         Bat.getBats().forEach(Bat::move);
         Duck.getDucks().forEach(Duck::move);
         Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
-        visuals.refresh();
+        screen.refresh();
     }
 
     public void activate() {

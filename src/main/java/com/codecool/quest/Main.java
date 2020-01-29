@@ -1,7 +1,6 @@
 package com.codecool.quest;
 
-import com.codecool.quest.layers.UI;
-import com.codecool.quest.layers.VisualFrameWork;
+import com.codecool.quest.layers.*;
 import com.codecool.quest.logic.BotControl;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
@@ -13,10 +12,12 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+    Layout layout = new Layout();
     GameMap map = MapLoader.loadMap();
-    UI ui = new UI(map);
-    VisualFrameWork visuals = new VisualFrameWork(ui);
-    BotControl botControl = new BotControl(visuals);
+    Screen screen = new Screen(layout, map);
+    UI ui = new UI(layout, screen);
+    BotControl botControl = new BotControl(screen);
+    Scene scene = new Scene(layout);
 
     public static void main(String[] args) {
         launch(args);
@@ -24,16 +25,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = visuals.getScene();
-        scene.setOnKeyPressed(this::onKeyPressed);
-        primaryStage.setScene(scene);
         primaryStage.setTitle("Codecool quest");
+        primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(windowEvent -> botControl.deactivate());
-        ui.initPickUpButton(visuals);
-        ui.initInventory(visuals);
-        visuals.refresh();
+        scene.setOnKeyPressed(this::onKeyPressed);
+        screen.refresh();
         primaryStage.show();
-        visuals.focusLayout();
+        screen.focusLayout();
         ui.setCharacterName();
         botControl.activate();
     }
@@ -54,7 +52,7 @@ public class Main extends Application {
                 map.getPlayer().move(1, 0);
                 break;
         }
-        visuals.refresh();
+        screen.refresh();
         checkEndGame();
     }
 
@@ -67,8 +65,8 @@ public class Main extends Application {
                 ui.showEndingAlert();
                 map = MapLoader.loadMap(1);
             }
-            visuals.setMap(map);
-            visuals.refresh();
+            screen.updateMap(map);
+            screen.refresh();
             botControl.reactivate();
         }
     }
