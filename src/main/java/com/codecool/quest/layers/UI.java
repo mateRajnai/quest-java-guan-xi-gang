@@ -1,5 +1,6 @@
-package com.codecool.quest;
+package com.codecool.quest.layers;
 
+import com.codecool.quest.layers.VisualFrameWork;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.Inventory;
 import com.codecool.quest.logic.items.Item;

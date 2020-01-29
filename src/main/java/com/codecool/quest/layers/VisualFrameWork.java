@@ -1,8 +1,8 @@
-package com.codecool.quest;
+package com.codecool.quest.layers;
 
+import com.codecool.quest.Tiles;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
-import com.codecool.quest.util.MapView;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

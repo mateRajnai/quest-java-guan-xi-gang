@@ -1,6 +1,6 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.VisualFrameWork;
+import com.codecool.quest.layers.VisualFrameWork;
 import com.codecool.quest.logic.actors.Bat;
 import com.codecool.quest.logic.actors.Duck;
 import com.codecool.quest.logic.actors.Golem;

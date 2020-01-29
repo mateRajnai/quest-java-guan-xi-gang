@@ -1,4 +1,4 @@
-package com.codecool.quest.util;
+package com.codecool.quest.layers;
 
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.actors.Player;

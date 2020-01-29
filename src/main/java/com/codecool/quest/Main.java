@@ -1,5 +1,7 @@
 package com.codecool.quest;
 
+import com.codecool.quest.layers.UI;
+import com.codecool.quest.layers.VisualFrameWork;
 import com.codecool.quest.logic.BotControl;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
