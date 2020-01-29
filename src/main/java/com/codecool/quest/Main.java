@@ -4,6 +4,7 @@ import com.codecool.quest.logic.BotControl;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.actors.TheBoss;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -52,6 +53,13 @@ public class Main extends Application {
                 map.getPlayer().move(1, 0);
                 break;
         }
+
+        if (MapLoader.getCurrentLevel() == 2 && TheBoss.getTheBosses().size() == 0 && ui.isTimeZero() && !TheBoss.getIsTheBossKilled()) {
+            // the cell is constant right now
+            TheBoss theBoss = new TheBoss(map.getCell(2, 3));
+            TheBoss.add(theBoss);
+        }
+
         visuals.refresh();
         checkEndGame();
     }

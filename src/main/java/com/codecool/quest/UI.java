@@ -32,7 +32,7 @@ public class UI extends GridPane {
     private Inventory inventory = new Inventory();
     private Button pickUpButton = new Button("Pick up");
 
-    private final Integer startTime = 15;
+    private final Integer startTime = 20;
     private Integer secondsLeft = startTime;
 
 
