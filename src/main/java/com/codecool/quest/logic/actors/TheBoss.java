@@ -66,4 +66,5 @@ public class TheBoss extends Actor {
     public String getTileName() {
         return "the boss";
     }
+
 }
