@@ -36,7 +36,6 @@ public class UI {
     public void updateMap(GameMap map) {
         this.map = map;
         this.player = this.map.getPlayer();
-        this.screen.updateMap(map);
     }
 
     public void setCharacterName() {
@@ -79,5 +78,9 @@ public class UI {
     public void openDoor() {
         player.openDoorInNeighbourCell();
         inventory.removeByTileName("key");
+    }
+
+    public void clearInventory() {
+        inventory.clear();
     }
 }

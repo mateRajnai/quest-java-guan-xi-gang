@@ -75,15 +75,21 @@ public class Main extends Application {
                 map = MapLoader.loadMap();
             } else if (TheBoss.getIsTheBossKilled() || !countdownTimer.isTimeZero()) {
                 MessageLoader.showEndingAlert();
+                ui.clearInventory();
                 map = MapLoader.loadMap(1);
                 // After restarting the game these fields must be set up again
                 TheBoss.setIsTheBossKilled(false);
                 countdownTimer.setCountdownTimer();
                 countdownTimer.countdown();
             }
-            ui.updateMap(map);
+            updateMap();
             screen.refresh();
             botControl.reactivate();
         }
+    }
+
+    private void updateMap() {
+        ui.updateMap(map);
+        screen.updateMap(map);
     }
 }

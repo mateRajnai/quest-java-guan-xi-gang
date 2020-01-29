@@ -30,4 +30,8 @@ public class Inventory extends ListView<Item> {
     public void removeItem(Item item) {
         this.getItems().remove(item);
     }
+
+    public void clear() {
+        this.getItems().clear();
+    }
 }
