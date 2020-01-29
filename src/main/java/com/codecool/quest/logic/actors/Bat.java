@@ -1,5 +1,6 @@
 package com.codecool.quest.logic.actors;
 
+import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.HandleAttack;
@@ -11,6 +12,7 @@ import java.util.List;
 public class Bat extends Actor {
 
     HandleAttack handleAttack = new HandleAttack();
+    AutoTarget autotarget = new AutoTarget(MONSTER_ATTACK_RANGE, this);
 
     private static final int INITIAL_HEALTH = 6;
     private static final int INITIAL_ATTACK_DAMAGE = 1;

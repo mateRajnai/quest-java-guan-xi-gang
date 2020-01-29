@@ -1,5 +1,6 @@
 package com.codecool.quest.logic.actors;
 
+import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.HandleAttack;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Golem extends Actor {
+
+    AutoTarget autotarget = new AutoTarget(this);
 
     private static final int INITIAL_HEALTH = 30;
     private static final int INITIAL_ATTACK_DAMAGE = 2;

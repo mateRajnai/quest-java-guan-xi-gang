@@ -1,5 +1,6 @@
 package com.codecool.quest.logic.actors;
 
+import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.HandleAttack;
@@ -11,6 +12,7 @@ import java.util.spi.AbstractResourceBundleProvider;
 public class Skeleton extends Actor {
 
     HandleAttack handleAttack = new HandleAttack();
+    AutoTarget autotarget = new AutoTarget(MONSTER_ATTACK_RANGE, this);
 
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 3;
@@ -34,7 +36,7 @@ public class Skeleton extends Actor {
 
         //if player is near it will search for the next closest possible cell
         if(isPlayerNear()) {
-            nextCell= getClosestCellToPlayer();
+            nextCell= autotarget.getClosestCellToPlayer();
 
             //step on nextCell if possible
             if (!this.isPlayerNexToIt() && !fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {

@@ -1,82 +1,29 @@
-package com.codecool.quest.logic.actors;
+package com.codecool.quest.logic;
 
-import com.codecool.quest.logic.AutoTarget;
-import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.Drawable;
-import com.codecool.quest.logic.HandleAttack;
+import com.codecool.quest.logic.actors.Actor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public abstract class Actor implements Drawable {
-    private Cell cell;
-    HandleAttack handleAttack = new HandleAttack();
+public class AutoTarget {
 
-    protected int health;
-    protected int attackDamage;
-    protected int armor;
-    protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire", "chest open"));
-    protected List<String> fixActors = new ArrayList<>(Arrays.asList("pot", "chest open", "chest closed"));
-    protected static Cell playerCurrentPosition;
-    protected static final int MONSTER_ATTACK_RANGE = 3;
+    private int MONSTER_ATTACK_RANGE;
+    private Actor attacker;
 
-
-    public Actor(Cell cell) {
-        this.cell = cell;
-        this.cell.setActor(this);
+    public AutoTarget(int MONSTER_ATTACK_RANGE, Actor attacker) {
+        this.MONSTER_ATTACK_RANGE = MONSTER_ATTACK_RANGE;
+        this.attacker = attacker;
     }
 
-    public void move(int dx, int dy) {
-    };
-
-    public int attack(int targetHealth) {
-        return targetHealth - this.attackDamage;
-    }
-
-    public int getHealth() {
-        return this.health;
-    }
-    public void setHealth(int newHealth) {this.health = newHealth;}
-
-    public int getAttackDamage() {
-        return this.attackDamage;
-    }
-    public void setAttackDamage(int newAttackDamage) {this.attackDamage = newAttackDamage;}
-
-    public int getArmor() {
-        return this.armor;
-    }
-    public void setArmor(int newArmor) {this.armor = newArmor;}
-
-    public Cell getCell() {
-        return this.cell;
-    }
-
-    public void setCell(Cell cell) { this.cell = cell;}
-
-    public int getX() {
-        return cell.getX();
-    }
-
-    public int getY() {
-        return cell.getY();
-    }
-
-    public void setPlayerCurrentPosition(Cell playerCurrentPosition) {
-        Actor.playerCurrentPosition = playerCurrentPosition;
-    }
-
-    public Cell getPlayerCurrentPosition() {
-        return playerCurrentPosition;
+    public AutoTarget(Actor attacker){
+        this.attacker = attacker;
     }
 
     public Cell getClosestCellToPlayer() {
 
-        int playerCurrentXPosition = playerCurrentPosition.getX();
-        int playerCurrentYPosition = playerCurrentPosition.getY();
-        int attackerCurrentXPosition = this.getCell().getX();
-        int attackerCurrentYPosition = this.getCell().getY();
+        int playerCurrentXPosition = attacker.getPlayerCurrentPosition().getX();
+        int playerCurrentYPosition = attacker.getPlayerCurrentPosition().getY();
+        int attackerCurrentXPosition = attacker.getX();
+        int attackerCurrentYPosition = attacker.getY();
 
         int[] upDownDirections = new int[2];
         int[] leftRightDirections = new int[2];
@@ -126,10 +73,10 @@ public abstract class Actor implements Drawable {
         }
 
         System.out.println("lowest difference rightleft" + horizontalIndex + " updown " + verticalIndex);
-        System.out.println("player    x " + playerCurrentPosition.getX() + "y " + playerCurrentPosition.getY());
+        System.out.println("player    x " + playerCurrentXPosition + "y " + playerCurrentYPosition);
         System.out.println(" rightleft " + Arrays.toString(leftRightDirections) + " updown " + Arrays.toString(upDownDirections));
         //System.out.println("x to player " + closestCellToPlayer.getX() + " y to player " + closestCellToPlayer.getY());
-        System.out.println("x enemy " + this.getX() + "y enemy " + this.getY());
+        System.out.println("x enemy " + attacker.getX() + "y enemy " + attacker.getY());
         return closestCellToPlayer;
     }
 
@@ -139,13 +86,13 @@ public abstract class Actor implements Drawable {
         System.out.println(finalDirection);
         switch(finalDirection) {
             case "left":
-                return this.getCell().getNeighbor(-1 ,0);
+                return attacker.getCell().getNeighbor(-1 ,0);
             case "right":
-                return this.getCell().getNeighbor(1 ,0);
+                return attacker.getCell().getNeighbor(1 ,0);
             case "up":
-                return this.getCell().getNeighbor(0, -1);
+                return attacker.getCell().getNeighbor(0, -1);
             case "down":
-                return this.getCell().getNeighbor(0, 1);
+                return attacker.getCell().getNeighbor(0, 1);
 
             default:
                 throw new IllegalStateException("Unexpected value: " + finalDirection);
@@ -157,7 +104,7 @@ public abstract class Actor implements Drawable {
         int[] yDirections = {0, 1, 0, -1};
 
         for (int index = 0; index < xDirections.length; index++) {
-            Cell nextCell = this.getCell().getNeighbor(xDirections[index], yDirections[index]);
+            Cell nextCell = attacker.getCell().getNeighbor(xDirections[index], yDirections[index]);
 
             if (nextCell.getActor() != null && nextCell.getActor().getTileName().equals("player")) {
                 return true;
@@ -165,14 +112,4 @@ public abstract class Actor implements Drawable {
         }
         return false;
     }
-
-    public abstract void terminate();
-
-    public boolean isPlayerNear() {
-        return Math.abs(this.getX() - playerCurrentPosition.getX()) <= MONSTER_ATTACK_RANGE &&
-                Math.abs(this.getY() - playerCurrentPosition.getY()) <= MONSTER_ATTACK_RANGE;
-    }
-
-
-
 }
