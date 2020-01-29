@@ -27,8 +27,8 @@ public class UI {
         initEndingAlert();
     }
 
-    public UI(Layout layout, Screen screen) {
-        SidePanel sidePanel = layout.getSidePanel();
+    public UI(Screen screen) {
+        SidePanel sidePanel = screen.getSidePanel();
         this.map = screen.getMap();
         this.characterName = sidePanel.getCharacterName();
         this.inventory = sidePanel.getInventory();

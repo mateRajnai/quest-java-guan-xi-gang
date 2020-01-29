@@ -15,7 +15,7 @@ public class Main extends Application {
     Layout layout = new Layout();
     GameMap map = MapLoader.loadMap();
     Screen screen = new Screen(layout, map);
-    UI ui = new UI(layout, screen);
+    UI ui = new UI(screen);
     BotControl botControl = new BotControl(screen);
     Scene scene = new Scene(layout);
 

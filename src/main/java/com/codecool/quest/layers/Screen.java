@@ -10,15 +10,21 @@ import javafx.scene.paint.Color;
 public class Screen {
 
     private Layout layout;
+    private SidePanel sidePanel;
     private GraphicsContext context;
     private GameMap map;
     private MapView mapView;
 
     public Screen(Layout layout, GameMap map) {
         this.layout = layout;
+        this.sidePanel = layout.getSidePanel();
         this.context = layout.getCanvas().getGraphicsContext2D();
         this.map = map;
         this.mapView = new MapView(map);
+    }
+
+    public SidePanel getSidePanel() {
+        return sidePanel;
     }
 
     public GameMap getMap() {
@@ -55,6 +61,6 @@ public class Screen {
                 }
             }
         }
-        layout.getSidePanel().setHealthPoints(map.getPlayer().getHealth());
+        sidePanel.setHealthPoints(map.getPlayer().getHealth());
     }
 }
