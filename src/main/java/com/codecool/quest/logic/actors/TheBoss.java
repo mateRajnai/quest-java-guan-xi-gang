@@ -32,7 +32,7 @@ public class TheBoss extends Actor {
         return isTheBossAlive;
     }
 
-    public boolean setIsTheBossAlive(boolean aliveness) {
+    public void setIsTheBossAlive(boolean aliveness) {
         this.isTheBossAlive = aliveness;
     }
 
