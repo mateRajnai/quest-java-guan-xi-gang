@@ -1,10 +1,6 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Actor;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
