@@ -4,6 +4,7 @@ import com.codecool.quest.logic.items.Item;
 import com.codecool.quest.logic.items.ItemData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +20,9 @@ public class Inventory extends TableView<ItemData> {
         this.setFixedCellSize(25);
         this.setPrefHeight(150);
         this.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        this.setPlaceholder(new Label("No items in inventory"));
+
         itemCol = new TableColumn<>("Item");
         itemCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         itemCol.setPrefWidth(100);
