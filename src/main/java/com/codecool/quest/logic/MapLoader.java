@@ -65,19 +65,19 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            map.add(new Skeleton(cell));
                             break;
                         case 'b':
                             cell.setType(CellType.FLOOR);
-                            new Bat(cell);
+                            map.add(new Bat(cell));
                             break;
                         case 'g':
                             cell.setType(CellType.FLOOR);
-                            new Golem(cell);
+                            map.add(new Golem(cell));
                             break;
                         case 'd':
                             cell.setType(CellType.FLOOR);
-                            new Duck(cell);
+                            map.add(new Duck(cell));
                             break;
                         case 'p':
                             cell.setType(CellType.FLOOR);
