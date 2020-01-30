@@ -1,6 +1,8 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.actors.Actor;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,6 +33,7 @@ public class AutoTarget {
          //map will contain "nextHorizontalMoveCell" and "nextVerticalMoveCell" keys
          Map<String, Cell> directionOfPlayer = getDirectionOfPlayer(shortestDirectionIndexes);
 
+
          int closestVerticalDirection = horizontalDirections[shortestDirectionIndexes.get("horizontalDirectionIndex")];
          int closestHorizontalDirection = verticalDirections[shortestDirectionIndexes.get("verticalDirectionIndex")];
 
@@ -38,13 +41,19 @@ public class AutoTarget {
          Cell closestVerticalCell = directionOfPlayer.get("nextVerticalMoveCell");
 
          public boolean isActorCloserHorizontalToTarget () {
+
+             System.out.println(Arrays.toString(horizontalDirections) + "\n");
+             System.out.println(Arrays.toString(verticalDirections) + "\n");
+
+             System.out.println("vertical" + closestVerticalCell.getX() + " y " + closestVerticalCell.getY());
+             System.out.println("horizontal" + closestHorizontalCell.getX() + " y " + closestHorizontalCell.getY());
              return closestHorizontalDirection <= closestVerticalDirection &&
                      closestHorizontalDirection != 0 &&
                      !closestHorizontalCell.isBlocking();
          }
 
          public boolean isActorCloserVerticalToTarget () {
-             return closestVerticalDirection < closestHorizontalDirection &&
+             return closestVerticalDirection <= closestHorizontalDirection &&
                      closestVerticalDirection != 0 &&
                      !closestVerticalCell.isBlocking();
          }
@@ -84,7 +93,7 @@ public class AutoTarget {
 
         ActorEnvironmentCheck actorEnvironmentCheck  = new ActorEnvironmentCheck();
 
-        Cell closestCellToPlayer = null;
+        Cell closestCellToPlayer = attacker.getCell();
 
         //we have set the right direction towards the player
         //now we decide from which one is the shortest way to the player from horizontal move and vertical move
@@ -100,13 +109,15 @@ public class AutoTarget {
             System.out.println("2");
 
             // else if we are horizontally reached the player (that means we are next to it horizontally)
-        } else if(actorEnvironmentCheck.isTargetReachedHorizontally()) {
-            closestCellToPlayer = actorEnvironmentCheck.getClosestVerticalCell();
+        } else if(actorEnvironmentCheck.isTargetReachedHorizontally() &&
+                !actorEnvironmentCheck.isActorCloserVerticalToTarget()) {
+            closestCellToPlayer = actorEnvironmentCheck.getClosestHorizontalCell();
             System.out.println("3");
 
             // else if we are vertically reached the player (that means we are next to it vertically)
-        } else if(actorEnvironmentCheck.isTargetReachedVertically()) {
-            closestCellToPlayer = actorEnvironmentCheck.getClosestHorizontalCell();
+        } else if(actorEnvironmentCheck.isTargetReachedVertically() &&
+                !actorEnvironmentCheck.isActorCloserHorizontalToTarget()) {
+            closestCellToPlayer = actorEnvironmentCheck.getClosestVerticalCell();
             System.out.println("4");
 
             // else if we are horizontally reached the players level, then we will move vertically
@@ -119,9 +130,6 @@ public class AutoTarget {
             closestCellToPlayer = actorEnvironmentCheck.getClosestHorizontalCell();
             System.out.println("6");
         }
-
-        System.out.println("x to player " + closestCellToPlayer.getX() + " y to player " + closestCellToPlayer.getY());
-        System.out.println("x enemy " + attacker.getX() + "y enemy " + attacker.getY());
 
         return closestCellToPlayer;
 
@@ -142,6 +150,7 @@ public class AutoTarget {
                 directions[0] = Math.abs((attackerCurrentXPosition - 1) - playerCurrentXPosition);
                 //right
                 directions[1] = Math.abs((attackerCurrentXPosition + 1) - playerCurrentXPosition);
+                break;
             case "Y":
                 //up
                 directions[0] = Math.abs((attackerCurrentYPosition - 1) - playerCurrentYPosition);

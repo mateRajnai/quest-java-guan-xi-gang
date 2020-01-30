@@ -31,31 +31,30 @@ public class Skeleton extends Actor {
     }
 
     public void move() {
-
         Cell nextCell;
+
 
         //if player is near it will search for the next closest possible cell
         if(isPlayerNear()) {
             nextCell= autotarget.pathFinding();
-            System.out.println(" attack enemy X " + nextCell.getX() + " attack enemy Y " + nextCell.getY());
 
             //step on nextCell if possible
             if (!nextCell.isBlocking() && !isPlayerNexToIt()) {
-                System.out.println("first nested if in attack");
                 this.moveTo(nextCell);
-            } else {
-                System.out.println("else in attack");
+                //if there is a player, then attack
+            } else if(isPlayerNexToIt()){
                 Actor target = getPlayerCurrentPosition().getActor();
                 this.attack(target);
+                //if something blocking the player's side then just stand and wait
+            } else if(!nextCell.isBlocking()){
+                this.moveTo(this.getCell());
             }
         }
         //if player is not near it will do the standard movement
         else {
-            System.out.println("back to standardmove");
             dx = coordinateSwitcher;
             dy = 0;
             nextCell = this.getCell().getNeighbor(dx, dy);
-            System.out.println("enemy X " + nextCell.getX() + " enemy Y " + nextCell.getY());
             standardMovement(nextCell);
         }
 
@@ -63,27 +62,17 @@ public class Skeleton extends Actor {
 
     private void standardMovement(Cell nextCell) {
 
-        //bounce if the nexcell is wall
-        if (fixTiles.contains(nextCell.getTileName()) || fixActors.contains(nextCell.getTileName())) {
+        //bounce if the nexcell is an obstacle
+        if (nextCell.isBlocking()) {
             coordinateSwitcher *= -1;
             dx = coordinateSwitcher;
             nextCell = super.getCell().getNeighbor(dx, dy);
-        }
-
-        //step on nextCell if possible
-        if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
             this.moveTo(nextCell);
-
-
-            //if player on the nextcell monster will attack it
-        } else if (!fixTiles.contains(nextCell.getTileName()) &&
-                nextCell.getActor() != null &&
-                nextCell.getActor().getTileName().equals("player")) {
-
-            Actor target = getPlayerCurrentPosition().getActor();
-            this.attack(target);
-
         }
+        else {
+            this.moveTo(nextCell);
+        }
+
     }
 
     public void terminate() {
