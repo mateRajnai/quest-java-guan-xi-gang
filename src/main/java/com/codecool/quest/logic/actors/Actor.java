@@ -70,6 +70,10 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
+    public boolean hasFixedPosition() {
+        return false;
+    }
+
     public abstract void terminate();
 
 }

@@ -35,6 +35,11 @@ public class Chest extends Actor {
     }
 
     @Override
+    public boolean hasFixedPosition() {
+        return true;
+    }
+
+    @Override
     public String getTileName() {
         return whoAmI;
     }

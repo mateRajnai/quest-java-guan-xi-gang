@@ -39,6 +39,10 @@ public class Cell implements Drawable {
         return actor != null;
     }
 
+    public boolean hasFixedActor() {
+        return hasActor() && actor.hasFixedPosition();
+    }
+
     public boolean isBlocking() {
         return (!type.isTraversable() || hasActor());
     }
