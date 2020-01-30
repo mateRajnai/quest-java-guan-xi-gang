@@ -8,7 +8,7 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-public class CountdownTimer {
+public class TheBossClock {
 
     private final Integer startTime = 20;
     private Integer secondsLeft = startTime;
@@ -16,7 +16,7 @@ public class CountdownTimer {
     private Screen screen;
     private Timeline time;
 
-    public CountdownTimer(Screen screen) {
+    public TheBossClock(Screen screen) {
         this.countdownTimer = screen.getSidePanel().getCountdownTimer();
         this.screen = screen;
         update();

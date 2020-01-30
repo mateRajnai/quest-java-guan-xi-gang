@@ -17,7 +17,8 @@ public class Main extends Application {
     UI ui = new UI(screen);
     BotControl botControl = new BotControl(screen);
     Scene scene = new Scene(layout);
-    CountdownTimer countdownTimer = new CountdownTimer(screen);
+    TheBossClock theBossClock = new TheBossClock(screen);
+    InteractionClock interactionClock = new InteractionClock();
 
     public static void main(String[] args) {
         launch(args);
@@ -34,10 +35,12 @@ public class Main extends Application {
         screen.focusLayout();
         ui.setCharacterName();
         botControl.activate();
-        countdownTimer.countdown();
+        theBossClock.countdown();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+
+        if (interactionClock.isInteractionDenied()) return;
 
         switch (keyEvent.getCode()) {
             case UP:
@@ -57,6 +60,7 @@ public class Main extends Application {
                 break;
         }
 
+        interactionClock.updateLastKeyPressTime();
         screen.refresh();
         checkEndGame();
     }
@@ -66,11 +70,11 @@ public class Main extends Application {
             botControl.deactivate();
             if (MapLoader.hasNextLevel()) {
                 map = MapLoader.loadMap();
-            } else if (TheBoss.isDefeated() || countdownTimer.isCounting()) {
+            } else if (TheBoss.isDefeated() || theBossClock.isCounting()) {
                 MessageLoader.showEndingAlert();
                 ui.clearInventory();
                 map = MapLoader.loadMap(1);
-                countdownTimer.reset();
+                theBossClock.reset();
             }
             updateMap();
             screen.refresh();
