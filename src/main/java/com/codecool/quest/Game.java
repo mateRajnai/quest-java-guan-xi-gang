@@ -29,15 +29,14 @@ public class Game {
     public Game(Stage stage) {
         Scene scene = new Scene(layout);
         this.stage = stage;
-        this.botControl = new BotControl(screen);
+        this.botControl = new BotControl();
         this.botControl.setActuation(this::actuateBots);
         this.stage.setTitle("Codecool quest");
         this.stage.setScene(scene);
         this.stage.setOnCloseRequest(windowEvent -> botControl.deactivate());
         scene.setOnKeyPressed(this::onKeyPressed);
         screen.setOnPlayerDeath(this::onPlayerDeath);
-        Runnable bossHatchery = () -> map.add(new TheBoss(map.getExitCell()));
-        theBossClock.setBossHatchery(bossHatchery);
+        theBossClock.setBossHatchery(this::onBossAwakening);
     }
 
     public void init() {
@@ -59,6 +58,10 @@ public class Game {
         MessageLoader.showGameOverAlert();
         reset();
         resume();
+    }
+
+    private void onBossAwakening() {
+        map.add(new TheBoss(map.getExitCell()));
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {

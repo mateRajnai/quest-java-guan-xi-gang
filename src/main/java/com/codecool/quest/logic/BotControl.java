@@ -12,13 +12,8 @@ public class BotControl {
 
     private static final int MONSTER_ACTION_PERIOD = 400;
 
-    private Screen screen;
     private ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
     private Runnable actuation;
-
-    public BotControl(Screen screen) {
-        this.screen = screen;
-    }
 
     public void setActuation(Runnable actuation) {
         this.actuation = () -> Platform.runLater(actuation);
