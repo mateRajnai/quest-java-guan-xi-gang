@@ -49,9 +49,9 @@ public class UI {
                 ItemData selectedItem = inventory.getSelectionModel().getSelectedItem();
                 if (selectedItem.getName().equals("key") && player.isDoorInNeighbourCell()) {
                     openDoor();
-                    screen.focusLayout();
                 }
             }
+            screen.focusLayout();
         });
     }
 

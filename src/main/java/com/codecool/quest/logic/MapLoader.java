@@ -28,6 +28,13 @@ public class MapLoader {
         int width = scanner.nextInt();
         int height = scanner.nextInt();
 
+        Bat.getBats().clear();
+        Skeleton.getSkeletons().clear();
+        Golem.getGolems().clear();
+        Pot.getPots().clear();
+        Chest.getChests().clear();
+        Duck.getDucks().clear();
+
         scanner.nextLine();
         GameMap map = new GameMap(width, height, CellType.EMPTY);
         for (int y = 0; y < height; y++) {
