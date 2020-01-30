@@ -18,6 +18,7 @@ public class SidePanel extends VBox {
     private Inventory inventory = new Inventory();
     private Button pickUpButton = new Button("Pick up");
     private Label countdownTimer = new Label();
+    private VBox vbox = new VBox();
 
     public SidePanel() {
         ColumnConstraints col1 = new ColumnConstraints(85);
@@ -29,7 +30,9 @@ public class SidePanel extends VBox {
         labelGrid.add(healthLabel, 0, 0);
         labelGrid.add(healthPoints, 1, 0);
         countdownTimer.setPrefWidth(200);
-        this.getChildren().addAll(labelGrid, inventory, pickUpButton, countdownTimer);
+        vbox.setPadding(new Insets(10));
+        vbox.getChildren().addAll(inventory, pickUpButton, countdownTimer);
+        this.getChildren().addAll(labelGrid, vbox);
     }
 
     public void setHealthPoints(int health) {

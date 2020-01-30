@@ -45,13 +45,13 @@ public class UI {
 
     public void initInventory() {
         inventory.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-                Item selectedItem = inventory.getSelectionModel().getSelectedItem();
-                if (selectedItem instanceof Key && player.isDoorInNeighbourCell()) {
-                    openDoor();
-                    screen.focusLayout();
-                }
-            }
+//            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+//                Item selectedItem = inventory.getSelectionModel().getSelectedItem();
+//                if (selectedItem instanceof Key && player.isDoorInNeighbourCell()) {
+//                    openDoor();
+//                    screen.focusLayout();
+//                }
+//            }
         });
     }
 

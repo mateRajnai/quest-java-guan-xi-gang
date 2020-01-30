@@ -1,37 +1,71 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.items.Item;
-import com.codecool.quest.logic.items.Key;
-import javafx.scene.control.ListView;
+import com.codecool.quest.logic.items.ItemData;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class Inventory extends ListView<Item> {
+public class Inventory extends TableView<ItemData> {
+
+    private ObservableList<ItemData> inv = FXCollections.observableArrayList();
+    TableColumn<ItemData, String> itemCol;
+    TableColumn<ItemData, Integer> amountCol;
 
     public Inventory() {
-        this.setPrefWidth(30);
-        this.setPrefHeight(70);
+
+        this.setFixedCellSize(25);
+        this.setPrefHeight(150);
+        this.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        itemCol = new TableColumn<>("Item");
+        itemCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        itemCol.setPrefWidth(100);
+
+        amountCol = new TableColumn<>("Amount");
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountCol.setPrefWidth(100);
+
+        this.setItems(inv);
+        this.getColumns().add(itemCol);
+        this.getColumns().add(amountCol);
+    }
+
+    private ItemData findItemData(Item item) {
+        return findItemData(item.getTileName());
+    }
+
+    private ItemData findItemData(String tileName) {
+        for (ItemData itemData : inv)
+            if (itemData.getName().equals(tileName))
+                return itemData;
+        return null;
     }
 
     public void add(Item item) {
-        this.getItems().add(item);
+        ItemData itemData = findItemData(item);
+        if (itemData == null)
+            inv.add(new ItemData(item.getTileName()));
+        else
+            itemData.increaseAmount();
         item.removeFromMap();
+        this.refresh();
     }
 
     public boolean hasKey() {
-        for (Item item : this.getItems())
-            if (item instanceof Key)
-                return true;
-        return false;
+        return findItemData("key") != null;
     }
 
     public void removeByTileName(String tileName) {
-        this.getItems().removeIf(item -> tileName.equals(item.getTileName()));
-    }
-
-    public void removeItem(Item item) {
-        this.getItems().remove(item);
+        ItemData itemData = findItemData(tileName);
+        if (itemData != null)
+            itemData.decreaseAmount();
+        this.refresh();
     }
 
     public void clear() {
-        this.getItems().clear();
+        inv.clear();
+        this.refresh();
     }
 }
