@@ -2,7 +2,6 @@ package com.codecool.quest.logic;
 
 import com.codecool.quest.layers.Screen;
 import com.codecool.quest.logic.actors.*;
-import com.codecool.quest.util.GameEventHandler;
 import javafx.application.Platform;
 
 import java.util.concurrent.Executors;
@@ -16,14 +15,9 @@ public class BotControl {
     private Screen screen;
     private ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
     private Runnable actuate = () -> Platform.runLater(this::actuateBots);
-    private GameEventHandler gameEventHandler;
 
     public BotControl(Screen screen) {
         this.screen = screen;
-    }
-
-    public void setGameEventHandler(GameEventHandler gameEventHandler) {
-        this.gameEventHandler = gameEventHandler;
     }
 
     private void actuateBots() {
@@ -34,8 +28,6 @@ public class BotControl {
         if (!TheBoss.isDormant())
             TheBoss.getTheBoss().move();
         screen.refresh();
-        if (screen.getMap().getPlayer().isDead())
-            screen.getMap().getPlayer().getGameOverEvent().invokeHandler(gameEventHandler);
     }
 
     public void activate() {

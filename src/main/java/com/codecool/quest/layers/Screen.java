@@ -4,6 +4,7 @@ import com.codecool.quest.Tiles;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.actors.Player;
+import com.codecool.quest.util.GameEventHandler;
 import com.codecool.quest.util.LengthUnit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -15,6 +16,7 @@ public class Screen {
     private GraphicsContext context;
     private GameMap map;
     private MapView mapView;
+    private Runnable onPlayerDeath;
 
     public Screen(Layout layout, GameMap map) {
         this.layout = layout;
@@ -41,7 +43,12 @@ public class Screen {
         layout.requestFocus();
     }
 
+    public void setOnPlayerDeath(GameEventHandler handler) {
+        this.onPlayerDeath = handler::onGameOver;
+    }
+
     public void refresh() {
+
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, layout.getCanvasWidth(LengthUnit.PIXELS), layout.getCanvasHeight(LengthUnit.PIXELS));
 
@@ -68,6 +75,8 @@ public class Screen {
             }
         }
         sidePanel.setHealthPoints(map.getPlayer().getHealth());
+        if (map.getPlayer().isDead())
+            onPlayerDeath.run();
     }
 
     private void drawPlayer(Cell cell, int col, int row) {

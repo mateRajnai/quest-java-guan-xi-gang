@@ -10,9 +10,9 @@ import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.actors.TheBoss;
 import com.codecool.quest.util.Direction;
+import com.codecool.quest.util.GameEvent;
 import com.codecool.quest.util.GameEventHandler;
 import com.codecool.quest.util.GameOverEvent;
-import javafx.event.EventDispatchChain;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -23,19 +23,20 @@ public class Game {
     private GameMap map = MapLoader.loadMap();
     private Screen screen = new Screen(layout, map);
     private UI ui = new UI(screen);
-    private BotControl botControl = new BotControl(screen);
     private TheBossClock theBossClock = new TheBossClock(screen);
     private InteractionClock interactionClock = new InteractionClock();
     private Stage stage;
+    private BotControl botControl;
 
     public Game(Stage stage) {
         Scene scene = new Scene(layout);
         this.stage = stage;
+        this.botControl = new BotControl(screen);
         this.stage.setTitle("Codecool quest");
         this.stage.setScene(scene);
         this.stage.setOnCloseRequest(windowEvent -> botControl.deactivate());
         scene.setOnKeyPressed(this::onKeyPressed);
-        GameEventHandler gameEventHandler = new GameEventHandler() {
+        screen.setOnPlayerDeath(new GameEventHandler() {
             @Override
             public void onGameOver() {
                 botControl.deactivate();
@@ -43,8 +44,7 @@ public class Game {
                 reset();
                 resume();
             }
-        };
-        botControl.setGameEventHandler(gameEventHandler);
+        });
     }
 
     public void init() {
