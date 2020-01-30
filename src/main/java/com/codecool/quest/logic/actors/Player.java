@@ -3,6 +3,9 @@ package com.codecool.quest.logic.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.util.Direction;
+import com.codecool.quest.util.GameEvent;
+import com.codecool.quest.util.GameEventHandler;
+import com.codecool.quest.util.GameOverEvent;
 
 public class Player extends Actor {
 
@@ -10,6 +13,8 @@ public class Player extends Actor {
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 5;
     private static final int INITIAL_ARMOR = 0;
+
+    private GameEvent gameOverEvent;
 
     public Player(Cell cell) {
         super(cell);
@@ -39,6 +44,15 @@ public class Player extends Actor {
 
     public void terminate() {
         this.getCell().setActor(null);
+        gameOverEvent = new GameOverEvent();
+    }
+
+    public boolean isDead() {
+        return health == 0;
+    }
+
+    public GameEvent getGameOverEvent() {
+        return gameOverEvent;
     }
 
     public String getTileName() {
