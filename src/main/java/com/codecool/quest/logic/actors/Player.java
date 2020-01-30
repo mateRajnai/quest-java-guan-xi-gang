@@ -10,7 +10,7 @@ import com.codecool.quest.util.GameOverEvent;
 public class Player extends Actor {
 
     private static Player player;
-    private static final int INITIAL_HEALTH = 20;
+    private static final int INITIAL_HEALTH = 2000;
     private static final int INITIAL_ATTACK_DAMAGE = 5;
     private static final int INITIAL_ARMOR = 0;
 
@@ -18,6 +18,7 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
+        setPlayerCurrentPosition(cell);
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -36,10 +37,13 @@ public class Player extends Actor {
         Cell nextCell = this.getCell().getNeighbor(direction);
         if (nextCell == null) return;
 
-        if (!nextCell.isBlocking())
+        if (!nextCell.isBlocking()) {
+            setPlayerCurrentPosition(nextCell);
             this.moveTo(nextCell);
-        else if (nextCell.hasActor())
-            this.attack(nextCell.getActor());
+        } else if (nextCell.hasActor()) {
+            Actor target = nextCell.getActor();
+            this.attack(target);
+        }
     }
 
     public void terminate() {

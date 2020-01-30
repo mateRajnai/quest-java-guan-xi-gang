@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 public class BotControl {
 
+    private static final int MONSTER_ACTION_PERIOD = 400;
+
     private Screen screen;
     private ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
     private Runnable actuate = () -> Platform.runLater(this::actuateBots);
@@ -37,7 +39,7 @@ public class BotControl {
     }
 
     public void activate() {
-        botActuator.scheduleAtFixedRate(actuate, 0, 250, TimeUnit.MILLISECONDS);
+        botActuator.scheduleAtFixedRate(actuate, 0, MONSTER_ACTION_PERIOD, TimeUnit.MILLISECONDS);
     }
 
     public void deactivate() {

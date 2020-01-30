@@ -2,15 +2,12 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.HandleAttack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Duck extends Actor {
-
-    HandleAttack handleAttack = new HandleAttack();
 
     private static final int INITIAL_HEALTH = 5;
     private static final int INITIAL_ATTACK_DAMAGE = 0;
@@ -43,7 +40,7 @@ public class Duck extends Actor {
         //wall on corner check and send set the actors direction to opposite
         nextCell = super.getCell().getNeighbor(0, dy);
         Cell nextCellSide = super.getCell().getNeighbor(dx, 0);
-        if(nextCell.getTileName().equals("wall") && nextCellSide.getTileName().equals("wall")) {
+        if(!nextCell.isBlocking()) {
             direction[0] *= -1;
             direction[1] *= -1;
             dx = direction[0];
@@ -52,18 +49,8 @@ public class Duck extends Actor {
             nextCell = super.getCell().getNeighbor(dx, dy);
         }
 
-        if (!fixTiles.contains(nextCell.getTileName()) && nextCell.getActor() == null) {
-            super.getCell().setActor(null);
-            nextCell.setActor(this);
-            super.setCell(nextCell);
-
-        } else if (!fixTiles.contains(nextCell.getTileName()) &&
-                nextCell.getActor() != null &&
-                nextCell.getActor().getTileName().equals("player")) {
-
-            int modifiedDefenderHealth = handleAttack.attack(nextCell.getActor().getHealth(), this.attackDamage);
-            nextCell.getActor().setHealth(modifiedDefenderHealth);
-            handleAttack.isDead(modifiedDefenderHealth, nextCell);
+        if (!nextCell.isBlocking()) {
+            this.moveTo(nextCell);
         }
     }
 

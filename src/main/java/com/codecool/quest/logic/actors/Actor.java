@@ -1,8 +1,8 @@
 package com.codecool.quest.logic.actors;
 
+import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.Drawable;
-import com.codecool.quest.util.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +14,10 @@ public abstract class Actor implements Drawable {
     protected int health;
     protected int attackDamage;
     protected int armor;
+    protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire", "chest open"));
     protected List<String> fixActors = new ArrayList<>(Arrays.asList("pot", "chest open", "chest closed"));
-    protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire", "chest open", "door closed"));
+    protected static Cell playerCurrentPosition;
+    public int monsterAttackRange;
 
 
     public Actor(Cell cell) {
@@ -27,6 +29,18 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(null);
         nextCell.setActor(this);
         this.setCell(nextCell);
+    }
+
+    public int getMonsterAttackRange() {
+        return monsterAttackRange;
+    }
+
+    public void setMonsterAttackRange(int monsterAttackRange) {
+        this.monsterAttackRange = monsterAttackRange;
+    }
+
+    public int attack(int targetHealth) {
+        return targetHealth - this.attackDamage;
     }
 
     protected void attack(Actor target) {
@@ -80,6 +94,40 @@ public abstract class Actor implements Drawable {
         return false;
     }
 
+    public void setPlayerCurrentPosition(Cell playerCurrentPosition) {
+        Actor.playerCurrentPosition = playerCurrentPosition;
+    }
+
+    public Cell getPlayerCurrentPosition() {
+        return playerCurrentPosition;
+    }
+
+
+    public boolean isPlayerNexToIt() {
+        int[] xDirections = {1, 0, -1, 0};
+        int[] yDirections = {0, 1, 0, -1};
+
+        for (int index = 0; index < xDirections.length; index++) {
+            Cell nextCell = this.getCell().getNeighbor(xDirections[index], yDirections[index]);
+
+            if (nextCell.getActor() != null && nextCell.getActor().getTileName().equals("player")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isDead(Actor target) {
+        return target.getHealth() <= 0;
+    }
+
     public abstract void terminate();
+
+    public boolean isPlayerNear() {
+        return Math.abs(this.getX() - playerCurrentPosition.getX()) <= monsterAttackRange &&
+                Math.abs(this.getY() - playerCurrentPosition.getY()) <= monsterAttackRange;
+    }
+
+
 
 }
