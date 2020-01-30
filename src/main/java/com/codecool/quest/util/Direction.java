@@ -4,6 +4,11 @@ public class Direction {
     private final int dx;
     private final int dy;
 
+    public static final Direction UP = new Direction(0, -1);
+    public static final Direction DOWN = new Direction(0, 1);
+    public static final Direction RIGHT = new Direction(1, 0);
+    public static final Direction LEFT = new Direction(-1, 0);
+
     public Direction(int dx, int dy) {
         this.dx = dx;
         this.dy = dy;
