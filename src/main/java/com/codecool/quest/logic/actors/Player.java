@@ -4,13 +4,12 @@ import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.util.Direction;
 import com.codecool.quest.util.GameEvent;
-import com.codecool.quest.util.GameEventHandler;
 import com.codecool.quest.util.GameOverEvent;
 
 public class Player extends Actor {
 
     private static Player player;
-    private static final int INITIAL_HEALTH = 2000;
+    private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 5;
     private static final int INITIAL_ARMOR = 0;
 

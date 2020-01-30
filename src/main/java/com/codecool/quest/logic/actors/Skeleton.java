@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Skeleton extends Actor {
 
-    AutoTarget autotarget = new AutoTarget(this.MONSTER_ATTACK_RANGE, this);
+    AutoTarget autotarget = new AutoTarget(MONSTER_ATTACK_RANGE, this);
 
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 3;
@@ -18,7 +18,7 @@ public class Skeleton extends Actor {
     private int dx;
     private int dy;
 
-    private Direction direction = Direction.LEFT;
+    private int coordinateSwitcher = -1;
     private static List<Skeleton> skeletons = new ArrayList<>();
 
     public Skeleton(Cell cell) {

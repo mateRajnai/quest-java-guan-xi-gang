@@ -31,11 +31,11 @@ public class BotControl {
         Bat.getBats().forEach(Bat::move);
         Duck.getDucks().forEach(Duck::move);
         Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
-        if (!TheBoss.isTheBossInSlumber())
+        if (!TheBoss.isDormant())
             TheBoss.getTheBoss().move();
+        screen.refresh();
         if (screen.getMap().getPlayer().isDead())
             screen.getMap().getPlayer().getGameOverEvent().invokeHandler(gameEventHandler);
-        screen.refresh();
     }
 
     public void activate() {

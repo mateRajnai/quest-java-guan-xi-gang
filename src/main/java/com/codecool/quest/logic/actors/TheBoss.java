@@ -7,7 +7,7 @@ import com.codecool.quest.util.Direction;
 
 public class TheBoss extends Actor {
 
-    AutoTarget autotarget = new AutoTarget(this.BOSS_ATTACK_RANGE, this);
+    AutoTarget autotarget = new AutoTarget(BOSS_ATTACK_RANGE, this);
 
     private static final int INITIAL_HEALTH = 60;
     private static final int INITIAL_ATTACK_DAMAGE = 7;
@@ -80,6 +80,10 @@ public class TheBoss extends Actor {
             this.moveTo(nextCell);
         }
 
+    }
+
+    public static boolean isDormant() {
+        return theBoss == null;
     }
 
     public static boolean isDefeated() {
