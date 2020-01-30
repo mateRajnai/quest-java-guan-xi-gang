@@ -1,7 +1,5 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.layers.Screen;
-import com.codecool.quest.logic.actors.*;
 import javafx.application.Platform;
 
 import java.util.concurrent.Executors;
