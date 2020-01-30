@@ -37,18 +37,21 @@ public class Bat extends Actor {
 
         Cell nextCell;
 
+        //if player is near it will search for the next closest possible cell
         if(isPlayerNear()) {
-            nextCell = autotarget.pathFinding();
+            nextCell= autotarget.pathFinding();
 
+            //step on nextCell if possible
             if (!nextCell.isBlocking() && !isPlayerNexToIt()) {
-
                 this.moveTo(nextCell);
-
-            } else {
-
-                 Actor target = getPlayerCurrentPosition().getActor();
-                 this.attack(target);
-             }
+                //if there is a player, then attack
+            } else if(isPlayerNexToIt()){
+                Actor target = getPlayerCurrentPosition().getActor();
+                this.attack(target);
+                //if something blocking the player's side then just stand and wait
+            } else if(!nextCell.isBlocking()){
+                this.moveTo(this.getCell());
+            }
          } else {
             nextCell = wallBounceCheck(dx, dy);
             this.moveTo(nextCell);
