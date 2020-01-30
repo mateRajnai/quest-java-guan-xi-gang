@@ -46,20 +46,20 @@ public class Player extends Actor {
     }
 
     public boolean isDoorInNeighbourCell() {
-        return getCell().getNeighbor(1, 0).getTileName().equals("door closed") ||
-                getCell().getNeighbor(-1, 0).getTileName().equals("door closed") ||
-                getCell().getNeighbor(0, 1).getTileName().equals("door closed") ||
-                getCell().getNeighbor(0, -1).getTileName().equals("door closed");
+        return Direction.MAIN_DIRECTIONS.stream().anyMatch(
+                direction -> getCell().getNeighbor(direction).getType() == CellType.DOOR_CLOSED
+        );
     }
 
     public void openDoorInNeighbourCell() {
-        if (getCell().getNeighbor(1, 0).getTileName().equals("door closed"))
-            getCell().getNeighbor(1, 0).setType(CellType.DOOR_OPENED);
-        else if (getCell().getNeighbor(-1, 0).getTileName().equals("door closed"))
-            getCell().getNeighbor(-1, 0).setType(CellType.DOOR_OPENED);
-        else if (getCell().getNeighbor(0, 1).getTileName().equals("door closed"))
-            getCell().getNeighbor(0, 1).setType(CellType.DOOR_OPENED);
-        else if (getCell().getNeighbor(0, -1).getTileName().equals("door closed"))
-            getCell().getNeighbor(0, -1).setType(CellType.DOOR_OPENED);
+        Cell neighbourCell;
+        for (Direction direction : Direction.MAIN_DIRECTIONS) {
+            neighbourCell = getCell().getNeighbor(direction);
+            if (neighbourCell.getType() == CellType.DOOR_CLOSED) {
+                neighbourCell.setType(CellType.DOOR_OPENED);
+                return;
+            }
+        }
+
     }
 }
