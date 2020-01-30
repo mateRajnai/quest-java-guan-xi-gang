@@ -52,9 +52,7 @@ public class MapLoader {
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
-
-                        // Actors
-                        case '@':
+                        case '@':                                   // Actors
                             cell.setType(CellType.FLOOR);
                             Player player;
                             if (currentLevel == 1) {
@@ -89,9 +87,7 @@ public class MapLoader {
                             cell.setType(CellType.CHEST_CLOSED);
                             new Chest(cell);
                             break;
-
-                        // Items
-                        case 'k':
+                        case 'k':                                       // Items
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
                             break;
@@ -99,9 +95,7 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Hammer(cell);
                             break;
-
-                        // Environment elements
-                        case 'u':
+                        case 'u':                                       // Environment elements
                             cell.setType(CellType.UPSTAIRS);
                             break;
                         case '\\':
