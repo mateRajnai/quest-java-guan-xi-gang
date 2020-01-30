@@ -24,7 +24,8 @@ public class Cell implements Drawable {
     }
 
     public void setType(CellType type) {
-        this.type = type;
+        if (this.type != CellType.DOWNSTAIRS && this.type != CellType.UPSTAIRS)
+            this.type = type;
     }
 
     public void setActor(Actor actor) {
