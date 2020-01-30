@@ -2,6 +2,7 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.Drawable;
+import com.codecool.quest.util.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,8 +23,6 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy) {}
-
     protected void moveTo(Cell nextCell) {
         this.cell.setActor(null);
         nextCell.setActor(this);
@@ -39,19 +38,26 @@ public abstract class Actor implements Drawable {
     public int getHealth() {
         return this.health;
     }
-    public void setHealth(int newHealth) {this.health = newHealth;}
+
+    public void setHealth(int newHealth) {
+        this.health = newHealth;
+    }
 
     public int getAttackDamage() {
         return this.attackDamage;
     }
 
-    public void setAttackDamage(int newAttackDamage) {this.attackDamage = newAttackDamage;}
+    public void setAttackDamage(int newAttackDamage) {
+        this.attackDamage = newAttackDamage;
+    }
 
     public int getArmor() {
         return this.armor;
     }
 
-    public void setArmor(int newArmor) {this.armor = newArmor;}
+    public void setArmor(int newArmor) {
+        this.armor = newArmor;
+    }
 
     public Cell getCell() {
         return this.cell;
