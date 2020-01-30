@@ -40,7 +40,7 @@ public abstract class Actor implements Drawable {
     }
 
     public void setHealth(int newHealth) {
-        this.health = newHealth;
+        this.health = Math.max(newHealth, 0);
     }
 
     public int getAttackDamage() {
