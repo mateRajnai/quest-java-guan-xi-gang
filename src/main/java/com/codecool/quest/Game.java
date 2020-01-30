@@ -21,15 +21,14 @@ public class Game {
     private GameMap map = MapLoader.loadMap();
     private Screen screen = new Screen(layout, map);
     private UI ui = new UI(screen);
-    private TheBossClock theBossClock = new TheBossClock(screen);
+    private TheBossClock theBossClock = new TheBossClock(layout);
     private InteractionClock interactionClock = new InteractionClock();
     private Stage stage;
-    private BotControl botControl;
+    private BotControl botControl = new BotControl();
 
     public Game(Stage stage) {
         Scene scene = new Scene(layout);
         this.stage = stage;
-        this.botControl = new BotControl();
         this.botControl.setActuation(this::actuateBots);
         this.stage.setTitle("Codecool quest");
         this.stage.setScene(scene);

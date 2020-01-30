@@ -1,5 +1,6 @@
 package com.codecool.quest;
 
+import com.codecool.quest.layers.Layout;
 import com.codecool.quest.layers.Screen;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.actors.TheBoss;
@@ -16,8 +17,8 @@ public class TheBossClock {
     private Timeline time;
     private Runnable bossHatchery;
 
-    public TheBossClock(Screen screen) {
-        this.countdownTimer = screen.getSidePanel().getCountdownTimer();
+    public TheBossClock(Layout layout) {
+        this.countdownTimer = layout.getSidePanel().getCountdownTimer();
         update();
     }
 
