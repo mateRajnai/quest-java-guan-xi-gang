@@ -1,8 +1,6 @@
 package com.codecool.quest;
 
 import com.codecool.quest.layers.Layout;
-import com.codecool.quest.logic.MapLoader;
-import com.codecool.quest.logic.actors.TheBoss;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
