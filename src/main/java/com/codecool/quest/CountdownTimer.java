@@ -1,6 +1,8 @@
 package com.codecool.quest;
 
 import com.codecool.quest.layers.Layout;
+import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.actors.TheBoss;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
@@ -14,16 +16,12 @@ public class CountdownTimer {
 
     public CountdownTimer(Layout layout) {
         this.countdownTimer = layout.getSidePanel().getCountdownTimer();
-    }
-
-    public boolean isTimeZero() {
-        return secondsLeft == 0;
+        update();
     }
 
     public void countdown() {
         Timeline time = new Timeline();
         time.setCycleCount(Timeline.INDEFINITE);
-
 
         KeyFrame frame = new KeyFrame(Duration.seconds(1), actionEvent -> {
             secondsLeft--;
@@ -37,7 +35,15 @@ public class CountdownTimer {
         time.playFromStart();
     }
 
-    public void setCountdownTimer() {
+    public boolean isTimeZero() {
+        return secondsLeft == 0;
+    }
+
+    public void update() {
+        countdownTimer.setText("Boss appears in: " + secondsLeft + " s");
+    }
+
+    public void reset() {
         this.secondsLeft = startTime;
     }
 }
