@@ -52,18 +52,8 @@ public class MapLoader {
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
-                        case 's':
-                            cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
-                            break;
-                        case 'k':
-                            cell.setType(CellType.FLOOR);
-                            new Key(cell);
-                            break;
-                        case 'h':
-                            cell.setType(CellType.FLOOR);
-                            new Hammer(cell);
-                            break;
+
+                        // Actors
                         case '@':
                             cell.setType(CellType.FLOOR);
                             Player player;
@@ -74,6 +64,10 @@ public class MapLoader {
                                 player.setCell(cell);
                             }
                             map.setPlayer(player);
+                            break;
+                        case 's':
+                            cell.setType(CellType.FLOOR);
+                            new Skeleton(cell);
                             break;
                         case 'b':
                             cell.setType(CellType.FLOOR);
@@ -87,6 +81,26 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Duck(cell);
                             break;
+                        case 'p':
+                            cell.setType(CellType.FLOOR);
+                            new Pot(cell);
+                            break;
+                        case 'e':
+                            cell.setType(CellType.CHEST_CLOSED);
+                            new Chest(cell);
+                            break;
+
+                        // Items
+                        case 'k':
+                            cell.setType(CellType.FLOOR);
+                            new Key(cell);
+                            break;
+                        case 'h':
+                            cell.setType(CellType.FLOOR);
+                            new Hammer(cell);
+                            break;
+
+                        // Environment elements
                         case 'u':
                             cell.setType(CellType.UPSTAIRS);
                             break;
@@ -95,10 +109,6 @@ public class MapLoader {
                             break;
                         case 'c':
                             cell.setType(CellType.CAMPFIRE);
-                            break;
-                        case 'p':
-                            cell.setType(CellType.FLOOR);
-                            new Pot(cell);
                             break;
                         case 't':
                             cell.setType(CellType.BRONZE_TORCH);
@@ -111,10 +121,6 @@ public class MapLoader {
                             break;
                         case 'a':
                             cell.setType(CellType.GRASS2);
-                            break;
-                        case 'e':
-                            cell.setType(CellType.CHEST_CLOSED);
-                            new Chest(cell);
                             break;
                         case 'x':
                             cell.setType(CellType.DOOR_CLOSED);
