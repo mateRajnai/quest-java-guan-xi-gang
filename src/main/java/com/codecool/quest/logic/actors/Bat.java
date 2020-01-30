@@ -30,6 +30,7 @@ public class Bat extends Actor {
         this.setMonsterAttackRange(MONSTER_ATTACK_RANGE);
     }
 
+    @Override
     public void move() {
 
         int dx = direction[0];

@@ -30,6 +30,7 @@ public class Skeleton extends Actor {
         this.setMonsterAttackRange(MONSTER_ATTACK_RANGE);
     }
 
+    @Override
     public void move() {
         Cell nextCell;
 

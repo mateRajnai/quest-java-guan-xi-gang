@@ -32,6 +32,7 @@ public class Duck extends Actor {
         return rand.nextInt(MAX_MOVE_COORDINATE - MIN_MOVE_COORDINATE) + MIN_MOVE_COORDINATE;
     }
 
+    @Override
     public void move() {
         int dx = randomMoveCoordinate();
         int dy = randomMoveCoordinate();

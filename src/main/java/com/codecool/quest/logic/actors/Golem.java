@@ -24,6 +24,10 @@ public class Golem extends Actor {
         this.setMonsterAttackRange(MONSTER_ATTACK_RANGE);
     }
 
+    @Override
+    public void move() {
+    }
+
     public void attackIfPlayerNextToIt() {
         if(isPlayerNexToIt()) {
             Actor target = getPlayerCurrentPosition().getActor();

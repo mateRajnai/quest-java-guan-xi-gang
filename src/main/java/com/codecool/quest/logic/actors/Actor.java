@@ -1,6 +1,5 @@
 package com.codecool.quest.logic.actors;
 
-import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.Drawable;
 
@@ -30,6 +29,8 @@ public abstract class Actor implements Drawable {
         nextCell.setActor(this);
         this.setCell(nextCell);
     }
+
+    public abstract void move();
 
     public int getMonsterAttackRange() {
         return monsterAttackRange;

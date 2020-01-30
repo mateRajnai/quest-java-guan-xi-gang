@@ -3,7 +3,6 @@ package com.codecool.quest.logic.actors;
 import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
-import com.codecool.quest.util.Direction;
 
 public class TheBoss extends Actor {
 
@@ -35,6 +34,7 @@ public class TheBoss extends Actor {
         return theBoss;
     }
 
+    @Override
     public void move() {
         Cell nextCell;
 

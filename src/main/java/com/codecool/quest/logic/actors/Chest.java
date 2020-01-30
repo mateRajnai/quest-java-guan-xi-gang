@@ -19,6 +19,10 @@ public class Chest extends Actor {
     }
 
     @Override
+    public void move() {
+    }
+
+    @Override
     public void terminate() {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.CHEST_OPEN);
