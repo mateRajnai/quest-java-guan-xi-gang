@@ -24,10 +24,6 @@ public class Player extends Actor {
         return player;
     }
 
-    @Override
-    public void move() {
-    }
-
     public void move(int dx, int dy) {
         this.move(new Direction(dx, dy));
     }

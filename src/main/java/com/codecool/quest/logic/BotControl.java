@@ -21,12 +21,9 @@ public class BotControl {
     }
 
     private void actuateBots() {
-        Skeleton.getSkeletons().forEach(Skeleton::move);
-        Bat.getBats().forEach(Bat::move);
-        Duck.getDucks().forEach(Duck::move);
-        Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
+        screen.getMap().getCombativeActors().forEach(Combative::act);
         if (!TheBoss.isDormant())
-            TheBoss.getTheBoss().move();
+            TheBoss.getTheBoss().act();
         screen.refresh();
     }
 

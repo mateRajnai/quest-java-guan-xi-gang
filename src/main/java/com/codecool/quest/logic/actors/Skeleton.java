@@ -4,10 +4,7 @@ import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Skeleton extends Actor {
+public class Skeleton extends Actor implements Combative {
 
     AutoTarget autotarget = new AutoTarget(MONSTER_ATTACK_RANGE, this);
 
@@ -19,11 +16,9 @@ public class Skeleton extends Actor {
     private int dy;
 
     private int coordinateSwitcher = -1;
-    private static List<Skeleton> skeletons = new ArrayList<>();
 
     public Skeleton(Cell cell) {
         super(cell);
-        addSkeleton();
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -31,7 +26,7 @@ public class Skeleton extends Actor {
     }
 
     @Override
-    public void move() {
+    public void act() {
         Cell nextCell;
 
 
@@ -79,15 +74,6 @@ public class Skeleton extends Actor {
     public void terminate() {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.DEAD_SKELETON);
-        skeletons.removeIf(skeleton -> skeleton == this);
-    }
-
-    private void addSkeleton() {
-        skeletons.add(this);
-    }
-
-    public static List<Skeleton> getSkeletons() {
-        return skeletons;
     }
 
     @Override

@@ -30,8 +30,6 @@ public abstract class Actor implements Drawable {
         this.setCell(nextCell);
     }
 
-    public abstract void move();
-
     public int getMonsterAttackRange() {
         return monsterAttackRange;
     }

@@ -10,16 +10,10 @@ public class Chest extends Actor {
 
     private static final int INITIAL_HEALTH = 1;
     private String whoAmI = "chest closed";
-    private static List<Chest> chests = new ArrayList<>();
 
     public Chest(Cell cell) {
         super(cell);
-        addChest();
         this.setHealth(INITIAL_HEALTH);
-    }
-
-    @Override
-    public void move() {
     }
 
     @Override
@@ -27,14 +21,6 @@ public class Chest extends Actor {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.CHEST_OPEN);
         whoAmI = "open chest";
-    }
-
-    private void addChest() {
-        chests.add(this);
-    }
-
-    public static List<Chest> getChests() {
-        return chests;
     }
 
     @Override

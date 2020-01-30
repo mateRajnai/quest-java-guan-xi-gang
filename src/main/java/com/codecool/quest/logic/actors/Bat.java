@@ -4,10 +4,7 @@ import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Bat extends Actor {
+public class Bat extends Actor implements Combative {
 
     AutoTarget autotarget = new AutoTarget(MONSTER_ATTACK_RANGE, this);
 
@@ -18,12 +15,10 @@ public class Bat extends Actor {
 
     private int[] direction = new int[]{1,1};
     // Boti's version: private Direction direction = new Direction(1, 1);
-    private static List<Bat> bats = new ArrayList<>();
 
 
     public Bat(Cell cell) {
         super(cell);
-        addBat();
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -31,7 +26,7 @@ public class Bat extends Actor {
     }
 
     @Override
-    public void move() {
+    public void act() {
 
         int dx = direction[0];
         int dy = direction[1];
@@ -205,15 +200,6 @@ public class Bat extends Actor {
     public void terminate() {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.BONE);
-        bats.removeIf(bat -> bat == this);
-    }
-
-    private void addBat() {
-        bats.add(this);
-    }
-
-    public static List<Bat> getBats() {
-        return bats;
     }
 
     @Override

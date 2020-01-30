@@ -10,7 +10,7 @@ public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
-    private List<Actor> mobileActors = new ArrayList<>();
+    private List<Combative> combativeActors = new ArrayList<>();
 
     private Player player;
 
@@ -25,12 +25,12 @@ public class GameMap {
         }
     }
 
-    public void add(Actor actor) {
-        mobileActors.add(actor);
+    public void add(Combative combative) {
+        combativeActors.add(combative);
     }
 
-    public List<Actor> getMobileActors() {
-        return mobileActors;
+    public List<Combative> getCombativeActors() {
+        return combativeActors;
     }
 
     public Cell getCell(int x, int y) {

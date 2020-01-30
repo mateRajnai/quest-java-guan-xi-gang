@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Duck extends Actor {
+public class Duck extends Actor implements Combative {
 
     private static final int INITIAL_HEALTH = 5;
     private static final int INITIAL_ATTACK_DAMAGE = 0;
@@ -17,11 +17,8 @@ public class Duck extends Actor {
     public static final int MIN_MOVE_COORDINATE = -1;
     public static final int[] direction = new int[]{1,1};
 
-    private static List<Duck> ducks = new ArrayList<>();
-
     public Duck(Cell cell) {
         super(cell);
-        addDuck();
         this.setHealth(INITIAL_HEALTH);
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
@@ -33,7 +30,7 @@ public class Duck extends Actor {
     }
 
     @Override
-    public void move() {
+    public void act() {
         int dx = randomMoveCoordinate();
         int dy = randomMoveCoordinate();
         Cell nextCell;
@@ -58,15 +55,6 @@ public class Duck extends Actor {
     public void terminate() {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.BONE);
-        ducks.removeIf(duck -> duck == this);
-    }
-
-    private void addDuck() {
-        ducks.add(this);
-    }
-
-    public static List<Duck> getDucks() {
-        return ducks;
     }
 
     @Override

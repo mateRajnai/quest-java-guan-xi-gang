@@ -4,7 +4,7 @@ import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
 
-public class TheBoss extends Actor {
+public class TheBoss extends Actor implements Combative {
 
     AutoTarget autotarget = new AutoTarget(BOSS_ATTACK_RANGE, this);
 
@@ -35,7 +35,7 @@ public class TheBoss extends Actor {
     }
 
     @Override
-    public void move() {
+    public void act() {
         Cell nextCell;
 
 
