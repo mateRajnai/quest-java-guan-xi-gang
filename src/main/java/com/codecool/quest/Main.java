@@ -57,13 +57,8 @@ public class Main extends Application {
                 break;
         }
 
-        if (!MapLoader.hasNextLevel()
-                && TheBoss.getTheBosses().size() == 0
-                && countdownTimer.isTimeZero() && !TheBoss.getIsTheBossKilled()
-        ) {
-            TheBoss theBoss = new TheBoss(map.getCellOfFinish(CellType.DOWNSTAIRS.getTileName()));
-            TheBoss.add(theBoss);
-        }
+        if (!MapLoader.hasNextLevel() && TheBoss.isTheBossInSlumber() && countdownTimer.isTimeZero())
+            new TheBoss(map.getCellOfFinish(CellType.DOWNSTAIRS.getTileName()));
 
         screen.refresh();
         checkEndGame();
@@ -74,12 +69,11 @@ public class Main extends Application {
             botControl.deactivate();
             if (MapLoader.hasNextLevel()) {
                 map = MapLoader.loadMap();
-            } else if (TheBoss.getIsTheBossKilled() || !countdownTimer.isTimeZero()) {
+            } else if (TheBoss.isTheBossKilled() || !countdownTimer.isTimeZero()) {
                 MessageLoader.showEndingAlert();
                 ui.clearInventory();
                 map = MapLoader.loadMap(1);
                 // After restarting the game these fields must be set up again
-                TheBoss.setIsTheBossKilled(false);
                 countdownTimer.setCountdownTimer();
                 countdownTimer.countdown();
             }

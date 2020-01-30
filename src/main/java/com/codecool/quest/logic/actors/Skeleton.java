@@ -13,7 +13,7 @@ public class Skeleton extends Actor {
     private static final int INITIAL_ATTACK_DAMAGE = 3;
     private static final int INITIAL_ARMOR = 0;
 
-    private Direction direction = new Direction(-1, 0);
+    private Direction direction = Direction.LEFT;
     private static List<Skeleton> skeletons = new ArrayList<>();
 
     public Skeleton(Cell cell) {

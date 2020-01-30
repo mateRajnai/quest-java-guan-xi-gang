@@ -23,7 +23,8 @@ public class BotControl {
         Bat.getBats().forEach(Bat::move);
         Duck.getDucks().forEach(Duck::move);
         Golem.getGolems().forEach(Golem::attackIfPlayerNextToIt);
-        TheBoss.getTheBosses().forEach(TheBoss::move);
+        if (!TheBoss.isTheBossInSlumber())
+            TheBoss.getTheBoss().move();
         screen.refresh();
     }
 
