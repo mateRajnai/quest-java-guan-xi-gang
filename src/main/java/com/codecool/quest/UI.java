@@ -4,11 +4,16 @@ import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.Inventory;
 import com.codecool.quest.logic.items.Item;
 import com.codecool.quest.logic.items.Key;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.util.Optional;
 
@@ -16,6 +21,7 @@ public class UI extends GridPane {
 
     private static Label healthLabel = new Label("Health: ");
     private static Label characterNameLabel = new Label("Epic name: ");
+    private static Label countdownTimer = new Label();
 
     private static TextInputDialog characterNameDialog;
     private static Alert endingAlert;
@@ -26,6 +32,10 @@ public class UI extends GridPane {
     private Inventory inventory = new Inventory();
     private Button pickUpButton = new Button("Pick up");
 
+    private final Integer startTime = 20;
+    private Integer secondsLeft = startTime;
+
+
     static {
         initCharacterNameDialog();
         initGameWonAlert();
@@ -34,7 +44,7 @@ public class UI extends GridPane {
     public UI(GameMap map) {
         this.map = map;
 
-        ColumnConstraints col1 = new ColumnConstraints(85);
+        ColumnConstraints col1 = new ColumnConstraints(115);
         this.getColumnConstraints().add(col1);
         this.setPrefWidth(200);
         this.setPadding(new Insets(10));
@@ -44,6 +54,7 @@ public class UI extends GridPane {
         this.add(healthPoints, 1, 0);
         this.add(inventory, 0, 3);
         this.add(pickUpButton, 0, 2);
+        this.add(countdownTimer, 0, 4);
     }
 
     private static void initCharacterNameDialog() {
@@ -119,5 +130,33 @@ public class UI extends GridPane {
 
     public void setMap(GameMap map) {
         this.map = map;
+    }
+
+    public boolean isTimeZero() {
+        return secondsLeft == 0;
+    }
+
+    public void countdown() {
+        Timeline time = new Timeline();
+        time.setCycleCount(Timeline.INDEFINITE);
+
+
+        KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                secondsLeft--;
+                countdownTimer.setText("Wait " + secondsLeft.toString() + " seconds\nif you want to\nfight the Boss");
+                if (secondsLeft <= 0) {
+                    time.stop();
+                }
+            }
+        });
+
+        time.getKeyFrames().add(frame);
+        time.playFromStart();
+    }
+
+    public void setCountdownTimer() {
+        this.secondsLeft = startTime;
     }
 }
