@@ -4,14 +4,13 @@ import com.codecool.quest.logic.actors.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
-    private List<Actor> actors = new ArrayList<>();
+    private List<Actor> mobileActors = new ArrayList<>();
 
     private Player player;
 
@@ -27,11 +26,11 @@ public class GameMap {
     }
 
     public void add(Actor actor) {
-        actors.add(actor);
+        mobileActors.add(actor);
     }
 
-    public List<Actor> getActors() {
-        return actors;
+    public List<Actor> getMobileActors() {
+        return mobileActors;
     }
 
     public Cell getCell(int x, int y) {
