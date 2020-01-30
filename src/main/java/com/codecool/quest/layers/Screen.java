@@ -4,7 +4,6 @@ import com.codecool.quest.Tiles;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.actors.Player;
-import com.codecool.quest.util.GameEventHandler;
 import com.codecool.quest.util.LengthUnit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -43,8 +42,8 @@ public class Screen {
         layout.requestFocus();
     }
 
-    public void setOnPlayerDeath(GameEventHandler handler) {
-        this.onPlayerDeath = handler::onGameOver;
+    public void setOnPlayerDeath(Runnable onPlayerDeath) {
+        this.onPlayerDeath = onPlayerDeath;
     }
 
     public void refresh() {

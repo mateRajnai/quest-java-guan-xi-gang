@@ -13,13 +13,16 @@ public class TheBossClock {
     private final Integer startTime = 20;
     private Integer secondsLeft = startTime;
     private Label countdownTimer;
-    private Screen screen;
     private Timeline time;
+    private Runnable bossHatchery;
 
     public TheBossClock(Screen screen) {
         this.countdownTimer = screen.getSidePanel().getCountdownTimer();
-        this.screen = screen;
         update();
+    }
+
+    public void setBossHatchery(Runnable bossHatchery) {
+        this.bossHatchery = bossHatchery;
     }
 
     public void countdown() {
@@ -31,7 +34,7 @@ public class TheBossClock {
                 secondsLeft--;
                 update();
             } else if (!MapLoader.hasNextLevel()) {
-                new TheBoss(screen.getMap().getExitCell());
+                bossHatchery.run();
                 time.stop();
             }
         });

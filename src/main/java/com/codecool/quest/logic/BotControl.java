@@ -14,21 +14,18 @@ public class BotControl {
 
     private Screen screen;
     private ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();
-    private Runnable actuate = () -> Platform.runLater(this::actuateBots);
+    private Runnable actuation;
 
     public BotControl(Screen screen) {
         this.screen = screen;
     }
 
-    private void actuateBots() {
-        screen.getMap().getCombativeActors().forEach(Combative::act);
-        if (!TheBoss.isDormant())
-            TheBoss.getTheBoss().act();
-        screen.refresh();
+    public void setActuation(Runnable actuation) {
+        this.actuation = () -> Platform.runLater(actuation);
     }
 
     public void activate() {
-        botActuator.scheduleAtFixedRate(actuate, 0, MONSTER_ACTION_PERIOD, TimeUnit.MILLISECONDS);
+        botActuator.scheduleAtFixedRate(actuation, 0, MONSTER_ACTION_PERIOD, TimeUnit.MILLISECONDS);
     }
 
     public void deactivate() {

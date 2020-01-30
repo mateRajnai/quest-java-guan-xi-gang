@@ -8,9 +8,9 @@ import com.codecool.quest.logic.BotControl;
 import com.codecool.quest.logic.CellType;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.actors.Combative;
 import com.codecool.quest.logic.actors.TheBoss;
 import com.codecool.quest.util.Direction;
-import com.codecool.quest.util.GameEventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -30,19 +30,14 @@ public class Game {
         Scene scene = new Scene(layout);
         this.stage = stage;
         this.botControl = new BotControl(screen);
+        this.botControl.setActuation(this::actuateBots);
         this.stage.setTitle("Codecool quest");
         this.stage.setScene(scene);
         this.stage.setOnCloseRequest(windowEvent -> botControl.deactivate());
         scene.setOnKeyPressed(this::onKeyPressed);
-        screen.setOnPlayerDeath(new GameEventHandler() {
-            @Override
-            public void onGameOver() {
-                botControl.deactivate();
-                MessageLoader.showGameOverAlert();
-                reset();
-                resume();
-            }
-        });
+        screen.setOnPlayerDeath(this::onPlayerDeath);
+        Runnable bossHatchery = () -> map.add(new TheBoss(map.getExitCell()));
+        theBossClock.setBossHatchery(bossHatchery);
     }
 
     public void init() {
@@ -52,6 +47,18 @@ public class Game {
         ui.setCharacterName();
         botControl.activate();
         theBossClock.countdown();
+    }
+
+    private void actuateBots() {
+        map.getCombativeActors().forEach(Combative::act);
+        screen.refresh();
+    }
+
+    private void onPlayerDeath() {
+        botControl.deactivate();
+        MessageLoader.showGameOverAlert();
+        reset();
+        resume();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
