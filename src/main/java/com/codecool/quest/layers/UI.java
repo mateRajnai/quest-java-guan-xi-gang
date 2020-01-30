@@ -4,7 +4,7 @@ import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.Inventory;
 import com.codecool.quest.logic.actors.Player;
 import com.codecool.quest.logic.items.Item;
-import com.codecool.quest.logic.items.Key;
+import com.codecool.quest.logic.items.ItemData;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 
@@ -45,13 +45,13 @@ public class UI {
 
     public void initInventory() {
         inventory.setOnMouseClicked(mouseEvent -> {
-//            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-//                Item selectedItem = inventory.getSelectionModel().getSelectedItem();
-//                if (selectedItem instanceof Key && player.isDoorInNeighbourCell()) {
-//                    openDoor();
-//                    screen.focusLayout();
-//                }
-//            }
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+                ItemData selectedItem = inventory.getSelectionModel().getSelectedItem();
+                if (selectedItem.getName().equals("key") && player.isDoorInNeighbourCell()) {
+                    openDoor();
+                    screen.focusLayout();
+                }
+            }
         });
     }
 
