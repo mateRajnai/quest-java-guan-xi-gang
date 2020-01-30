@@ -3,6 +3,7 @@ package com.codecool.quest;
 import com.codecool.quest.layers.*;
 import com.codecool.quest.logic.*;
 import com.codecool.quest.logic.actors.TheBoss;
+import com.codecool.quest.util.Direction;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -40,16 +41,16 @@ public class Main extends Application {
 
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().move(0, -1);
+                map.getPlayer().move(Direction.UP);
                 break;
             case DOWN:
-                map.getPlayer().move(0, 1);
+                map.getPlayer().move(Direction.DOWN);
                 break;
             case LEFT:
-                map.getPlayer().move(-1, 0);
+                map.getPlayer().move(Direction.LEFT);
                 break;
             case RIGHT:
-                map.getPlayer().move(1, 0);
+                map.getPlayer().move(Direction.RIGHT);
                 break;
             case E:
                 ui.interact();

@@ -2,7 +2,7 @@ package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
-import com.codecool.quest.logic.items.Key;
+import com.codecool.quest.util.Direction;
 
 public class Player extends Actor {
 
@@ -23,9 +23,12 @@ public class Player extends Actor {
         return player;
     }
 
-    @Override
     public void move(int dx, int dy) {
-        Cell nextCell = this.getCell().getNeighbor(dx, dy);
+        this.move(new Direction(dx, dy));
+    }
+
+    public void move(Direction direction) {
+        Cell nextCell = this.getCell().getNeighbor(direction);
         if (nextCell == null) return;
 
         if (!nextCell.isBlocking())
