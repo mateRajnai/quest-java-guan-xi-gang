@@ -170,6 +170,7 @@ public class AutoTarget {
 
         int closestNumber = monsterAttackRange * 2;
         Map<String, Integer> shortestDirectionIndexes = new HashMap<>();
+        System.out.println(closestNumber + " " + Arrays.toString(horizontalDirections) + " " + Arrays.toString(verticalDirections));
 
         for (int indexUpDown = 0; indexUpDown < verticalDirections.length; indexUpDown++) {
             for (int indexRightLeft = 0; indexRightLeft < horizontalDirections.length; indexRightLeft++) {

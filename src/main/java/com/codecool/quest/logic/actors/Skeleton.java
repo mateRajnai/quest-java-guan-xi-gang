@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Skeleton extends Actor {
 
-    AutoTarget autotarget = new AutoTarget(this.monsterAttackRange, this);
+    AutoTarget autotarget = new AutoTarget(this.MONSTER_ATTACK_RANGE, this);
 
     private static final int INITIAL_HEALTH = 20;
     private static final int INITIAL_ATTACK_DAMAGE = 3;

@@ -17,7 +17,7 @@ public abstract class Actor implements Drawable {
     protected List<String> fixTiles = new ArrayList<>(Arrays.asList("wall", "bronze torch", "campfire", "chest open"));
     protected List<String> fixActors = new ArrayList<>(Arrays.asList("pot", "chest open", "chest closed"));
     protected static Cell playerCurrentPosition;
-    protected int monsterAttackRange = 3;
+    public int monsterAttackRange;
 
 
     public Actor(Cell cell) {
