@@ -7,10 +7,12 @@ import java.util.Optional;
 public class MessageLoader {
     private static TextInputDialog characterNameDialog;
     private static Alert endingAlert;
+    private static Alert gameOverAlert;
 
     static {
         initCharacterNameDialog();
-        initEndingAlert();
+        endingAlert = createAlert("Epic victory message", "You have reached the stairs of wisdom!");
+        gameOverAlert = createAlert("Sad defeat message", "Game is over, my friend!");
     }
 
     private static void initCharacterNameDialog() {
@@ -30,15 +32,16 @@ public class MessageLoader {
         });
     }
 
-    private static void initEndingAlert() {
-        endingAlert = new Alert(
+    private static Alert createAlert(String title, String message) {
+        Alert alert = new Alert(
                 Alert.AlertType.INFORMATION,
-                "You have reached the stairs of wisdom!",
+                message,
                 ButtonType.OK
         );
-        endingAlert.setGraphic(null);
-        endingAlert.setHeaderText(null);
-        endingAlert.setTitle("Epic victory message");
+        alert.setGraphic(null);
+        alert.setHeaderText(null);
+        alert.setTitle(title);
+        return alert;
     }
 
     public static Optional<String> askForCharacterName() {
@@ -47,5 +50,9 @@ public class MessageLoader {
 
     public static void showEndingAlert() {
         endingAlert.showAndWait();
+    }
+
+    public static void showGameOverAlert() {
+        gameOverAlert.showAndWait();
     }
 }
