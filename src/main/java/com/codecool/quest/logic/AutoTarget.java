@@ -3,6 +3,8 @@ package com.codecool.quest.logic;
 import com.codecool.quest.logic.actors.Actor;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AutoTarget {
 
@@ -18,96 +20,171 @@ public class AutoTarget {
         this.attacker = attacker;
     }
 
-    public Cell getClosestCellToPlayer() {
+     private class ActorEnvironmentCheck {
+
+        int[] horizontalDirections = getDirectionDistancesBasedOnPlayer("X");
+        int[] verticalDirections = getDirectionDistancesBasedOnPlayer("Y");
+
+        //map will contain "horizontalDirectionIndex" and "verticalDirectionIndex" keys
+        Map<String, Integer> shortestDirectionIndexes = getShortestDirectionIndexes(horizontalDirections, verticalDirections);;
+
+         //map will contain "nextHorizontalMoveCell" and "nextVerticalMoveCell" keys
+         Map<String, Cell> directionOfPlayer = getDirectionOfPlayer(shortestDirectionIndexes);
+
+         int closestVerticalDirection = horizontalDirections[shortestDirectionIndexes.get("horizontalDirectionIndex")];
+         int closestHorizontalDirection = verticalDirections[shortestDirectionIndexes.get("verticalDirectionIndex")];
+
+         Cell closestHorizontalCell = directionOfPlayer.get("nextHorizontalMoveCell");
+         Cell closestVerticalCell = directionOfPlayer.get("nextVerticalMoveCell");
+
+         public boolean isActorCloserHorizontalToTarget () {
+             return closestHorizontalDirection <= closestVerticalDirection &&
+                     closestHorizontalDirection != 0 &&
+                     !closestHorizontalCell.isBlocking();
+         }
+
+         public boolean isActorCloserVerticalToTarget () {
+             return closestVerticalDirection < closestHorizontalDirection &&
+                     closestVerticalDirection != 0 &&
+                     !closestVerticalCell.isBlocking();
+         }
+
+         public boolean isTargetReachedHorizontally () {
+             return closestHorizontalDirection == 0 &&
+                     closestVerticalDirection == 1 &&
+                     !closestVerticalCell.isBlocking();
+         }
+
+         public boolean isTargetReachedVertically () {
+             return closestHorizontalDirection == 1 &&
+                     closestVerticalDirection == 0 &&
+                     !closestHorizontalCell.isBlocking();
+         }
+
+         public boolean isTargetHorizontalLevelReached () {
+             return closestHorizontalDirection == 0 &&
+                     !closestVerticalCell.isBlocking();
+         }
+
+         public boolean isTargetVerticalLevelReached () {
+             return closestVerticalDirection == 0 &&
+                     !closestHorizontalCell.isBlocking();
+         }
+
+         public Cell getClosestHorizontalCell() {
+             return closestHorizontalCell;
+         }
+
+         public Cell getClosestVerticalCell() {
+             return closestVerticalCell;
+         }
+     }
+
+    public Cell pathFinding() {
+
+        ActorEnvironmentCheck actorEnvironmentCheck  = new ActorEnvironmentCheck();
+
+        Cell closestCellToPlayer = null;
+
+        //we have set the right direction towards the player
+        //now we decide from which one is the shortest way to the player from horizontal move and vertical move
+
+        //if we are closer with horizontal move then:
+        if(actorEnvironmentCheck.isActorCloserHorizontalToTarget()) {
+            closestCellToPlayer = actorEnvironmentCheck.getClosestHorizontalCell();
+            System.out.println("1");
+
+            //else if we are closer with vertical move then:
+        } else if(actorEnvironmentCheck.isActorCloserVerticalToTarget()) {
+            closestCellToPlayer = actorEnvironmentCheck.getClosestVerticalCell();
+            System.out.println("2");
+
+            // else if we are horizontally reached the player (that means we are next to it horizontally)
+        } else if(actorEnvironmentCheck.isTargetReachedHorizontally()) {
+            closestCellToPlayer = actorEnvironmentCheck.getClosestVerticalCell();
+            System.out.println("3");
+
+            // else if we are vertically reached the player (that means we are next to it vertically)
+        } else if(actorEnvironmentCheck.isTargetReachedVertically()) {
+            closestCellToPlayer = actorEnvironmentCheck.getClosestHorizontalCell();
+            System.out.println("4");
+
+            // else if we are horizontally reached the players level, then we will move vertically
+        } else if(actorEnvironmentCheck.isTargetHorizontalLevelReached()) {
+            closestCellToPlayer = actorEnvironmentCheck.getClosestVerticalCell();
+            System.out.println("5");
+
+            // else if we are vertically reached the players level, then we will move horizontally
+        } else if(actorEnvironmentCheck.isTargetVerticalLevelReached()) {
+            closestCellToPlayer = actorEnvironmentCheck.getClosestHorizontalCell();
+            System.out.println("6");
+        }
+
+        System.out.println("x to player " + closestCellToPlayer.getX() + " y to player " + closestCellToPlayer.getY());
+        System.out.println("x enemy " + attacker.getX() + "y enemy " + attacker.getY());
+
+        return closestCellToPlayer;
+
+    }
+
+    private int[] getDirectionDistancesBasedOnPlayer(String orientation) {
+
+        int[] directions = new int[2];
 
         int playerCurrentXPosition = attacker.getPlayerCurrentPosition().getX();
         int playerCurrentYPosition = attacker.getPlayerCurrentPosition().getY();
         int attackerCurrentXPosition = attacker.getX();
         int attackerCurrentYPosition = attacker.getY();
 
-        // i will add +2 to the "upDownDirections"'s index because that is the way how it will have the correct direction
-        // from the "directionNames"
-        int[] upDownDirections = new int[2];
-        int[] leftRightDirections = new int[2];
-        String[] directionNames  = new String[] {"left", "right", "up", "down"};
+        switch(orientation) {
+            case "X":
+                //left
+                directions[0] = Math.abs((attackerCurrentXPosition - 1) - playerCurrentXPosition);
+                //right
+                directions[1] = Math.abs((attackerCurrentXPosition + 1) - playerCurrentXPosition);
+            case "Y":
+                //up
+                directions[0] = Math.abs((attackerCurrentYPosition - 1) - playerCurrentYPosition);
+                //down
+                directions[1] = Math.abs((attackerCurrentYPosition + 1) - playerCurrentYPosition);
+        }
+        return directions;
+    }
+
+    private Map< String, Integer> getShortestDirectionIndexes(int[] horizontalDirections, int[] verticalDirections) {
+
         int closestNumber = monsterAttackRange * 2;
-        int horizontalIndex = 0;
-        int verticalIndex = 0;
+        Map<String, Integer> shortestDirectionIndexes = new HashMap<>();
 
-        Cell closestCellToPlayer = null;
-
-        //left
-        leftRightDirections[0] = Math.abs((attackerCurrentXPosition - 1) - playerCurrentXPosition);
-        //right
-        leftRightDirections[1] = Math.abs((attackerCurrentXPosition + 1) - playerCurrentXPosition);
-
-        //up
-        upDownDirections[0] = Math.abs((attackerCurrentYPosition - 1) - playerCurrentYPosition);
-        //down
-        upDownDirections[1] = Math.abs((attackerCurrentYPosition + 1) - playerCurrentYPosition);
-
-
-        //get the lowest distance from the lists
-        for(int indexUpDown = 0; indexUpDown < upDownDirections.length; indexUpDown++) {
-            for(int indexRightLeft = 0; indexRightLeft < leftRightDirections.length; indexRightLeft++) {
-                if (closestNumber > (upDownDirections[indexUpDown] + leftRightDirections[indexRightLeft])) {
-                    closestNumber = (upDownDirections[indexUpDown] + leftRightDirections[indexRightLeft]);
-                    horizontalIndex = indexRightLeft;
-                    verticalIndex = indexUpDown;
+        for (int indexUpDown = 0; indexUpDown < verticalDirections.length; indexUpDown++) {
+            for (int indexRightLeft = 0; indexRightLeft < horizontalDirections.length; indexRightLeft++) {
+                if (closestNumber > (verticalDirections[indexUpDown] + horizontalDirections[indexRightLeft])) {
+                    closestNumber = (verticalDirections[indexUpDown] + horizontalDirections[indexRightLeft]);
+                    shortestDirectionIndexes.put("horizontalDirectionIndex", indexRightLeft);
+                    shortestDirectionIndexes.put("verticalDirectionIndex", indexUpDown);
                 }
             }
         }
-
-        Cell nextHorizontalMoveCell = getDirectionOfClosestCell(directionNames[horizontalIndex]);
-        Cell nextVerticalMoveCell = getDirectionOfClosestCell(directionNames[verticalIndex + 2]);
-
-        //we have set the right direction towards the player
-        //now we decide from which one is the shortest way to the player from horizontal move and vertical move
-
-        //if we are closer with horizontal move then:
-        if(leftRightDirections[horizontalIndex] <= upDownDirections[verticalIndex] &&
-                leftRightDirections[horizontalIndex] != 0 &&
-                !nextHorizontalMoveCell.isBlocking()) {
-            closestCellToPlayer = nextHorizontalMoveCell;
-
-            //else if we are closer with vertical move then:
-        } else if(upDownDirections[verticalIndex] < leftRightDirections[horizontalIndex] &&
-                upDownDirections[verticalIndex] != 0 &&
-                !nextVerticalMoveCell.isBlocking()) {
-            closestCellToPlayer = nextVerticalMoveCell;
-
-            // else if we are horizontally reached the player (that means we are next to it horizontally)
-        } else if(leftRightDirections[horizontalIndex] == 0 &&
-                upDownDirections[verticalIndex] == 1 &&
-                !nextVerticalMoveCell.isBlocking()) {
-            closestCellToPlayer = nextVerticalMoveCell;
-
-            // else if we are vertically reached the player (that means we are next to it vertically)
-        } else if(leftRightDirections[horizontalIndex] == 1 &&
-                upDownDirections[verticalIndex] == 0 &&
-                !nextHorizontalMoveCell.isBlocking()) {
-            closestCellToPlayer = nextHorizontalMoveCell;
-
-            // else if we are horizontally reached the players level, then we will move vertically
-        } else if(leftRightDirections[horizontalIndex] == 0 &&
-                !nextVerticalMoveCell.isBlocking()) {
-            closestCellToPlayer = nextVerticalMoveCell;
-
-            // else if we are vertically reached the players level, then we will move horizontally
-        } else if(upDownDirections[verticalIndex] == 0 &&
-                !nextHorizontalMoveCell.isBlocking()) {
-            closestCellToPlayer = nextHorizontalMoveCell;
-        }
-
-        System.out.println("lowest difference rightleft" + horizontalIndex + " updown " + verticalIndex);
-        System.out.println("player    x " + playerCurrentXPosition + "y " + playerCurrentYPosition);
-        System.out.println(" rightleft " + Arrays.toString(leftRightDirections) + " updown " + Arrays.toString(upDownDirections));
-        //System.out.println("x to player " + closestCellToPlayer.getX() + " y to player " + closestCellToPlayer.getY());
-        System.out.println("x enemy " + attacker.getX() + "y enemy " + attacker.getY());
-        return closestCellToPlayer;
+        return shortestDirectionIndexes;
     }
 
-    private Cell getDirectionOfClosestCell(String finalDirection) {
+
+    private Map< String,Cell> getDirectionOfPlayer(Map< String, Integer> shortestDirectionIndexes) {
+
+        Map<String, Cell> directionOfPlayer = new HashMap<>();
+        String[] directionNames  = new String[] {"left", "right", "up", "down"};
+
+        String horizontalMoveDirection = directionNames[shortestDirectionIndexes.get("horizontalDirectionIndex")];
+        String verticalMoveDirection = directionNames[shortestDirectionIndexes.get("verticalDirectionIndex") + 2];
+
+        directionOfPlayer.put("nextHorizontalMoveCell", getDirectionOfClosestCellToPlayer(horizontalMoveDirection));
+        directionOfPlayer.put("nextVerticalMoveCell", getDirectionOfClosestCellToPlayer(verticalMoveDirection));
+
+        return directionOfPlayer;
+    }
+
+
+    private Cell getDirectionOfClosestCellToPlayer(String finalDirection) {
         //search for the closest direction and returns the cell
 
         System.out.println(finalDirection);

@@ -36,21 +36,26 @@ public class Skeleton extends Actor {
 
         //if player is near it will search for the next closest possible cell
         if(isPlayerNear()) {
-            nextCell= autotarget.getClosestCellToPlayer();
+            nextCell= autotarget.pathFinding();
+            System.out.println(" attack enemy X " + nextCell.getX() + " attack enemy Y " + nextCell.getY());
 
             //step on nextCell if possible
             if (!nextCell.isBlocking() && !isPlayerNexToIt()) {
+                System.out.println("first nested if in attack");
                 this.moveTo(nextCell);
             } else {
+                System.out.println("else in attack");
                 Actor target = getPlayerCurrentPosition().getActor();
                 this.attack(target);
             }
         }
         //if player is not near it will do the standard movement
         else {
+            System.out.println("back to standardmove");
             dx = coordinateSwitcher;
             dy = 0;
             nextCell = this.getCell().getNeighbor(dx, dy);
+            System.out.println("enemy X " + nextCell.getX() + " enemy Y " + nextCell.getY());
             standardMovement(nextCell);
         }
 

@@ -3,7 +3,6 @@ package com.codecool.quest.logic.actors;
 import com.codecool.quest.logic.AutoTarget;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.CellType;
-import com.codecool.quest.util.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class Bat extends Actor {
         Cell nextCell;
 
         if(isPlayerNear()) {
-            nextCell = autotarget.getClosestCellToPlayer();
+            nextCell = autotarget.pathFinding();
 
             if (!nextCell.isBlocking() && !isPlayerNexToIt()) {
 
