@@ -47,12 +47,11 @@ public class GameMap {
         return height;
     }
 
-    public Cell getCellOfFinish(String finish) {
+    public Cell getExitCell() {
         for (Cell[] column: cells) {
-            for (Cell cell: column) {
-                if (cell.getTileName().equals(finish))
+            for (Cell cell: column)
+                if (cell.getType() == CellType.DOWNSTAIRS)
                     return cell;
-            }
         }
         return null;
     }

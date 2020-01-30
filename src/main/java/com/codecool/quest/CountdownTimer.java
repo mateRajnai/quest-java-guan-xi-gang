@@ -1,6 +1,8 @@
 package com.codecool.quest;
 
-import com.codecool.quest.layers.Layout;
+import com.codecool.quest.layers.Screen;
+import com.codecool.quest.logic.MapLoader;
+import com.codecool.quest.logic.actors.TheBoss;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
@@ -11,20 +13,25 @@ public class CountdownTimer {
     private final Integer startTime = 20;
     private Integer secondsLeft = startTime;
     private Label countdownTimer;
+    private Screen screen;
+    private Timeline time;
 
-    public CountdownTimer(Layout layout) {
-        this.countdownTimer = layout.getSidePanel().getCountdownTimer();
+    public CountdownTimer(Screen screen) {
+        this.countdownTimer = screen.getSidePanel().getCountdownTimer();
+        this.screen = screen;
         update();
     }
 
     public void countdown() {
-        Timeline time = new Timeline();
+        time = new Timeline();
         time.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame frame = new KeyFrame(Duration.seconds(1), actionEvent -> {
-            secondsLeft--;
-            countdownTimer.setText("Wait " + secondsLeft + " seconds\nif you want to\nfight the Boss");
-            if (secondsLeft <= 0) {
+            if (secondsLeft > 0) {
+                secondsLeft--;
+                update();
+            } else if (!MapLoader.hasNextLevel()) {
+                new TheBoss(screen.getMap().getExitCell());
                 time.stop();
             }
         });
@@ -33,8 +40,8 @@ public class CountdownTimer {
         time.playFromStart();
     }
 
-    public boolean isTimeZero() {
-        return secondsLeft == 0;
+    public boolean isCounting() {
+        return secondsLeft > 0;
     }
 
     public void update() {
@@ -42,6 +49,9 @@ public class CountdownTimer {
     }
 
     public void reset() {
+        TheBoss.reset();
         this.secondsLeft = startTime;
+        time.stop();
+        this.countdown();
     }
 }

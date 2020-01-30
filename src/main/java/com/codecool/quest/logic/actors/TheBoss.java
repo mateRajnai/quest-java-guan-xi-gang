@@ -11,6 +11,7 @@ public class TheBoss extends Actor {
     private static final int INITIAL_ARMOR = 0;
 
     private static TheBoss theBoss;
+    private static boolean isDefeated = false;
 
     private Direction direction = Direction.LEFT;
 
@@ -20,6 +21,7 @@ public class TheBoss extends Actor {
         this.setArmor(INITIAL_ARMOR);
         this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
         theBoss = this;
+        setDefeated(false);
     }
 
     public static TheBoss getTheBoss() {
@@ -46,8 +48,12 @@ public class TheBoss extends Actor {
         return theBoss == null;
     }
 
-    public static boolean isTheBossKilled() {
-        return theBoss.health <= 0;
+    public static boolean isDefeated() {
+        return isDefeated;
+    }
+
+    public static void setDefeated(boolean isDefeated) {
+        TheBoss.isDefeated = isDefeated;
     }
 
     @Override
@@ -55,6 +61,11 @@ public class TheBoss extends Actor {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.DEAD_SKELETON);
         theBoss = null;
+        setDefeated(true);
+    }
+
+    public static void reset() {
+        setDefeated(false);
     }
 
     @Override

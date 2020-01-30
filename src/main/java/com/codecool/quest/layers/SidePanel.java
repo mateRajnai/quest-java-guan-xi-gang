@@ -6,9 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import org.w3c.dom.Text;
 
-public class SidePanel extends GridPane {
+public class SidePanel extends VBox {
 
+    private GridPane labelGrid = new GridPane();
     private Label healthLabel = new Label("Health: ");
     private Label characterNameLabel = new Label("Epic name: ");
     private Label healthPoints = new Label();
@@ -19,16 +22,15 @@ public class SidePanel extends GridPane {
 
     public SidePanel() {
         ColumnConstraints col1 = new ColumnConstraints(85);
-        this.getColumnConstraints().add(col1);
-        this.setPrefWidth(200);
-        this.setPadding(new Insets(10));
-        this.add(characterNameLabel, 0, 1);
-        this.add(characterName, 1, 1);
-        this.add(healthLabel, 0, 0);
-        this.add(healthPoints, 1, 0);
-        this.add(inventory, 0, 3);
-        this.add(pickUpButton, 0, 2);
-        this.add(countdownTimer, 0, 4);
+        labelGrid.getColumnConstraints().add(col1);
+        labelGrid.setPrefWidth(200);
+        labelGrid.setPadding(new Insets(10));
+        labelGrid.add(characterNameLabel, 0, 1);
+        labelGrid.add(characterName, 1, 1);
+        labelGrid.add(healthLabel, 0, 0);
+        labelGrid.add(healthPoints, 1, 0);
+        countdownTimer.setPrefWidth(200);
+        this.getChildren().addAll(labelGrid, inventory, pickUpButton, countdownTimer);
     }
 
     public void setHealthPoints(int health) {

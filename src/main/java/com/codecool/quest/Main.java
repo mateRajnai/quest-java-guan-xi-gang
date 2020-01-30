@@ -17,7 +17,7 @@ public class Main extends Application {
     UI ui = new UI(screen);
     BotControl botControl = new BotControl(screen);
     Scene scene = new Scene(layout);
-    CountdownTimer countdownTimer = new CountdownTimer(layout);
+    CountdownTimer countdownTimer = new CountdownTimer(screen);
 
     public static void main(String[] args) {
         launch(args);
@@ -57,9 +57,6 @@ public class Main extends Application {
                 break;
         }
 
-        if (!MapLoader.hasNextLevel() && TheBoss.isTheBossInSlumber() && countdownTimer.isTimeZero())
-            new TheBoss(map.getCellOfFinish(CellType.DOWNSTAIRS.getTileName()));
-
         screen.refresh();
         checkEndGame();
     }
@@ -69,13 +66,11 @@ public class Main extends Application {
             botControl.deactivate();
             if (MapLoader.hasNextLevel()) {
                 map = MapLoader.loadMap();
-            } else if (TheBoss.isTheBossKilled() || !countdownTimer.isTimeZero()) {
+            } else if (TheBoss.isDefeated() || countdownTimer.isCounting()) {
                 MessageLoader.showEndingAlert();
                 ui.clearInventory();
                 map = MapLoader.loadMap(1);
-                // After restarting the game these fields must be set up again
-                countdownTimer.setCountdownTimer();
-                countdownTimer.countdown();
+                countdownTimer.reset();
             }
             updateMap();
             screen.refresh();
