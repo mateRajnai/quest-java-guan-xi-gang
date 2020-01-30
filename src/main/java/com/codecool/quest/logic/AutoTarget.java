@@ -42,11 +42,6 @@ public class AutoTarget {
 
          public boolean isActorCloserHorizontalToTarget () {
 
-             System.out.println(Arrays.toString(horizontalDirections) + "\n");
-             System.out.println(Arrays.toString(verticalDirections) + "\n");
-
-             System.out.println("vertical" + closestVerticalCell.getX() + " y " + closestVerticalCell.getY());
-             System.out.println("horizontal" + closestHorizontalCell.getX() + " y " + closestHorizontalCell.getY());
              return (closestHorizontalDirection <= closestVerticalDirection &&
                      closestHorizontalDirection != -1 &&
                      !closestHorizontalCell.isBlocking()) ||
@@ -107,34 +102,28 @@ public class AutoTarget {
         //if we are closer with horizontal move then move horizontally
         if(actorEnvironmentCheck.isActorCloserHorizontalToTarget()) {
             closestCellToPlayer = actorEnvironmentCheck.getClosestHorizontalCell();
-            System.out.println("1");
 
             //else if we are closer with vertical move then move vertically
         } else if(actorEnvironmentCheck.isActorCloserVerticalToTarget()) {
             closestCellToPlayer = actorEnvironmentCheck.getClosestVerticalCell();
-            System.out.println("2");
 
             // else if we are horizontally reached the player (that means we are next to it horizontally)
         } else if(actorEnvironmentCheck.isTargetReachedHorizontally() &&
                 !actorEnvironmentCheck.isActorCloserVerticalToTarget()) {
             closestCellToPlayer = (!actorEnvironmentCheck.getClosestHorizontalCell().isBlocking()) ? actorEnvironmentCheck.getClosestHorizontalCell() : actorEnvironmentCheck.getClosestVerticalCell();
-            System.out.println("3");
 
             // else if we are vertically reached the player (that means we are next to it vertically)
         } else if(actorEnvironmentCheck.isTargetReachedVertically() &&
                 !actorEnvironmentCheck.isActorCloserHorizontalToTarget()) {
             closestCellToPlayer = (!actorEnvironmentCheck.getClosestVerticalCell().isBlocking()) ? actorEnvironmentCheck.getClosestVerticalCell() : actorEnvironmentCheck.getClosestHorizontalCell();
-            System.out.println("4");
 
             // else if we are horizontally reached the players level, then we will move vertically
         } else if(actorEnvironmentCheck.isTargetHorizontalLevelReached()) {
             closestCellToPlayer = actorEnvironmentCheck.getClosestVerticalCell();
-            System.out.println("5");
 
             // else if we are vertically reached the players level, then we will move horizontally
         } else if(actorEnvironmentCheck.isTargetVerticalLevelReached()) {
             closestCellToPlayer = actorEnvironmentCheck.getClosestHorizontalCell();
-            System.out.println("6");
         }
 
         return closestCellToPlayer;
@@ -170,7 +159,6 @@ public class AutoTarget {
 
         int closestNumber = monsterAttackRange * 2;
         Map<String, Integer> shortestDirectionIndexes = new HashMap<>();
-        System.out.println(closestNumber + " " + Arrays.toString(horizontalDirections) + " " + Arrays.toString(verticalDirections));
 
         for (int indexUpDown = 0; indexUpDown < verticalDirections.length; indexUpDown++) {
             for (int indexRightLeft = 0; indexRightLeft < horizontalDirections.length; indexRightLeft++) {
@@ -203,7 +191,6 @@ public class AutoTarget {
     private Cell getDirectionOfClosestCellToPlayer(String finalDirection) {
         //search for the closest direction and returns the cell
 
-        System.out.println(finalDirection);
         switch(finalDirection) {
             case "left":
                 return attacker.getCell().getNeighbor(-1 ,0);

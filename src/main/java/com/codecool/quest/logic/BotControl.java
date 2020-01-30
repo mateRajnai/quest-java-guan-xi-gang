@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BotControl {
 
-    private static final int MONSTER_ACTION_PERIOD = 700;
+    private static final int MONSTER_ACTION_PERIOD = 400;
 
     private VisualFrameWork visuals;
     private ScheduledExecutorService botActuator = Executors.newSingleThreadScheduledExecutor();

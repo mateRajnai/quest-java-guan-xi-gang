@@ -7,7 +7,7 @@ import com.codecool.quest.logic.items.Key;
 public class Player extends Actor {
 
     private static Player player;
-    private static final int INITIAL_HEALTH = 20;
+    private static final int INITIAL_HEALTH = 2000;
     private static final int INITIAL_ATTACK_DAMAGE = 5;
     private static final int INITIAL_ARMOR = 0;
 
