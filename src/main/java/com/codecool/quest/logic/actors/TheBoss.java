@@ -16,8 +16,6 @@ public class TheBoss extends Actor {
     private static TheBoss theBoss;
     private static boolean isDefeated = false;
 
-    private Direction direction = Direction.LEFT;
-
     private static final int BOSS_ATTACK_RANGE = 6;
     private int coordinateSwitcher = -1;
     private int dx;
