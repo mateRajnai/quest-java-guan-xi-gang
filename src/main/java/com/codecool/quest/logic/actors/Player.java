@@ -7,8 +7,8 @@ import com.codecool.quest.util.Direction;
 public class Player extends Actor {
 
     private static Player player;
-    private static final int INITIAL_HEALTH = 20;
-    private static final int INITIAL_ATTACK_DAMAGE = 5;
+    private static final int INITIAL_HEALTH = 50;
+    private static final int INITIAL_ATTACK_DAMAGE = 15;
     private static final int INITIAL_ARMOR = 0;
 
     public Player(Cell cell) {
@@ -60,14 +60,10 @@ public class Player extends Actor {
     }
 
     public void openDoorInNeighbourCell() {
-        Cell neighbourCell;
-        for (Direction direction : Direction.MAIN_DIRECTIONS) {
-            neighbourCell = getCell().getNeighbor(direction);
-            if (neighbourCell.getType() == CellType.DOOR_CLOSED) {
-                neighbourCell.setType(CellType.DOOR_OPENED);
-                return;
-            }
-        }
-
+        Direction.MAIN_DIRECTIONS.stream()
+                .map(direction -> getCell().getNeighbor(direction))
+                .filter(neighbour -> neighbour.getType() == CellType.DOOR_CLOSED)
+                .findFirst()
+                .ifPresent(neighbour -> neighbour.setType(CellType.DOOR_OPENED));
     }
 }
