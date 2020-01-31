@@ -200,6 +200,7 @@ public class Bat extends Actor implements Combative {
     public void terminate() {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.BONE);
+        this.getCell().getGameMap().removeCombativeActor(this);
     }
 
     @Override

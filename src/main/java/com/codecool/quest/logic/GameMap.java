@@ -33,6 +33,10 @@ public class GameMap {
         return combativeActors;
     }
 
+    public void removeCombativeActor(Combative combative) {
+        combativeActors.remove(combative);
+    }
+
     public Cell getCell(int x, int y) {
         return cells[x][y];
     }

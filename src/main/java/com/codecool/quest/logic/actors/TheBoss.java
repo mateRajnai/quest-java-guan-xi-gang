@@ -98,6 +98,7 @@ public class TheBoss extends Actor implements Combative {
         this.getCell().setType(CellType.DEAD_SKELETON);
         theBoss = null;
         setDefeated(true);
+        this.getCell().getGameMap().removeCombativeActor(this);
     }
 
     public static void reset() {

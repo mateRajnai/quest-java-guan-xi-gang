@@ -74,6 +74,7 @@ public class Skeleton extends Actor implements Combative {
     public void terminate() {
         this.getCell().setActor(null);
         this.getCell().setType(CellType.DEAD_SKELETON);
+        this.getCell().getGameMap().removeCombativeActor(this);
     }
 
     @Override
