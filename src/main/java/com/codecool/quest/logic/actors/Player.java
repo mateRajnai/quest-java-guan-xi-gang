@@ -1,7 +1,6 @@
 package com.codecool.quest.logic.actors;
 
 import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.actors.Actor;
 
 public class Player extends Actor {
     public Player(Cell cell) {
@@ -10,7 +9,7 @@ public class Player extends Actor {
 
     @Override
     public void move(int dx, int dy) {
-        Cell nextCell = super.getCell().getNeighbor(dx, dy);
+        Cell nextCell = super.getCell().getNeighbour(dx, dy);
         if (!nextCell.getTileName().equals("wall") && nextCell.getActor() == null) {
             super.getCell().setActor(null);
             nextCell.setActor(this);
