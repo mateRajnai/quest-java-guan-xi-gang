@@ -3,7 +3,7 @@ package com.codecool.quest.logic.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.util.Direction;
 
-public class Player extends Actor {
+public class Player extends Combatant {
 
     public Player(Cell cell) {
         super(cell);
