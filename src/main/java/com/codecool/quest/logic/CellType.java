@@ -3,7 +3,9 @@ package com.codecool.quest.logic;
 public enum CellType {
     EMPTY("empty", true),
     FLOOR("floor", false),
-    WALL("wall", true);
+    WALL("wall", true),
+    UPSTAIRS("upstairs", false),
+    DOWNSTAIRS("downstairs", false);
 
     private final String tileName;
     private final boolean isObstacle;
