@@ -5,19 +5,10 @@ import com.codecool.quest.logic.Drawable;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
-    protected int health = 10;
 
     public Actor(Cell cell) {
         this.cell = cell;
         this.cell.setActor(this);
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
     }
 
     public Cell getCell() {
