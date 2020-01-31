@@ -25,6 +25,10 @@ public class Cell implements Drawable {
         this.type = type;
     }
 
+    public boolean hasObstacle() {
+        return type.isObstacle();
+    }
+
     public void setActor(Actor actor) {
         this.actor = actor;
     }
