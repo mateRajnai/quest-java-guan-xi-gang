@@ -1,6 +1,7 @@
 package com.codecool.quest;
 
 import com.codecool.quest.display.Display;
+import com.codecool.quest.logic.BotControl;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.mapentities.Automaton;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
     Display display = new Display(map);
+    BotControl botControl = new BotControl(this::actuateBots);
 
     public static void main(String[] args) {
         launch(args);
@@ -22,6 +24,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("Codecool Quest");
+        primaryStage.setOnCloseRequest(windowEvent -> botControl.deactivate());
 
         Scene scene = display.createScene();
         primaryStage.setScene(scene);
@@ -29,6 +32,7 @@ public class Main extends Application {
         display.refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
         primaryStage.show();
+        botControl.activate();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -48,6 +52,10 @@ public class Main extends Application {
             case E:
                 map.getPlayer().interact();
         }
+        display.refresh();
+    }
+
+    private void actuateBots() {
         map.getAutomatons().forEach(Automaton::operate);
         display.refresh();
     }
