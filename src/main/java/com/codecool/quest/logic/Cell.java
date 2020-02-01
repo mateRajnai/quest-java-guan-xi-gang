@@ -34,6 +34,10 @@ public class Cell implements Drawable {
         return type.isObstacle();
     }
 
+    public boolean isTransparent() {
+        return type.isTransparent();
+    }
+
     public Actor getActor() {
         return actor;
     }
