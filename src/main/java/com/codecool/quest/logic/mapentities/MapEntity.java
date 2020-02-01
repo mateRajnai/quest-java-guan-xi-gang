@@ -8,7 +8,6 @@ public abstract class MapEntity implements Drawable {
 
     public MapEntity(Cell cell) {
         this.cell = cell;
-        cell.setMapEntity(this);
     }
 
     public Cell getCell() {

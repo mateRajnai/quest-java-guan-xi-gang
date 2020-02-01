@@ -77,13 +77,14 @@ public class Main extends Application {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
-                if (cell.getMapEntity() != null) {
-                    Tiles.drawTile(context, cell.getMapEntity(), x, y);
-                } else {
+                if (cell.hasActor())
+                    Tiles.drawTile(context, cell.getActor(), x, y);
+                else if (cell.hasItem())
+                    Tiles.drawTile(context, cell.getItem(), x, y);
+                else
                     Tiles.drawTile(context, cell, x, y);
-                }
             }
         }
-        healthLabel.setText("" + map.getPlayer().getHealth());
+        healthLabel.setText(Integer.toString(map.getPlayer().getHealth()));
     }
 }

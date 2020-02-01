@@ -8,5 +8,6 @@ public abstract class Item extends MapEntity implements Drawable {
 
     public Item(Cell cell) {
         super(cell);
+        cell.setItem(this);
     }
 }

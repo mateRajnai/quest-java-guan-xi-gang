@@ -37,7 +37,7 @@ public class Skeleton extends IntelligentFoe implements Vulnerable {
 
     @Override
     public void terminate() {
-        this.cell.setMapEntity(null);
+        this.cell.setItem(null);
         this.setCell(null);
     }
 }

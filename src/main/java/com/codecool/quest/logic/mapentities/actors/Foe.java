@@ -10,7 +10,7 @@ public abstract class Foe extends Actor {
 
     @Override
     public boolean canHit(Cell cell) {
-        return cell.getMapEntity() instanceof Player;
+        return cell.getActor() instanceof Player;
     }
 
     @Override

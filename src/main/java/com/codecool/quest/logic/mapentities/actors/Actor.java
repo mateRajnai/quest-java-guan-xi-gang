@@ -11,16 +11,17 @@ public abstract class Actor extends MapEntity {
 
     public Actor(Cell cell) {
         super(cell);
+        cell.setActor(this);
     }
 
     public void moveTo(Cell cell) {
-        this.cell.setMapEntity(null);
-        cell.setMapEntity(this);
+        this.cell.setActor(null);
+        cell.setActor(this);
         this.setCell(cell);
     }
 
     public boolean canMoveTo(Cell cell) {
-        return !cell.isObstacle() && !(cell.getMapEntity() instanceof Actor);
+        return !cell.isObstacle() && !(cell.hasActor());
     }
 
     public int getHealth() {

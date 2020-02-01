@@ -48,8 +48,8 @@ public class GameMap {
         List<Automaton> automatons = new ArrayList<>();
         for (Cell[] col : cells)
             for (Cell cell : col)
-                if (cell.getMapEntity() instanceof Automaton)
-                    automatons.add((Automaton) cell.getMapEntity());
+                if (cell.getActor() instanceof Automaton)
+                    automatons.add((Automaton) cell.getActor());
         return automatons;
     }
 }

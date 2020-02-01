@@ -13,7 +13,7 @@ public class Player extends Actor implements Vulnerable {
     public void move(Direction direction) {
         Cell nextCell = cell.getNeighbour(direction);
         if (canHit(nextCell))
-            hit((Vulnerable) nextCell.getMapEntity());
+            hit((Vulnerable) nextCell.getActor());
         else if (canMoveTo(nextCell))
             moveTo(nextCell);
     }
@@ -24,12 +24,12 @@ public class Player extends Actor implements Vulnerable {
 
     @Override
     public boolean canHit(Cell cell) {
-        return cell.hasMapEntity() && cell.getMapEntity() instanceof Vulnerable;
+        return cell.getActor() instanceof Vulnerable;
     }
 
     @Override
     public void terminate() {
-        this.cell.setMapEntity(null);
+        this.cell.setActor(null);
         this.setCell(null);
     }
 
