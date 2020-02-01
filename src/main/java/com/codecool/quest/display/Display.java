@@ -10,11 +10,11 @@ import javafx.scene.paint.Color;
 
 public class Display {
 
-    GameMap map;
-    Layout layout = new Layout();
-    Canvas canvas;
-    GraphicsContext context;
-    Label healthLabel;
+    private GameMap map;
+    private Layout layout = new Layout();
+    private Canvas canvas;
+    private GraphicsContext context;
+    private Label healthLabel;
 
     public Display(GameMap map) {
         this.map = map;

@@ -7,8 +7,8 @@ import javafx.scene.layout.GridPane;
 
 public class Layout extends BorderPane {
 
-    Label healthLabel = new Label();
-    GridPane sidePanel = new GridPane();
+    private Label healthLabel = new Label();
+    private GridPane sidePanel = new GridPane();
 
     public Layout() {
         sidePanel.setPrefWidth(200);
