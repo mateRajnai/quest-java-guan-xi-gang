@@ -52,7 +52,6 @@ public class Inventory extends TableView<ItemData> {
             inv.add(new ItemData(item.getTileName()));
         else
             itemData.increaseAmount();
-//        item.removeFromMap();
         this.refresh();
     }
 

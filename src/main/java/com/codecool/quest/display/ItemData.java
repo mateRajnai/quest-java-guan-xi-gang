@@ -1,4 +1,4 @@
-package com.codecool.quest.logic.mapentities.items;
+package com.codecool.quest.display;
 
 public class ItemData {
 
