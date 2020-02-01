@@ -8,13 +8,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class Inventory extends TableView<ItemData> {
+public class InventoryView extends TableView<ItemData> {
 
     private ObservableList<ItemData> inv = FXCollections.observableArrayList();
     TableColumn<ItemData, String> itemCol;
     TableColumn<ItemData, Integer> amountCol;
 
-    public Inventory() {
+    public InventoryView() {
 
         this.setFixedCellSize(25);
         this.setPrefHeight(150);
