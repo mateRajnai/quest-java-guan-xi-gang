@@ -35,15 +35,15 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
         return null;
     }
 
-    private Direction calculateApproachVector() {
-        return new Direction(map.getPlayer().getX() - this.getX(), map.getPlayer().getY() - this.getY());
+    public abstract Direction calculateApproachVector();
+
+    public boolean canDetectPlayer(Direction approachVector) {
+        return approachVector != null;
     }
 
-    public boolean canDetectPlayer(Direction vector) {
-        return false;
+    public void approach(Direction vector) {
+        this.moveTo(this.cell.getNeighbour(vector));
     }
-
-    public abstract void approach(Direction vector);
 
     public abstract void patrol();
 }

@@ -9,7 +9,7 @@ public class Skeleton extends IntelligentFoe implements Vulnerable {
     private static final int INITIAL_HEALTH = 10;
     private static final int INITIAL_ATTACK_DAMAGE = 2;
 
-    private Direction direction = Direction.LEFT;
+    private Direction patrolDirection = Direction.LEFT;
 
     public Skeleton(Cell cell) {
         super(cell);
@@ -18,18 +18,28 @@ public class Skeleton extends IntelligentFoe implements Vulnerable {
     }
 
     @Override
-    public void approach(Direction vector) {
-
+    public Direction calculateApproachVector() {
+        Cell nextCell;
+        for (Direction direction : Direction.MAIN_DIRECTIONS) {
+            nextCell = this.cell;
+            do {
+                nextCell = nextCell.getNeighbour(direction);
+                if (nextCell.getActor() instanceof Player)
+                    return direction;
+            }
+            while (nextCell.isTransparent() && !nextCell.isObstacle());
+        }
+        return null;
     }
 
     @Override
     public void patrol() {
-        Cell nextCell = cell.getNeighbour(direction);
+        Cell nextCell = cell.getNeighbour(patrolDirection);
         if (canMoveTo(nextCell)) {
             moveTo(nextCell);
         } else if (nextCell.isObstacle()) {
-            direction = direction.xFlipped();
-            nextCell = cell.getNeighbour(direction);
+            patrolDirection = patrolDirection.xFlipped();
+            nextCell = cell.getNeighbour(patrolDirection);
             if (canMoveTo(nextCell))
                 moveTo(nextCell);
         }
