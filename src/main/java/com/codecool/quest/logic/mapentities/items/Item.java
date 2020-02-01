@@ -12,10 +12,14 @@ public abstract class Item extends MapEntity implements Drawable, Interactable {
         cell.setItem(this);
     }
 
-    @Override
-    public void react() {
+    public void addToInventory() {
         map.getPlayer().acquire(this);
         this.cell.setItem(null);
         this.setCell(null);
+    }
+
+    @Override
+    public void react() {
+        addToInventory();
     }
 }

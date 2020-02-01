@@ -66,6 +66,8 @@ public class Main extends Application {
             case RIGHT:
                 map.getPlayer().move(1,0);
                 break;
+            case E:
+                map.getPlayer().interact();
         }
         map.getAutomatons().forEach(Automaton::operate);
         refresh();
