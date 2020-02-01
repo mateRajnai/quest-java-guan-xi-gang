@@ -2,12 +2,15 @@ package com.codecool.quest.logic.mapentities;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.Drawable;
+import com.codecool.quest.logic.GameMap;
 
 public abstract class MapEntity implements Drawable {
     protected Cell cell;
+    protected GameMap map;
 
     public MapEntity(Cell cell) {
         this.cell = cell;
+        this.map = cell.getGameMap();
     }
 
     public Cell getCell() {

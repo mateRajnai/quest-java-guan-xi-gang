@@ -1,4 +1,4 @@
-package com.codecool.quest.logic;
+package com.codecool.quest.display;
 
 import com.codecool.quest.logic.mapentities.items.*;
 import javafx.collections.FXCollections;

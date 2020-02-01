@@ -1,17 +1,14 @@
 package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
-import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.mapentities.Automaton;
 import com.codecool.quest.logic.mapentities.Vulnerable;
 import com.codecool.quest.logic.util.Direction;
 
 public abstract class IntelligentFoe extends Foe implements Automaton {
-    GameMap map;
 
     public IntelligentFoe(Cell cell) {
         super(cell);
-        this.map = cell.getGameMap();
     }
 
     @Override
