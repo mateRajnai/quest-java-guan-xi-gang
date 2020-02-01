@@ -21,12 +21,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        primaryStage.setTitle("Codecool Quest");
+
         Scene scene = display.createScene();
         primaryStage.setScene(scene);
+
         display.refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
-
-        primaryStage.setTitle("Codecool Quest");
         primaryStage.show();
     }
 
