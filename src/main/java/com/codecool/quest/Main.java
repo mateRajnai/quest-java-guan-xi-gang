@@ -1,29 +1,17 @@
 package com.codecool.quest;
 
-import com.codecool.quest.display.Tiles;
-import com.codecool.quest.logic.Cell;
+import com.codecool.quest.display.Display;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.mapentities.Automaton;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
-    Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
-    GraphicsContext context = canvas.getGraphicsContext2D();
-    Label healthLabel = new Label();
+    Display display = new Display(map);
 
     public static void main(String[] args) {
         launch(args);
@@ -31,21 +19,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GridPane ui = new GridPane();
-        ui.setPrefWidth(200);
-        ui.setPadding(new Insets(10));
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
-
-        BorderPane borderPane = new BorderPane();
-
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
-
-        Scene scene = new Scene(borderPane);
+        Scene scene = new Scene(display.getLayout());
         primaryStage.setScene(scene);
-        refresh();
+        display.refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Codecool Quest");
@@ -70,23 +47,6 @@ public class Main extends Application {
                 map.getPlayer().interact();
         }
         map.getAutomatons().forEach(Automaton::operate);
-        refresh();
-    }
-
-    private void refresh() {
-        context.setFill(Color.BLACK);
-        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
-                if (cell.hasActor())
-                    Tiles.drawTile(context, cell.getActor(), x, y);
-                else if (cell.hasItem())
-                    Tiles.drawTile(context, cell.getItem(), x, y);
-                else
-                    Tiles.drawTile(context, cell, x, y);
-            }
-        }
-        healthLabel.setText(Integer.toString(map.getPlayer().getHealth()));
+        display.refresh();
     }
 }
