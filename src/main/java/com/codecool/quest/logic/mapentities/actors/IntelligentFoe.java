@@ -13,7 +13,7 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
 
     @Override
     public void operate() {
-        Cell targetCell = searchSurroundings();
+        Cell targetCell = searchAdjacentCells();
         if (targetCell != null && canHit(targetCell)) {
             hit((Vulnerable) targetCell.getActor());
         } else {
@@ -25,7 +25,7 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
         }
     }
 
-    public Cell searchSurroundings() {
+    public Cell searchAdjacentCells() {
         return null;
     }
 
