@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Vector {
-    private int dx;
-    private int dy;
+    private final int dx;
+    private final int dy;
 
     public static final Vector UP = new Vector(0, -1);
     public static final Vector DOWN = new Vector(0, 1);
@@ -25,27 +25,6 @@ public class Vector {
 
     public int getDy() {
         return dy;
-    }
-
-    public void setDx(int dx) {
-        this.dx = dx;
-    }
-
-    public void setDy(int dy) {
-        this.dy = dy;
-    }
-
-    public void xFlip() {
-        dx *= -1;
-    }
-
-    public void yFlip() {
-        dy *= -1;
-    }
-
-    public void reverse() {
-        xFlip();
-        yFlip();
     }
 
     public Vector xFlipped() {
