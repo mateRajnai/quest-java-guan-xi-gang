@@ -5,6 +5,9 @@ import com.codecool.quest.logic.mapentities.Vulnerable;
 import com.codecool.quest.logic.util.Direction;
 
 public class Skeleton extends IntelligentFoe implements Vulnerable {
+
+    private Direction direction = Direction.LEFT;
+
     public Skeleton(Cell cell) {
         super(cell);
     }
@@ -16,7 +19,15 @@ public class Skeleton extends IntelligentFoe implements Vulnerable {
 
     @Override
     public void patrol() {
-
+        Cell nextCell = cell.getNeighbour(direction);
+        if (canMoveTo(nextCell)) {
+            moveTo(nextCell);
+        } else if (nextCell.isObstacle()) {
+            direction = direction.xFlipped();
+            nextCell = cell.getNeighbour(direction);
+            if (canMoveTo(nextCell))
+                moveTo(nextCell);
+        }
     }
 
     @Override

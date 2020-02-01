@@ -24,7 +24,7 @@ public class Player extends Actor implements Vulnerable {
 
     @Override
     public boolean canHit(Cell cell) {
-        return cell.getMapEntity() instanceof Vulnerable;
+        return cell.hasMapEntity() && cell.getMapEntity() instanceof Vulnerable;
     }
 
     @Override

@@ -1,22 +1,23 @@
 package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.mapentities.Automaton;
 import com.codecool.quest.logic.mapentities.Vulnerable;
 import com.codecool.quest.logic.util.Direction;
 
 public abstract class IntelligentFoe extends Foe implements Automaton {
-    Player player;
+    GameMap map;
 
     public IntelligentFoe(Cell cell) {
         super(cell);
-        this.player = cell.getGameMap().getPlayer();
+        this.map = cell.getGameMap();
     }
 
     @Override
     public void operate() {
         Cell targetCell = searchSurroundings();
-        if (canHit(targetCell)) {
+        if (targetCell != null && canHit(targetCell)) {
             hit((Vulnerable) targetCell.getMapEntity());
         } else {
             Direction vector = calculateVectorTowardsPlayer();
@@ -32,7 +33,7 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
     }
 
     private Direction calculateVectorTowardsPlayer() {
-        return new Direction(player.getX() - this.getX(), player.getY() - this.getY());
+        return new Direction(map.getPlayer().getX() - this.getX(), map.getPlayer().getY() - this.getY());
     }
 
     public boolean canDetectPlayer(Direction vector) {

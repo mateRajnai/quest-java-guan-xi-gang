@@ -40,6 +40,10 @@ public class Cell implements Drawable {
         this.mapEntity = mapEntity;
     }
 
+    public boolean hasMapEntity() {
+        return mapEntity != null;
+    }
+
     public Cell getNeighbour(int dx, int dy) {
         return gameMap.getCell(x + dx, y + dy);
     }
