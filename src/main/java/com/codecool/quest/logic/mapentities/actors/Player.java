@@ -1,9 +1,10 @@
 package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
+import com.codecool.quest.logic.mapentities.Vulnerable;
 import com.codecool.quest.util.Direction;
 
-public class Player extends Combatant {
+public class Player extends Actor implements Vulnerable {
 
     public Player(Cell cell) {
         super(cell);
@@ -11,13 +12,25 @@ public class Player extends Combatant {
 
     public void move(Direction direction) {
         Cell nextCell = cell.getNeighbour(direction);
-        if (!nextCell.hasObstacle() && !nextCell.getMapEntity() instanceof ) {
+        if (canHit(nextCell))
+            hit((Vulnerable) nextCell.getMapEntity());
+        else if (canMoveTo(nextCell))
             moveTo(nextCell);
-        }
     }
 
     public void move(int dx, int dy) {
         this.move(new Direction(dx, dy));
+    }
+
+    @Override
+    public boolean canHit(Cell cell) {
+        return cell.getMapEntity() instanceof Vulnerable;
+    }
+
+    @Override
+    public void terminate() {
+        this.cell.setMapEntity(null);
+        this.setCell(null);
     }
 
     public String getTileName() {

@@ -1,7 +1,7 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.logic.actors.Player;
-import com.codecool.quest.logic.actors.Skeleton;
+import com.codecool.quest.logic.mapentities.*;
+import com.codecool.quest.logic.mapentities.actors.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,8 +16,8 @@ class ActorTest {
 
         assertEquals(2, player.getX());
         assertEquals(1, player.getY());
-        assertEquals(null, gameMap.getCell(1, 1).getActor());
-        assertEquals(player, gameMap.getCell(2, 1).getActor());
+        assertNull(gameMap.getCell(1, 1).getMapEntity());
+        assertEquals(player, gameMap.getCell(2, 1).getMapEntity());
     }
 
     @Test
@@ -49,6 +49,6 @@ class ActorTest {
         assertEquals(1, player.getY());
         assertEquals(2, skeleton.getX());
         assertEquals(1, skeleton.getY());
-        assertEquals(skeleton, gameMap.getCell(2, 1).getActor());
+        assertEquals(skeleton, gameMap.getCell(2, 1).getMapEntity());
     }
 }

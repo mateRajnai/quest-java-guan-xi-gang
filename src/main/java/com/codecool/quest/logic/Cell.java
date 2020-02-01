@@ -16,6 +16,10 @@ public class Cell implements Drawable {
         this.type = type;
     }
 
+    public GameMap getGameMap() {
+        return gameMap;
+    }
+
     public CellType getType() {
         return type;
     }
@@ -41,7 +45,7 @@ public class Cell implements Drawable {
     }
 
     public Cell getNeighbour(Direction direction) {
-        return getNeighbour(x + direction.getDx(), y + direction.getDy());
+        return getNeighbour(direction.getDx(), direction.getDy());
     }
 
     @Override
