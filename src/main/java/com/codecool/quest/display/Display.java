@@ -2,6 +2,7 @@ package com.codecool.quest.display;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
+import com.codecool.quest.logic.mapentities.items.Item;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,6 +29,10 @@ public class Display {
         return new Scene(layout);
     }
 
+    public void focusLayout() {
+        layout.requestFocus();
+    }
+
     public void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -43,5 +48,9 @@ public class Display {
             }
         }
         healthLabel.setText(Integer.toString(map.getPlayer().getHealth()));
+    }
+
+    public void addToInventory(Item item) {
+        layout.getInventoryView().add(item);
     }
 }

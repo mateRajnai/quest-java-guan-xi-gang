@@ -25,11 +25,6 @@ public class Player extends Actor implements Vulnerable {
         return inventory;
     }
 
-    public void interact() {
-        if (this.cell.hasItem())
-            this.cell.getItem().addToInventory();
-    }
-
     public void acquire(Item item) {
         inventory.add(item);
     }
