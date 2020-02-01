@@ -4,6 +4,7 @@ import com.codecool.quest.display.Display;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;
 import com.codecool.quest.logic.mapentities.Automaton;
+import com.codecool.quest.logic.util.Vector;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -32,16 +33,16 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().move(0, -1);
+                map.getPlayer().move(Vector.UP);
                 break;
             case DOWN:
-                map.getPlayer().move(0, 1);
+                map.getPlayer().move(Vector.DOWN);
                 break;
             case LEFT:
-                map.getPlayer().move(-1, 0);
+                map.getPlayer().move(Vector.LEFT);
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                map.getPlayer().move(Vector.RIGHT);
                 break;
             case E:
                 map.getPlayer().interact();
