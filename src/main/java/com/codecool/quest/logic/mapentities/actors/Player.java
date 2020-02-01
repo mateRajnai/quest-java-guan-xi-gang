@@ -10,10 +10,15 @@ import java.util.List;
 
 public class Player extends Actor implements Vulnerable {
 
+    private static final int INITIAL_HEALTH = 20;
+    private static final int INITIAL_ATTACK_DAMAGE = 5;
+
     private List<Item> inventory = new ArrayList<>();
 
     public Player(Cell cell) {
         super(cell);
+        this.setHealth(INITIAL_HEALTH);
+        this.setAttackDamage(INITIAL_ATTACK_DAMAGE);
     }
 
     public List<Item> getInventory() {
