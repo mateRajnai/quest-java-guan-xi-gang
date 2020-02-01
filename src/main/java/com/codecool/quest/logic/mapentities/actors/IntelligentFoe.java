@@ -17,7 +17,7 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
         if (canHit(targetCell)) {
             hit((Vulnerable) targetCell.getActor());
         } else {
-            Direction vector = calculateVectorTowardsPlayer();
+            Direction vector = calculateApproachVector();
             if (canDetectPlayer(vector))
                 approach(vector);
             else
@@ -35,7 +35,7 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
         return null;
     }
 
-    private Direction calculateVectorTowardsPlayer() {
+    private Direction calculateApproachVector() {
         return new Direction(map.getPlayer().getX() - this.getX(), map.getPlayer().getY() - this.getY());
     }
 
