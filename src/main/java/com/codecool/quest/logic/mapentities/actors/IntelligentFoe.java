@@ -14,7 +14,7 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
     @Override
     public void operate() {
         Cell targetCell = searchAdjacentCells();
-        if (targetCell != null && canHit(targetCell)) {
+        if (canHit(targetCell)) {
             hit((Vulnerable) targetCell.getActor());
         } else {
             Direction vector = calculateVectorTowardsPlayer();
