@@ -26,6 +26,12 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
     }
 
     public Cell searchAdjacentCells() {
+        Cell adjacentCell;
+        for (Direction direction : Direction.MAIN_DIRECTIONS) {
+            adjacentCell = this.cell.getNeighbour(direction);
+            if (adjacentCell.getActor() instanceof Player)
+                return adjacentCell;
+        }
         return null;
     }
 
