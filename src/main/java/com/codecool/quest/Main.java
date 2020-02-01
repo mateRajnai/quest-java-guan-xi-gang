@@ -20,7 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Scene scene = new Scene(display.getLayout());
+        Scene scene = display.createScene();
         primaryStage.setScene(scene);
         display.refresh();
         scene.setOnKeyPressed(this::onKeyPressed);

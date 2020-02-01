@@ -2,6 +2,7 @@ package com.codecool.quest.display;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -26,8 +27,8 @@ public class Display {
         healthLabel = layout.getHealthLabel();
     }
 
-    public Layout getLayout() {
-        return layout;
+    public Scene createScene() {
+        return new Scene(layout);
     }
 
     public void refresh() {
