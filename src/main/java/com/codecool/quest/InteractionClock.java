@@ -1,4 +1,4 @@
-package com.codecool.quest.logic;
+package com.codecool.quest;
 
 public class InteractionClock {
     private long timeSinceLastKeyPress = 0;
