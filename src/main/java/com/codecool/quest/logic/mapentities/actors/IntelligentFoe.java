@@ -42,7 +42,9 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
     }
 
     public void approach(Vector vector) {
-        this.moveTo(this.cell.getNeighbour(vector));
+        Cell nextCell = this.cell.getNeighbour(vector);
+        if (this.canMoveTo(nextCell))
+            this.moveTo(nextCell);
     }
 
     public abstract void patrol();
