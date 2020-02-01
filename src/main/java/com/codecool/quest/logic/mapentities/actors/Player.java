@@ -3,7 +3,7 @@ package com.codecool.quest.logic.mapentities.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Vulnerable;
 import com.codecool.quest.logic.mapentities.items.Item;
-import com.codecool.quest.logic.util.Direction;
+import com.codecool.quest.logic.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +34,8 @@ public class Player extends Actor implements Vulnerable {
         inventory.add(item);
     }
 
-    public void move(Direction direction) {
-        Cell nextCell = cell.getNeighbour(direction);
+    public void move(Vector vector) {
+        Cell nextCell = cell.getNeighbour(vector);
         if (canHit(nextCell))
             hit((Vulnerable) nextCell.getActor());
         else if (canMoveTo(nextCell))
@@ -43,7 +43,7 @@ public class Player extends Actor implements Vulnerable {
     }
 
     public void move(int dx, int dy) {
-        this.move(new Direction(dx, dy));
+        this.move(new Vector(dx, dy));
     }
 
     @Override

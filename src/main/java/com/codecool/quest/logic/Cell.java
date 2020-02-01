@@ -2,7 +2,7 @@ package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.mapentities.actors.Actor;
 import com.codecool.quest.logic.mapentities.items.Item;
-import com.codecool.quest.logic.util.Direction;
+import com.codecool.quest.logic.util.Vector;
 
 public class Cell implements Drawable {
     private CellType type;
@@ -66,8 +66,8 @@ public class Cell implements Drawable {
         return gameMap.getCell(x + dx, y + dy);
     }
 
-    public Cell getNeighbour(Direction direction) {
-        return getNeighbour(direction.getDx(), direction.getDy());
+    public Cell getNeighbour(Vector vector) {
+        return getNeighbour(vector.getDx(), vector.getDy());
     }
 
     @Override

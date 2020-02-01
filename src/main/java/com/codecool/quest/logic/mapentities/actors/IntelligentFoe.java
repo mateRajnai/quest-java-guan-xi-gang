@@ -3,7 +3,7 @@ package com.codecool.quest.logic.mapentities.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Automaton;
 import com.codecool.quest.logic.mapentities.Vulnerable;
-import com.codecool.quest.logic.util.Direction;
+import com.codecool.quest.logic.util.Vector;
 
 public abstract class IntelligentFoe extends Foe implements Automaton {
 
@@ -17,7 +17,7 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
         if (canHit(targetCell)) {
             hit((Vulnerable) targetCell.getActor());
         } else {
-            Direction vector = calculateApproachVector();
+            Vector vector = calculateApproachVector();
             if (canDetectPlayer(vector))
                 approach(vector);
             else
@@ -27,21 +27,21 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
 
     public Cell searchAdjacentCells() {
         Cell adjacentCell;
-        for (Direction direction : Direction.MAIN_DIRECTIONS) {
-            adjacentCell = this.cell.getNeighbour(direction);
+        for (Vector vector : Vector.MAIN_VECTORS) {
+            adjacentCell = this.cell.getNeighbour(vector);
             if (adjacentCell.getActor() instanceof Player)
                 return adjacentCell;
         }
         return null;
     }
 
-    public abstract Direction calculateApproachVector();
+    public abstract Vector calculateApproachVector();
 
-    public boolean canDetectPlayer(Direction approachVector) {
+    public boolean canDetectPlayer(Vector approachVector) {
         return approachVector != null;
     }
 
-    public void approach(Direction vector) {
+    public void approach(Vector vector) {
         this.moveTo(this.cell.getNeighbour(vector));
     }
 
