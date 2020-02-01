@@ -1,6 +1,5 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.logic.items.Key;
 import com.codecool.quest.logic.mapentities.*;
 import com.codecool.quest.logic.mapentities.actors.*;
 import com.codecool.quest.logic.mapentities.items.*;

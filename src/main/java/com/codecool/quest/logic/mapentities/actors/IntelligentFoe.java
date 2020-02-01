@@ -3,7 +3,7 @@ package com.codecool.quest.logic.mapentities.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Automaton;
 import com.codecool.quest.logic.mapentities.Vulnerable;
-import com.codecool.quest.util.Direction;
+import com.codecool.quest.logic.util.Direction;
 
 public abstract class IntelligentFoe extends Foe implements Automaton {
     Player player;

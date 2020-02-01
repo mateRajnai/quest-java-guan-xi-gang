@@ -1,4 +1,4 @@
-package com.codecool.quest.util;
+package com.codecool.quest.display.util;
 
 public enum OffsetMatrix {
     LEAVE(0, 0, 1, 1),

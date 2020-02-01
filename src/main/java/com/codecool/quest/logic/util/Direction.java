@@ -1,4 +1,4 @@
-package com.codecool.quest.util;
+package com.codecool.quest.logic.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;

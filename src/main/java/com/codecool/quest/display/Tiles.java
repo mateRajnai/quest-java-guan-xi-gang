@@ -1,4 +1,4 @@
-package com.codecool.quest;
+package com.codecool.quest.display;
 
 import com.codecool.quest.logic.Drawable;
 import javafx.scene.canvas.GraphicsContext;

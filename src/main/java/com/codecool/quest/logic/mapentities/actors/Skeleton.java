@@ -2,7 +2,7 @@ package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Vulnerable;
-import com.codecool.quest.util.Direction;
+import com.codecool.quest.logic.util.Direction;
 
 public class Skeleton extends IntelligentFoe implements Vulnerable {
     public Skeleton(Cell cell) {

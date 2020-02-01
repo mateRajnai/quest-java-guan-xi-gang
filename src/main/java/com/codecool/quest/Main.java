@@ -1,5 +1,6 @@
 package com.codecool.quest;
 
+import com.codecool.quest.display.Tiles;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.GameMap;
 import com.codecool.quest.logic.MapLoader;

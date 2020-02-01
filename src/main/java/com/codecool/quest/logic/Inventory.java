@@ -1,7 +1,6 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.logic.items.Item;
-import com.codecool.quest.logic.items.ItemData;
+import com.codecool.quest.logic.mapentities.items.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;

@@ -1,7 +1,7 @@
 package com.codecool.quest.logic;
 
 import com.codecool.quest.logic.mapentities.MapEntity;
-import com.codecool.quest.util.Direction;
+import com.codecool.quest.logic.util.Direction;
 
 public class Cell implements Drawable {
     private CellType type;
