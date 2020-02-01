@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Direction {
-    private final int dx;
-    private final int dy;
+    private int dx;
+    private int dy;
 
     public static final Direction UP = new Direction(0, -1);
     public static final Direction DOWN = new Direction(0, 1);
@@ -27,8 +27,25 @@ public class Direction {
         return dy;
     }
 
-    public Direction reversed() {
-        return new Direction(-dx, -dy);
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+
+    public void setDy(int dy) {
+        this.dy = dy;
+    }
+
+    public void xFlip() {
+        dx *= -1;
+    }
+
+    public void yFlip() {
+        dy *= -1;
+    }
+
+    public void reverse() {
+        xFlip();
+        yFlip();
     }
 
     public Direction xFlipped() {
@@ -37,6 +54,10 @@ public class Direction {
 
     public Direction yFlipped() {
         return new Direction(dx, -dy);
+    }
+
+    public Direction reversed() {
+        return new Direction(-dx, -dy);
     }
 
     public Direction yComponent() {
