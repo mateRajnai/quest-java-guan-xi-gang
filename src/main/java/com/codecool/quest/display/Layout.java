@@ -24,6 +24,8 @@ public class Layout extends BorderPane {
         labelGrid.add(new Label("Health: "), 0, 0);
         labelGrid.add(healthLabel, 1, 0);
 
+        inventoryView.setOnMouseClicked(mouseEvent -> this.requestFocus());
+
         sidePanel.getChildren().addAll(labelGrid, inventoryView);
         this.setRight(sidePanel);
     }
