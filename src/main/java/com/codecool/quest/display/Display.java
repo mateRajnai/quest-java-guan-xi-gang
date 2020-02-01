@@ -11,17 +11,14 @@ import javafx.scene.paint.Color;
 public class Display {
 
     private GameMap map;
-    private Layout layout = new Layout();
+    private Layout layout = new Layout(800, 640);
     private Canvas canvas;
     private GraphicsContext context;
     private Label healthLabel;
 
     public Display(GameMap map) {
         this.map = map;
-        canvas = new Canvas(
-                map.getWidth() * Tiles.TILE_WIDTH,
-                map.getHeight() * Tiles.TILE_WIDTH
-        );
+        canvas = layout.getCanvas();
         context = canvas.getGraphicsContext2D();
         layout.setCenter(canvas);
         healthLabel = layout.getHealthLabel();
