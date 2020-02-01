@@ -1,13 +1,11 @@
 package com.codecool.quest.logic;
 
-import com.codecool.quest.logic.mapentities.MapEntity;
 import com.codecool.quest.logic.mapentities.actors.Actor;
 import com.codecool.quest.logic.mapentities.items.Item;
 import com.codecool.quest.logic.util.Direction;
 
 public class Cell implements Drawable {
     private CellType type;
-    private MapEntity mapEntity;
     private Actor actor;
     private Item item;
     private GameMap gameMap;
@@ -34,18 +32,6 @@ public class Cell implements Drawable {
 
     public boolean isObstacle() {
         return type.isObstacle();
-    }
-
-    public MapEntity getMapEntity() {
-        return mapEntity;
-    }
-
-    public void setMapEntity(MapEntity mapEntity) {
-        this.mapEntity = mapEntity;
-    }
-
-    public boolean hasMapEntity() {
-        return mapEntity != null;
     }
 
     public Actor getActor() {
