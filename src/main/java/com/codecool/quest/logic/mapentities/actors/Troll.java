@@ -2,12 +2,15 @@ package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Vulnerable;
-import com.codecool.quest.logic.util.Vector;
+import com.codecool.quest.logic.util.Direction;
 
 public class Troll extends IntelligentFoe implements Vulnerable {
 
     private static final int INITIAL_HEALTH = 15;
     private static final int INITIAL_ATTACK_DAMAGE = 3;
+    private static final int DETECTION_RANGE = 2;
+
+    private Direction patrolDirection = Direction.RIGHT;
 
     public Troll(Cell cell) {
         super(cell);
@@ -16,7 +19,7 @@ public class Troll extends IntelligentFoe implements Vulnerable {
     }
 
     @Override
-    public Vector calculateApproachVector() {
+    public Direction calculateApproachVector() {
         return null;
     }
 

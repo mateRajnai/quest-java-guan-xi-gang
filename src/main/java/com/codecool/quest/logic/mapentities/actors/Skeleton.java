@@ -2,14 +2,14 @@ package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Vulnerable;
-import com.codecool.quest.logic.util.Vector;
+import com.codecool.quest.logic.util.Direction;
 
 public class Skeleton extends IntelligentFoe implements Vulnerable {
 
     private static final int INITIAL_HEALTH = 10;
     private static final int INITIAL_ATTACK_DAMAGE = 2;
 
-    private Vector patrolVector = Vector.LEFT;
+    private Direction patrolDirection = Direction.LEFT;
 
     public Skeleton(Cell cell) {
         super(cell);
@@ -18,14 +18,14 @@ public class Skeleton extends IntelligentFoe implements Vulnerable {
     }
 
     @Override
-    public Vector calculateApproachVector() {
+    public Direction calculateApproachVector() {
         Cell nextCell;
-        for (Vector vector : Vector.MAIN_VECTORS) {
+        for (Direction direction : Direction.MAIN_DIRECTIONS) {
             nextCell = this.cell;
             do {
-                nextCell = nextCell.getNeighbour(vector);
+                nextCell = nextCell.getNeighbour(direction);
                 if (nextCell.getActor() instanceof Player)
-                    return vector;
+                    return direction;
             }
             while (nextCell.isTransparent() && !nextCell.isObstacle());
         }
@@ -34,12 +34,12 @@ public class Skeleton extends IntelligentFoe implements Vulnerable {
 
     @Override
     public void patrol() {
-        Cell nextCell = cell.getNeighbour(patrolVector);
+        Cell nextCell = cell.getNeighbour(patrolDirection);
         if (canMoveTo(nextCell)) {
             moveTo(nextCell);
         } else if (nextCell.isObstacle()) {
-            patrolVector = patrolVector.xFlipped();
-            nextCell = cell.getNeighbour(patrolVector);
+            patrolDirection = patrolDirection.xFlipped();
+            nextCell = cell.getNeighbour(patrolDirection);
             if (canMoveTo(nextCell))
                 moveTo(nextCell);
         }

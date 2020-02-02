@@ -3,7 +3,7 @@ package com.codecool.quest.logic.mapentities.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Automaton;
 import com.codecool.quest.logic.mapentities.Vulnerable;
-import com.codecool.quest.logic.util.Vector;
+import com.codecool.quest.logic.util.Direction;
 
 public abstract class IntelligentFoe extends Foe implements Automaton {
 
@@ -17,9 +17,9 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
         if (canHit(targetCell)) {
             hit((Vulnerable) targetCell.getActor());
         } else {
-            Vector vector = calculateApproachVector();
-            if (canDetectPlayer(vector))
-                approach(vector);
+            Direction direction = calculateApproachVector();
+            if (canDetectPlayer(direction))
+                approach(direction);
             else
                 patrol();
         }
@@ -27,22 +27,22 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
 
     public Cell searchAdjacentCells() {
         Cell adjacentCell;
-        for (Vector vector : Vector.MAIN_VECTORS) {
-            adjacentCell = this.cell.getNeighbour(vector);
+        for (Direction direction : Direction.MAIN_DIRECTIONS) {
+            adjacentCell = this.cell.getNeighbour(direction);
             if (adjacentCell.getActor() instanceof Player)
                 return adjacentCell;
         }
         return null;
     }
 
-    public abstract Vector calculateApproachVector();
+    public abstract Direction calculateApproachVector();
 
-    public boolean canDetectPlayer(Vector approachVector) {
-        return approachVector != null;
+    public boolean canDetectPlayer(Direction approachDirection) {
+        return approachDirection != null;
     }
 
-    public void approach(Vector vector) {
-        Cell nextCell = this.cell.getNeighbour(vector);
+    public void approach(Direction direction) {
+        Cell nextCell = this.cell.getNeighbour(direction);
         if (this.canMoveTo(nextCell))
             this.moveTo(nextCell);
     }
