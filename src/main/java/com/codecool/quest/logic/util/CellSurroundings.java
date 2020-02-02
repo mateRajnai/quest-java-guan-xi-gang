@@ -7,13 +7,15 @@ import java.util.List;
 
 public class CellSurroundings {
 
-    private final Cell cell;
-
-    private List<Cell> surroundings;
-
     private static class Edges {
         private int topRow, bottomRow, leftCol, rightCol;
-        private Edges(int x, int y, int boxSize, int mapWidth, int mapHeight) {
+
+        private Edges(Cell cell, int boxSize) {
+            int y = cell.getY(),
+                    x = cell.getX();
+            int mapHeight = cell.getGameMap().getHeight(),
+                    mapWidth = cell.getGameMap().getWidth();
+
             topRow = y - boxSize / 2;
             if (topRow < 0) topRow = 0;
 
@@ -28,17 +30,12 @@ public class CellSurroundings {
         }
     }
 
-    public CellSurroundings(Cell cell, int boxSize) {
-        this.cell = cell;
-        int mapWidth = cell.getGameMap().getWidth();
-        int mapHeight = cell.getGameMap().getHeight();
+    public static List<Cell> collect(Cell cell, int boxSize) {
         boxSize = boxSize + (boxSize % 2 - 1);
-        Edges edges = new Edges(cell.getX(), cell.getY(), boxSize, mapWidth, mapHeight);
-        surroundings = new ArrayList<>((int) (Math.pow(boxSize, 2) - 1));
-        collectSurroundingCells(edges);
-    }
+        List<Cell> surroundings = new ArrayList<>((int) (Math.pow(boxSize, 2) - 1));
 
-    private void collectSurroundingCells(Edges edges) {
+        Edges edges = new Edges(cell, boxSize);
+
         Cell surroundingCell;
         for (int y = edges.topRow; y <= edges.bottomRow; y++) {
             for (int x = edges.leftCol; x <= edges.rightCol; x++) {
@@ -48,9 +45,6 @@ public class CellSurroundings {
                 }
             }
         }
-    }
-
-    public List<Cell> getCells() {
         return surroundings;
     }
 }
