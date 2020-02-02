@@ -36,13 +36,9 @@ public class Cycle<T> {
             head.setNext(tail);
             tail.setNext(head);
         } else {
-            Node<T> temp = head;
-            while (temp != tail)
-                temp = temp.next();
-            Node<T> newNode = new Node<>(value);
-            tail.setNext(newNode);
-            newNode.setNext(head);
-            tail = newNode;
+            tail.setNext(new Node<>(value));
+            tail = tail.next();
+            tail.setNext(head);
         }
     }
 
