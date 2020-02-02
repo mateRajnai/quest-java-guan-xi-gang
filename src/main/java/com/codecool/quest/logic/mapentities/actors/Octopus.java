@@ -14,6 +14,8 @@ public class Octopus extends IntelligentFoe implements Vulnerable {
     private final static int INITIAL_ATTACK_DAMAGE = 2;
     private final static int DETECTION_BOX_SIZE = 3;
 
+    private Direction patrolDirection = CardinalDirection.UP.get();
+
     public Octopus(Cell cell) {
         super(cell);
         this.setHealth(INITIAL_HEALTH);
@@ -61,7 +63,15 @@ public class Octopus extends IntelligentFoe implements Vulnerable {
 
     @Override
     public void patrol() {
-
+        Cell nextCell = cell.getNeighbour(patrolDirection);
+        if (canMoveTo(nextCell)) {
+            moveTo(nextCell);
+        } else if (nextCell.isObstacle()) {
+            patrolDirection = patrolDirection.yFlipped();
+            nextCell = cell.getNeighbour(patrolDirection);
+            if (canMoveTo(nextCell))
+                moveTo(nextCell);
+        }
     }
 
     @Override
