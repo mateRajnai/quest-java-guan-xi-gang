@@ -36,6 +36,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Skeleton(cell);
                             break;
+                        case 't':
+                            cell.setType(CellType.FLOOR);
+                            new Troll(cell);
+                            break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
