@@ -26,9 +26,9 @@ public class Troll extends IntelligentFoe implements Vulnerable {
 
     @Override
     public void patrol() {
-        Cell nextCell = this.cell;
+        Cell nextCell;
         do {
-            nextCell = nextCell.getNeighbour(compass.next());
+            nextCell = this.cell.getNeighbour(compass.next());
         } while (!this.canMoveTo(nextCell));
         this.moveTo(nextCell);
     }
