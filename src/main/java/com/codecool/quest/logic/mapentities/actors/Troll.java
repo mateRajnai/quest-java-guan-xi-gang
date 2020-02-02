@@ -2,6 +2,7 @@ package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Vulnerable;
+import com.codecool.quest.logic.util.CardinalDirection;
 import com.codecool.quest.logic.util.Compass;
 import com.codecool.quest.logic.util.Direction;
 
@@ -21,6 +22,16 @@ public class Troll extends IntelligentFoe implements Vulnerable {
 
     @Override
     public Direction calculateApproachVector() {
+        for (CardinalDirection cardinalDirection : CardinalDirection.values()) {
+            Cell nextCell = this.cell;
+            for (int i = 0; i < DETECTION_RANGE; i++) {
+                nextCell = nextCell.getNeighbour(cardinalDirection.get());
+                if (nextCell.getActor() instanceof Player)
+                    return cardinalDirection.get();
+                else if (!nextCell.isTransparent() || nextCell.isObstacle())
+                    break;
+            }
+        }
         return null;
     }
 
