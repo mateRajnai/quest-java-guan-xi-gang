@@ -25,7 +25,7 @@ public class Troll extends IntelligentFoe implements Vulnerable {
         for (CardinalDirection cardinalDirection : CardinalDirection.values()) {
             Cell nextCell = this.cell;
             for (int i = 0; i < DETECTION_RANGE; i++) {
-                nextCell = nextCell.getNeighbour(cardinalDirection.get());
+                nextCell = nextCell.getNeighbour(cardinalDirection);
                 if (nextCell.getActor() instanceof Player)
                     return cardinalDirection.get();
                 else if (!nextCell.isTransparent() || nextCell.isObstacle())
