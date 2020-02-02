@@ -11,7 +11,7 @@ public enum CardinalDirection {
         this.dy = dy;
     }
 
-    public Direction get(CardinalDirection cardinalDirection) {
+    public Direction get() {
         return new Direction(dx, dy);
     }
 }
