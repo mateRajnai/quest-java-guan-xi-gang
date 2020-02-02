@@ -8,7 +8,6 @@ import com.codecool.quest.logic.mapentities.Automaton;
 import com.codecool.quest.logic.mapentities.actors.Player;
 import com.codecool.quest.logic.mapentities.items.Item;
 import com.codecool.quest.logic.util.CardinalDirection;
-import com.codecool.quest.logic.util.Direction;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
