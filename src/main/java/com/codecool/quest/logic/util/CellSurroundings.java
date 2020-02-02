@@ -43,7 +43,7 @@ public class CellSurroundings {
         for (int y = edges.topRow; y <= edges.bottomRow; y++) {
             for (int x = edges.leftCol; x <= edges.rightCol; x++) {
                 surroundingCell = cell.getGameMap().getCell(x, y);
-                if (surroundingCell != cell && !surroundingCell.isObstacle()) {
+                if (surroundingCell != cell) {
                     surroundings.add(surroundingCell);
                 }
             }
