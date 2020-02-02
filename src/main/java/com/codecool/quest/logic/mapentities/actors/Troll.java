@@ -2,6 +2,7 @@ package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Vulnerable;
+import com.codecool.quest.logic.util.CardinalDirection;
 import com.codecool.quest.logic.util.Direction;
 
 public class Troll extends IntelligentFoe implements Vulnerable {
@@ -10,7 +11,7 @@ public class Troll extends IntelligentFoe implements Vulnerable {
     private static final int INITIAL_ATTACK_DAMAGE = 3;
     private static final int DETECTION_RANGE = 2;
 
-    private Direction patrolDirection = Direction.RIGHT;
+    private Direction patrolDirection = CardinalDirection.RIGHT.get();
 
     public Troll(Cell cell) {
         super(cell);

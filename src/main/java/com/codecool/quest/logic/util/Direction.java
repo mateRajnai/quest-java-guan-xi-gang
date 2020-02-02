@@ -1,18 +1,8 @@
 package com.codecool.quest.logic.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Direction {
     private final int dx;
     private final int dy;
-
-    public static final Direction UP = new Direction(0, -1);
-    public static final Direction DOWN = new Direction(0, 1);
-    public static final Direction RIGHT = new Direction(1, 0);
-    public static final Direction LEFT = new Direction(-1, 0);
-    public static final List<Direction> MAIN_DIRECTIONS = new ArrayList<>(Arrays.asList(UP, RIGHT, DOWN, LEFT));
 
     public Direction(int dx, int dy) {
         this.dx = dx;

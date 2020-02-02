@@ -3,6 +3,7 @@ package com.codecool.quest.logic.mapentities.actors;
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Automaton;
 import com.codecool.quest.logic.mapentities.Vulnerable;
+import com.codecool.quest.logic.util.CardinalDirection;
 import com.codecool.quest.logic.util.Direction;
 
 public abstract class IntelligentFoe extends Foe implements Automaton {
@@ -27,8 +28,8 @@ public abstract class IntelligentFoe extends Foe implements Automaton {
 
     public Cell searchAdjacentCells() {
         Cell adjacentCell;
-        for (Direction direction : Direction.MAIN_DIRECTIONS) {
-            adjacentCell = this.cell.getNeighbour(direction);
+        for (CardinalDirection direction : CardinalDirection.values()) {
+            adjacentCell = this.cell.getNeighbour(direction.get());
             if (adjacentCell.getActor() instanceof Player)
                 return adjacentCell;
         }
