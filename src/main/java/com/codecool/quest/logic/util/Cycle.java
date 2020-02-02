@@ -23,24 +23,26 @@ public class Cycle<T> {
         }
     }
 
-    private Node<T> head;
-    private Node<T> tail;
-    private Node<T> current;
+    private Node<T> head = null;
+    private Node<T> tail = null;
+    private Node<T> current = null;
 
     public void add(T value) {
         if (head == null) {
             head = new Node<>(value);
-            tail = head;
+            head.setNext(null);
+        } else if (tail == null) {
+            tail = new Node<>(value);
             head.setNext(tail);
             tail.setNext(head);
-        }
-        else {
-            Node<T> current = head;
-            while (current != tail)
-                current = current.next();
+        } else {
+            Node<T> temp = head;
+            while (temp != tail)
+                temp = temp.next();
             Node<T> newNode = new Node<>(value);
             tail.setNext(newNode);
             newNode.setNext(head);
+            tail = newNode;
         }
     }
 

@@ -19,11 +19,16 @@ public class Compass {
         return cycle.current();
     }
 
-    public Direction getNext() {
+    public Direction peekNext() {
         return cycle.getNext();
     }
 
     public void forward() {
         cycle.forward();
+    }
+
+    public Direction next() {
+        forward();
+        return getCurrent();
     }
 }
