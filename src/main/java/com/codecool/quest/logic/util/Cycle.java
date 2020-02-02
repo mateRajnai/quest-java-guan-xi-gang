@@ -44,11 +44,23 @@ public class Cycle<T> {
         }
     }
 
-    public T next() {
+    public void forward() {
         if (current == null)
             current = head;
         else
             current = current.next();
+    }
+
+    public T getNext() {
+        if (current == null)
+            return head.value();
+        else
+            return current.next().value();
+    }
+
+    public T current() {
+        if (current == null)
+            return null;
         return current.value();
     }
 
