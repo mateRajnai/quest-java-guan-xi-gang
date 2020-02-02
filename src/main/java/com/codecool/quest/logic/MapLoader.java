@@ -40,6 +40,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Troll(cell);
                             break;
+                        case 'o':
+                            cell.setType(CellType.FLOOR);
+                            new Octopus(cell);
+                            break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
