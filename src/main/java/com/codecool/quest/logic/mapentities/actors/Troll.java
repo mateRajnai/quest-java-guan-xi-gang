@@ -2,7 +2,6 @@ package com.codecool.quest.logic.mapentities.actors;
 
 import com.codecool.quest.logic.Cell;
 import com.codecool.quest.logic.mapentities.Vulnerable;
-import com.codecool.quest.logic.util.CardinalDirection;
 import com.codecool.quest.logic.util.Compass;
 import com.codecool.quest.logic.util.Direction;
 
